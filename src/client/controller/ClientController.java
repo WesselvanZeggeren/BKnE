@@ -6,16 +6,16 @@ public class ClientController {
 
     private ClientConnection clientConnection;
 
-    public ClientController(String host, int port) {
+    public ClientController() {
 
-        this.clientConnection = new ClientConnection(host, port);
+        this.clientConnection = new ClientConnection();
     }
 
     public void startup() {
 
         if (this.clientConnection.connect()) {
 
-
+            System.out.println("connected");
         }
     }
 }

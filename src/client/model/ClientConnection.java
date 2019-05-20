@@ -1,5 +1,7 @@
 package client.model;
 
+import config.Config;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -17,10 +19,10 @@ public class ClientConnection {
     private String host;
     private int port;
 
-    public ClientConnection(String host, int port ) {
+    public ClientConnection() {
 
-        this.host = host;
-        this.port = port;
+        this.host = Config.SERVER_HOST;
+        this.port = Config.SERVER_PORT;
     }
 
     public boolean connect () {

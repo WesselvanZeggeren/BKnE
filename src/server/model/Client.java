@@ -1,7 +1,6 @@
-package server.model.entity;
+package server.model;
 
 import server.controller.ServerController;
-import server.model.ServerConnection;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

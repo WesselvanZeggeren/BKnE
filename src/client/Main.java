@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ClientController clientController = new ClientController(Config.SERVER_HOST, Config.SERVER_PORT);
+        ClientController clientController = new ClientController();
         clientController.startup();
     }
 }
