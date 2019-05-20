@@ -1,7 +1,6 @@
 package client;
 
 import client.controller.ClientController;
-import config.Config;
 
 public class Main {
 

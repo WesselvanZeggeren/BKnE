@@ -1,6 +1,6 @@
 package server.model;
 
-import server.controller.ServerController;
+import server.controller.Server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -10,17 +10,20 @@ import java.net.Socket;
 public class Client implements Runnable {
 
     private Socket socket;
-    private ServerController server;
+    private Server server;
     private DataOutputStream out;
     private DataInputStream in;
     private String name;
 
-    public Client ( Socket socket, ServerController server ) {
+    private boolean isInGame = false;
+
+    public Client ( Socket socket, Server server ) {
 
         this.socket = socket;
         this.server = server;
     }
 
+    // connection
     public void writeUTF ( String text ) {
 
         System.out.println("Got message for client");
@@ -79,5 +82,17 @@ public class Client implements Runnable {
         }
 
         this.socket.close();
+    }
+
+    // getters
+    public boolean isInGame() {
+
+        return this.isInGame;
+    }
+
+    // setters
+    public void isInGame(boolean isInGame) {
+
+        this.isInGame = isInGame;
     }
 }

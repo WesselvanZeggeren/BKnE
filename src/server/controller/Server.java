@@ -10,7 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ServerController {
+public class Server {
 
     // attributes
     private ServerSocket serverSocket;
@@ -22,7 +22,7 @@ public class ServerController {
     private boolean isRunning = true;
 
     // startup
-    public ServerController() {
+    public Server() {
 
         this.clients = new ArrayList<>();
         this.threads = new ArrayList<>();
@@ -80,6 +80,15 @@ public class ServerController {
             client.writeUTF(text);
     }
 
+    private void createGame() {
+
+        Game game = new Game();
+        Thread thread = new Thread(game);
+
+        this.threads.add(thread);
+        this.games.add(game);
+    }
+
     private void addAllToGame(ArrayList<Client> clients) {
 
         for (Client client : this.clients)
@@ -89,13 +98,13 @@ public class ServerController {
     private void addToGame(Client client) {
 
         for (Game game : this.games)
-            if (!game.isRunnable() && !client.isInGame())
+            if (!game.isRunning() && !client.isInGame())
                 game.addClient(client);
 
         if (!client.isInGame()) {
 
-            Game game = new Game();
-            Thread thread = new Thread(game);
+            this.createGame();
+            this.addToGame(client);
         }
     }
 
