@@ -192,6 +192,10 @@
       <pane id="PackagesPane" />
     </panes>
   </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -207,7 +211,7 @@
   <component name="RunManager" selected="Application.Main (1)">
     <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="client.Main" />
-      <module name="BK&amp;E - Battle Royale" />
+      <module name="BKnE" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="client.*" />
@@ -220,7 +224,7 @@
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="server.Main" />
-      <module name="BK&amp;E - Battle Royale" />
+      <module name="BKnE" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="server.*" />
