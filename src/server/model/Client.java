@@ -1,22 +1,27 @@
 package server.model;
 
+import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Client implements Runnable {
 
-    private Socket socket;
-    private DataOutputStream out;
-    private DataInputStream in;
-    private String name;
     private Game game;
+    private Color color;
+    private String name;
+    private Socket socket;
+    private ArrayList<Pin> pins;
+    private DataInputStream in;
+    private DataOutputStream out;
 
-    //
+    // constructor
     public Client (Socket socket) {
 
         this.socket = socket;
+        this.pins = new ArrayList<>();
     }
 
     // connection

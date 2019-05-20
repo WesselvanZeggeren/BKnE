@@ -9,6 +9,7 @@ public class Game implements Runnable {
 
    // attributes
    private Server server;
+   private ArrayList<Pin> pins;
    private ArrayList<Client> clients;
 
    private boolean isRunning = false;

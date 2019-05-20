@@ -7,9 +7,7 @@ import client.view.NameScene;
 import config.Config;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.jfree.fx.FXGraphics2D;
 
 public class Controller extends Application implements ControllerInterface {
 
@@ -42,7 +40,7 @@ public class Controller extends Application implements ControllerInterface {
         }
     }
 
-    // scene
+    // main loop
     private void setAnimationTimer() {
 
         new AnimationTimer() {
@@ -64,10 +62,9 @@ public class Controller extends Application implements ControllerInterface {
         }.start();
     }
 
-    // observer
+    // connection
     @Override
-    public void receiveData(String json) {
-
+    public void receiveData(String message) {
 
     }
 
