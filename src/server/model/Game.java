@@ -1,19 +1,22 @@
 package server.model;
 
 import config.Config;
+import server.controller.Server;
 
 import java.util.ArrayList;
 
 public class Game implements Runnable {
 
    // attributes
+   private Server server;
    private ArrayList<Client> clients;
 
    private boolean isRunning = false;
 
    // startup
-   public Game() {
+   public Game(Server server) {
 
+      this.server = server;
       this.clients = new ArrayList<>();
    }
 
@@ -32,26 +35,25 @@ public class Game implements Runnable {
       return (this.clients.size() == Config.GAME_MAX_PLAYERS || this.isRunning);
    }
 
-   public ArrayList<Client> removeClients() {
+   public void sendToAllClients(String message) {
 
-      for (Client client : this.clients) {
-
-         client.isInGame(false);
-      }
-
-      ArrayList<Client> removedClients = new ArrayList<>(this.clients);
-
-      this.clients = new ArrayList<>();
-
-      return removedClients;
+      this.server.sendToClients(this.clients, message);
    }
 
    // setters
    public void addClient(Client client) {
 
-      client.isInGame(true);
+      client.setGame(this);
 
       this.clients.add(client);
+   }
+
+   public void removeClients() {
+
+      for (Client client : this.clients)
+         client.setGame(null);
+
+      this.clients = new ArrayList<>();
    }
 
    // getters

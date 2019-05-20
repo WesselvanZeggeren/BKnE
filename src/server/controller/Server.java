@@ -59,7 +59,7 @@ public class Server {
 
             Socket socket = this.serverSocket.accept();
 
-            Client client = new Client(socket, this);
+            Client client = new Client(socket);
             Thread thread = new Thread(client);
             thread.start();
 
@@ -74,15 +74,15 @@ public class Server {
         }
     }
 
-    public void sendToAllClients (String text) {
+    public void sendToClients (ArrayList<Client> clients, String text) {
 
-        for (Client client : this.clients)
+        for (Client client : clients)
             client.writeUTF(text);
     }
 
     private void createGame() {
 
-        Game game = new Game();
+        Game game = new Game(this);
         Thread thread = new Thread(game);
 
         this.threads.add(thread);
