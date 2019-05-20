@@ -1,5 +1,6 @@
 package client.model;
 
+import client.controller.interfaces.ControllerInterface;
 import config.Config;
 
 import java.io.DataInputStream;
@@ -8,8 +9,9 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class ClientConnection {
+public class Connection {
 
+    private ControllerInterface observer;
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
@@ -19,8 +21,9 @@ public class ClientConnection {
     private String host;
     private int port;
 
-    public ClientConnection() {
+    public Connection(ControllerInterface observer) {
 
+        this.observer = observer;
         this.host = Config.SERVER_HOST;
         this.port = Config.SERVER_PORT;
     }
@@ -39,8 +42,6 @@ public class ClientConnection {
             this.manageChat();
 
         } catch (IOException e) {
-
-            System.out.println("Could not connect with the server on " + this.host + " with port " + this.port + ": " + e.getMessage());
 
             return false;
         }
@@ -61,9 +62,9 @@ public class ClientConnection {
 
     private void writeChat() {
 
-        new Thread ( () -> {
+        new Thread (() -> {
 
-            while ( true ) {
+            while (true) {
 
                 try {
 

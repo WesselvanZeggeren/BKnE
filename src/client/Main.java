@@ -1,12 +1,12 @@
 package client;
 
-import client.controller.ClientController;
+import client.controller.Controller;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        ClientController clientController = new ClientController();
-        clientController.startup();
+        Controller controller = new Controller();
+        controller.startup();
     }
 }

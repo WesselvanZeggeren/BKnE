@@ -8,4 +8,5 @@ public class Config {
 
     // game
     public static final int     GAME_MAX_PLAYERS    = 10;
+    public static final int     GAME_FPS            = 20;
 }
