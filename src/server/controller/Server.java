@@ -89,11 +89,14 @@ public class ServerController {
     private void addToGame(Client client) {
 
         for (Game game : this.games)
-            if (game.getClientsAmount() < Config.GAME_MAX_PLAYERS) {
-
+            if (!game.isRunnable() && !client.isInGame())
                 game.addClient(client);
-                break;
-            }
+
+        if (!client.isInGame()) {
+
+            Game game = new Game();
+            Thread thread = new Thread(game);
+        }
     }
 
     private void sleepThread(int miliseconds) {
