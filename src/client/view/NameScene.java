@@ -1,29 +1,25 @@
 package client.view;
 
-import client.controller.Controller;
 import client.controller.interfaces.ControllerInterface;
 import client.controller.interfaces.SceneInterface;
+import config.Config;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class NameScene implements SceneInterface {
 
     // attributes
     private ControllerInterface observer;
-    private BorderPane borderPane;
-    private HBox nameBox;
+    private TextField textField;
 
     // constructer
     public NameScene(ControllerInterface observer) {
 
         this.observer = observer;
-
-        this.borderPane = new BorderPane();
-        this.nameBox = new HBox();
     }
 
     // methods
@@ -33,21 +29,34 @@ public class NameScene implements SceneInterface {
         Label label = new Label("Please fill in your name!");
         label.getStyleClass().add("nameScene-label");
 
-        TextField textField = new TextField();
-        textField.getStyleClass().add("nameScene-textField");
-        textField.setOnMouseClicked(this::mouseClicked);
+        this.textField = new TextField();
+        this.textField.getStyleClass().add("nameScene-textField");
 
-        this.nameBox.getChildren().addAll(label, textField);
-        this.update();
+        Button button = new Button("Start");
+        button.getStyleClass().add("nameScene-button");
+        button.setOnMouseClicked((e) -> this.mouseClicked());
 
-        return new Scene(this.borderPane);
+        VBox vBox = new VBox();
+        vBox.getStyleClass().add("nameScene-vBox");
+        vBox.getChildren().addAll(label, this.textField, button);
+
+        BorderPane borderPane = new BorderPane();
+        borderPane.getStyleClass().add("nameScene-borderPane");
+        borderPane.setCenter(vBox);
+
+        return new Scene(borderPane, Config.GAME_SCREEN_WIDTH, Config.GAME_SCREEN_HEIGHT);
     }
 
     @Override
     public void update() {}
 
     // events
-    private void mouseClicked(MouseEvent e) {
+    private void mouseClicked() {
 
+        if (this.textField.getText().length() > 0) {
+
+            this.observer.sendData("{\"name\":\"" + this.textField.getText() + "\"}");
+//            this.observer.setScene(new LobbyScene(this.observer));
+        }
     }
 }

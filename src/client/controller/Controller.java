@@ -7,6 +7,7 @@ import client.view.NameScene;
 import config.Config;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Controller extends Application implements ControllerInterface {
@@ -29,12 +30,11 @@ public class Controller extends Application implements ControllerInterface {
 
         if (this.connection.connect()) {
 
-            this.scene = new NameScene();
-
             this.stage = stage;
-            this.stage.setScene(this.scene.getScene());
             this.stage.setTitle("Boter Kaas & Eieren - Battle Royale");
             this.stage.show();
+
+            this.setScene(new NameScene(this));
 
             this.setAnimationTimer();
         }
@@ -62,16 +62,28 @@ public class Controller extends Application implements ControllerInterface {
         }.start();
     }
 
-    // connection
+    // observer
     @Override
-    public void receiveData(String message) {
+    public void receiveData(String data) {
 
+        System.out.println("received: " + data);
     }
 
-    // setters
-    public void setScene(SceneInterface scene) {
+    @Override
+    public void sendData(String name) {
 
-        this.scene = scene;
-        this.stage.setScene(this.scene.getScene());
+        System.out.println("send: " + name);
+        this.connection.writeUTF(name);
+    }
+
+    @Override
+    public void setScene(SceneInterface sceneInterface) {
+
+        this.scene = sceneInterface;
+
+        Scene scene = this.scene.getScene();
+        scene.getStylesheets().add(Config.CSS_PATH);
+
+        this.stage.setScene(scene);
     }
 }

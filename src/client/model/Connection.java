@@ -7,7 +7,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Connection {
 
@@ -16,9 +15,9 @@ public class Connection {
     private DataInputStream in;
     private DataOutputStream out;
 
-    private Scanner scanner;
-
     private String host;
+
+    private boolean isRunning;
     private int port;
 
     public Connection(ControllerInterface observer) {
@@ -33,13 +32,11 @@ public class Connection {
         try {
 
             this.socket = new Socket(this.host, this.port);
-            this.in = new DataInputStream( this.socket.getInputStream() );
-            this.out = new DataOutputStream( this.socket.getOutputStream() );
-            this.scanner = new Scanner( System.in );
+            this.in = new DataInputStream(this.socket.getInputStream());
+            this.out = new DataOutputStream(this.socket.getOutputStream());
+            this.isRunning = true;
 
-            this.sendName();
-            this.writeChat();
-            this.manageChat();
+            this.manageInput();
 
         } catch (IOException e) {
 
@@ -49,26 +46,15 @@ public class Connection {
         return true;
     }
 
-    private void sendName() throws IOException {
+    private void manageInput() {
 
-        String server = this.in.readUTF();
+        new Thread(() -> {
 
-        System.out.println(server);
-        System.out.print("What is your name: ");
-
-        String name = this.scanner.nextLine();
-        this.out.writeUTF(name);
-    }
-
-    private void writeChat() {
-
-        new Thread (() -> {
-
-            while (true) {
+            while (this.isRunning) {
 
                 try {
 
-                    System.out.println(this.in.readUTF());
+                    this.observer.receiveData(this.in.readUTF());
 
                 } catch (IOException e) {
 
@@ -78,19 +64,28 @@ public class Connection {
         }).start();
     }
 
-    private void manageChat() throws IOException {
+    public void writeUTF(String data) {
 
-        String message = "";
+        try {
 
-        while (!message.equals("stop" )) {
+            this.out.writeUTF(data);
 
-            System.out.print("> ");
+        } catch (IOException e) {
 
-            message = scanner.nextLine();
-
-            this.out.writeUTF(message);
+            e.printStackTrace();
         }
+    }
 
-        this.socket.close();
+    public void stop() {
+
+        try {
+
+            this.isRunning = false;
+            this.socket.close();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
     }
 }

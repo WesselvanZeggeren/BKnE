@@ -1,4 +1,28 @@
-BorderPane {
-    "background-color": "#fb5";
+* {
+    -fx-font-family: "Arial Rounded MT Bold", serif;
 }
+
+/* NameScene */
+.nameScene-vBox {
+
+    -fx-background-color: #ea4;
+    -fx-background-radius: 20px;
+    -fx-max-height: 75px;
+    -fx-max-width: 180px;
+    -fx-padding: 20px;
+    -fx-spacing: 3px;
+}
+
+.nameScene-borderPane {
+
+    -fx-background-color: #fb5;
+}
+
+.nameScene-button, .nameScene-textField {
+
+    -fx-max-width: 140px;
+    -fx-spacing: 100px 0 0 0;
+}
+
+
 

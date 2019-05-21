@@ -1,16 +1,16 @@
 package server.controller;
 
 import config.Config;
+import server.controller.interfaces.ServerInterface;
 import server.model.Client;
 import server.model.Game;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class Server {
+public class Server implements ServerInterface {
 
     // attributes
     private ServerSocket serverSocket;
@@ -59,25 +59,17 @@ public class Server {
 
             Socket socket = this.serverSocket.accept();
 
-            Client client = new Client(socket);
+            Client client = new Client(socket, this);
             Thread thread = new Thread(client);
             thread.start();
 
             this.clients.add(client);
             this.threads.add(thread);
 
-            this.addToGame(client);
-
         } catch (IOException e) {
 
             e.printStackTrace();
         }
-    }
-
-    public void sendToClients (ArrayList<Client> clients, String text) {
-
-        for (Client client : clients)
-            client.writeUTF(text);
     }
 
     private void createGame() {
@@ -119,5 +111,19 @@ public class Server {
         }
 
         Thread.yield();
+    }
+
+    // observer
+    @Override
+    public void receiveData(String data, Client client) {
+
+        client.writeUTF("server received from client" + client.getName() + ": " + data);
+    }
+
+    @Override
+    public void sendToClients (ArrayList<Client> clients, String data) {
+
+        for (Client client : clients)
+            client.writeUTF(data);
     }
 }

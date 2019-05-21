@@ -2,5 +2,10 @@ package client.controller.interfaces;
 
 public interface ControllerInterface {
 
-    void receiveData(String json);
+    // connection
+    void receiveData(String data);
+    void sendData(String data);
+
+    // all scenes
+    void setScene(SceneInterface sceneInterface);
 }
