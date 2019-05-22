@@ -24,4 +24,18 @@ public class Pin {
 
         this.client = client;
     }
+
+    // toString
+    @Override
+    public String toString() {
+
+        StringBuilder pinString = new StringBuilder();
+
+        pinString.append("{\n");
+        pinString.append("\n\t\"x\": ") .append(this.x) .append(",");
+        pinString.append("\n\t\"y\": ") .append(this.y);
+        pinString.append("\n}");
+
+        return pinString.toString();
+    }
 }

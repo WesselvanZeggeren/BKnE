@@ -1,6 +1,6 @@
 package server.controller;
 
-import config.Config;
+import both.Config;
 import server.controller.interfaces.ServerInterface;
 import server.model.Client;
 import server.model.Game;
@@ -35,16 +35,16 @@ public class Server implements ServerInterface {
 
             this.serverSocket = new ServerSocket(Config.SERVER_PORT);
 
-            Thread thread = new Thread(() -> {
+            new Thread(() -> {
 
                 while (this.isRunning) {
 
                     this.receiveClient();
                     this.sleepThread(100);
                 }
-            });
+            }).start();
 
-            thread.start();
+            System.out.println("started up!");
 
         } catch (Exception e) {
 
@@ -76,6 +76,7 @@ public class Server implements ServerInterface {
 
         Game game = new Game(this);
         Thread thread = new Thread(game);
+        thread.start();
 
         this.threads.add(thread);
         this.games.add(game);

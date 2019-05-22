@@ -4,7 +4,7 @@ import client.controller.interfaces.ControllerInterface;
 import client.controller.interfaces.SceneInterface;
 import client.model.Connection;
 import client.view.NameScene;
-import config.Config;
+import both.Config;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;

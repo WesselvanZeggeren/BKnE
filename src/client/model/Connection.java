@@ -1,7 +1,7 @@
 package client.model;
 
 import client.controller.interfaces.ControllerInterface;
-import config.Config;
+import both.Config;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

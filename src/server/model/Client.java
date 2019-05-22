@@ -19,8 +19,7 @@ public class Client implements Runnable {
     private DataOutputStream out;
 
     private Color color;
-
-    private String name;
+    private String name = "";
 
     private boolean isRunning = true;
 
@@ -57,13 +56,20 @@ public class Client implements Runnable {
 
                 try {
 
-                    this.server.receiveData(this.in.readUTF(), this);
+                    if (this.name.equals("")) {
+
+                        this.name = this.in.readUTF();
+                        this.writeUTF("added name: " + this.name);
+                    } else {
+
+                        this.server.receiveData(this.in.readUTF(), this);
+                    }
                 } catch (IOException e) {
 
                     e.printStackTrace();
                 }
             }
-        });
+        }).start();
     }
 
     public void writeUTF (String text) {
@@ -94,5 +100,31 @@ public class Client implements Runnable {
     public boolean isInGame() {
 
         return (this.game != null);
+    }
+
+    // to String
+
+    @Override
+    public String toString() {
+
+        StringBuilder clientString = new StringBuilder();
+
+        clientString.append("{\n");
+        clientString.append("\n\t\"name\": \"")   .append(this.name)             .append("\",");
+        clientString.append("\n\t\"color\": \"")  .append(this.color.toString()) .append("\",");
+        clientString.append("\n\t\"pins\": [")    .append(this.pinsToString())   .append("\n\t]");
+        clientString.append("\n}");
+        
+        return clientString.toString();
+    }
+
+    public String pinsToString() {
+
+        StringBuilder pinsString = new StringBuilder();
+
+        for (int i = 0; i < this.pins.size(); i++)
+            pinsString.append(this.pins.get(i).toString()).append(i == (this.pins.size() - 1) ? "" : ",\n");
+
+        return pinsString.toString().replace("\n", "\n\t\t");
     }
 }
