@@ -88,7 +88,7 @@ public class Server implements ServerInterface {
             this.addToGame(client);
     }
 
-    private void addToGame(Client client) {
+    public void addToGame(Client client) {
 
         for (Game game : this.games)
             if (!game.isRunning() && !client.isInGame())

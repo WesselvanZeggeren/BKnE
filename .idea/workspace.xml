@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ea21d2c-bf3b-4a0c-9c67-b5ff9ab0eacd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/both/JSONModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BKnE.iml" beforeDir="false" afterPath="$PROJECT_DIR$/BKnE.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/model/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/model/Connection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/view/NameScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/view/NameScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/both/Config.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/controller/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/controller/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/model/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/model/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/model/Pin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/model/Pin.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,15 +35,15 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="481" />
-          <entry key="java" value="4531" />
-          <entry key="txt" value="74" />
+          <entry key="java" value="4861" />
+          <entry key="txt" value="120" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="481" />
-          <entry key="JAVA" value="4531" />
-          <entry key="PLAIN_TEXT" value="74" />
+          <entry key="JAVA" value="4861" />
+          <entry key="PLAIN_TEXT" value="120" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -83,11 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/server/model/Pin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
+            <state relative-caret-position="17">
+              <caret line="5" column="18" lean-forward="true" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -95,8 +86,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/server/model/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
+            <state relative-caret-position="68">
+              <caret line="74" column="4" lean-forward="true" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -137,11 +128,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/server/model/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            <state relative-caret-position="528">
+              <caret line="131" lean-forward="true" selection-start-line="131" selection-end-line="131" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -173,8 +164,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/server/controller/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="100" column="9" lean-forward="true" selection-start-line="100" selection-start-column="9" selection-end-line="100" selection-end-column="9" />
+            <state relative-caret-position="192">
+              <caret line="122" lean-forward="true" selection-start-line="122" selection-end-line="122" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -228,10 +219,10 @@
         <option value="$PROJECT_DIR$/src/both/JSONModel.java" />
         <option value="$PROJECT_DIR$/src/Test.java" />
         <option value="$PROJECT_DIR$/src/client/view/NameScene.java" />
-        <option value="$PROJECT_DIR$/src/server/controller/Server.java" />
-        <option value="$PROJECT_DIR$/src/server/model/Client.java" />
-        <option value="$PROJECT_DIR$/src/server/model/Game.java" />
         <option value="$PROJECT_DIR$/src/server/model/Pin.java" />
+        <option value="$PROJECT_DIR$/src/server/controller/Server.java" />
+        <option value="$PROJECT_DIR$/src/server/model/Game.java" />
+        <option value="$PROJECT_DIR$/src/server/model/Client.java" />
       </list>
     </option>
   </component>
@@ -354,7 +345,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558519369672" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558523627689" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Periode 1.3/Proftaak/Proftaak-Festival-Planner-TI-B3/lib/json-simple-1.1.jar!/" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -446,7 +437,7 @@
       <option name="presentableId" value="Default" />
       <updated>1558343947030</updated>
       <workItem from="1558385627303" duration="57000" />
-      <workItem from="1558420131627" duration="20287000" />
+      <workItem from="1558420131627" duration="23853000" />
     </task>
     <task id="LOCAL-00001" summary="Added the Game class to the server (small restructure)">
       <created>1558357685777</created>
@@ -476,17 +467,24 @@
       <option name="project" value="LOCAL" />
       <updated>1558453421992</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fixed the connection. toStrings added">
+      <created>1558519454214</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1558519454214</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20344000" />
+    <option name="totallyTimeSpent" value="23910000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2655068" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2655068" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -495,7 +493,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32786885" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32786885" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -563,7 +561,8 @@
     <MESSAGE value="refactor of game&lt;=&gt;client relation" />
     <MESSAGE value="Added structure to the Client side" />
     <MESSAGE value="Better connection, better observer structure (in progress)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Better connection, better observer structure (in progress)" />
+    <MESSAGE value="fixed the connection. toStrings added" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed the connection. toStrings added" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/server/model/ServerConnection.java" />
@@ -694,16 +693,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/controller/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="100" column="9" lean-forward="true" selection-start-line="100" selection-start-column="9" selection-end-line="100" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/client/view/NameScene.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="226">
@@ -714,10 +703,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/model/Client.java">
+    <entry file="file://$PROJECT_DIR$/src/server/model/Pin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="17">
+          <caret line="5" column="18" lean-forward="true" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/controller/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="122" lean-forward="true" selection-start-line="122" selection-end-line="122" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -726,18 +722,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/server/model/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
+        <state relative-caret-position="68">
+          <caret line="74" column="4" lean-forward="true" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/model/Pin.java">
+    <entry file="file://$PROJECT_DIR$/src/server/model/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
+        <state relative-caret-position="528">
+          <caret line="131" lean-forward="true" selection-start-line="131" selection-end-line="131" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

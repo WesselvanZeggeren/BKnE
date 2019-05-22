@@ -28,6 +28,7 @@ public class Client implements Runnable {
 
         this.socket = socket;
         this.server = server;
+        this.color = new Color(0, 0, 0);
         this.pins = new ArrayList<>();
     }
 
@@ -59,7 +60,7 @@ public class Client implements Runnable {
                     if (this.name.equals("")) {
 
                         this.name = this.in.readUTF();
-                        this.writeUTF("added name: " + this.name);
+                        this.server.addToGame(this);
                     } else {
 
                         this.server.receiveData(this.in.readUTF(), this);
@@ -109,12 +110,12 @@ public class Client implements Runnable {
 
         StringBuilder clientString = new StringBuilder();
 
-        clientString.append("{\n");
-        clientString.append("\n\t\"name\": \"")   .append(this.name)             .append("\",");
-        clientString.append("\n\t\"color\": \"")  .append(this.color.toString()) .append("\",");
-        clientString.append("\n\t\"pins\": [")    .append(this.pinsToString())   .append("\n\t]");
+        clientString.append("{");
+        clientString.append("\n\t\"name\": \"")      .append(this.name)             .append("\",");
+        clientString.append("\n\t\"color\": \"")     .append(this.color.toString()) .append("\",");
+        clientString.append("\n\t\"pins\": [\n\t\t") .append(this.pinsToString())   .append("\n\t]");
         clientString.append("\n}");
-        
+
         return clientString.toString();
     }
 
