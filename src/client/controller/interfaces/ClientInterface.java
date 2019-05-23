@@ -1,6 +1,6 @@
 package client.controller.interfaces;
 
-public interface ControllerInterface {
+public interface ClientInterface {
 
     // connection
     void receiveData(String data);

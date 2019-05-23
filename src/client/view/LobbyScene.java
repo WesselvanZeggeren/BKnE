@@ -1,25 +1,27 @@
 package client.view;
 
-import client.controller.interfaces.ControllerInterface;
+import client.controller.interfaces.ClientInterface;
 import client.controller.interfaces.SceneInterface;
+import client.model.GameData;
 import javafx.scene.Scene;
 
 public class LobbyScene implements SceneInterface {
 
-    private ControllerInterface observer;
+    private ClientInterface observer;
 
-    public LobbyScene(ControllerInterface observer) {
+    public LobbyScene(ClientInterface observer) {
 
         this.observer = observer;
     }
 
     @Override
     public Scene getScene() {
+
         return null;
     }
 
     @Override
-    public void update() {
+    public void update(GameData gameData) {
 
     }
 }

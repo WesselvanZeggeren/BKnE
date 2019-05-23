@@ -10,7 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class Server implements ServerInterface {
+public class ServerApplication implements ServerInterface {
 
     // attributes
     private ServerSocket serverSocket;
@@ -22,7 +22,7 @@ public class Server implements ServerInterface {
     private boolean isRunning = true;
 
     // startup
-    public Server() {
+    public ServerApplication() {
 
         this.clients = new ArrayList<>();
         this.threads = new ArrayList<>();

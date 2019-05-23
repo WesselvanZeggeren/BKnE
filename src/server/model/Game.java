@@ -1,23 +1,23 @@
 package server.model;
 
 import both.Config;
-import server.controller.Server;
+import server.controller.ServerApplication;
 
 import java.util.ArrayList;
 
 public class Game implements Runnable {
 
    // attributes
-   private Server server;
+   private ServerApplication serverApplication;
    private ArrayList<Pin> pins;
    private ArrayList<Client> clients;
 
    private boolean isRunning = false;
 
    // startup
-   public Game(Server server) {
+   public Game(ServerApplication serverApplication) {
 
-       this.server = server;
+       this.serverApplication = serverApplication;
        this.clients = new ArrayList<>();
        this.pins = new ArrayList<>();
    }
@@ -39,7 +39,7 @@ public class Game implements Runnable {
 
    public void sendToAllClients(String message) {
 
-       this.server.sendToClients(this.clients, message);
+       this.serverApplication.sendToClients(this.clients, message);
    }
 
    // setters

@@ -1,14 +1,14 @@
-import client.controller.Controller;
-import server.controller.Server;
+import client.controller.ClientApplication;
+import server.controller.ServerApplication;
 
 public class Test {
 
     public static void main(String[] args) {
 
-        Server server = new Server();
-        server.startup();
+        ServerApplication serverApplication = new ServerApplication();
+        serverApplication.startup();
 
-        Controller controller = new Controller();
-        controller.startup();
+        ClientApplication clientApplication = new ClientApplication();
+        clientApplication.startup();
     }
 }

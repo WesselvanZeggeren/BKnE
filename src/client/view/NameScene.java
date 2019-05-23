@@ -1,6 +1,6 @@
 package client.view;
 
-import client.controller.interfaces.ControllerInterface;
+import client.controller.interfaces.ClientInterface;
 import client.controller.interfaces.SceneInterface;
 import both.Config;
 import javafx.scene.Scene;
@@ -13,11 +13,11 @@ import javafx.scene.layout.VBox;
 public class NameScene implements SceneInterface {
 
     // attributes
-    private ControllerInterface observer;
+    private ClientInterface observer;
     private TextField textField;
 
     // constructer
-    public NameScene(ControllerInterface observer) {
+    public NameScene(ClientInterface observer) {
 
         this.observer = observer;
     }

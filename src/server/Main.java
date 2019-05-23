@@ -1,12 +1,12 @@
 package server;
 
-import server.controller.Server;
+import server.controller.ServerApplication;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Server server = new Server();
-        server.startup();
+        ServerApplication serverApplication = new ServerApplication();
+        serverApplication.startup();
     }
 }

@@ -1,8 +1,10 @@
 package client.controller;
 
-import client.controller.interfaces.ControllerInterface;
+import both.JSONModel;
+import client.controller.interfaces.ClientInterface;
 import client.controller.interfaces.SceneInterface;
-import client.model.Connection;
+import client.model.GameData;
+import client.model.ServerConnection;
 import client.view.NameScene;
 import both.Config;
 import javafx.animation.AnimationTimer;
@@ -10,25 +12,27 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Controller extends Application implements ControllerInterface {
+public class ClientApplication extends Application implements ClientInterface {
 
     // attributes
-    private Connection connection;
+    private ServerConnection serverConnection;
     private SceneInterface scene;
+    private GameData gameData;
     private Stage stage;
 
     // start
     public void startup() {
 
-        launch(Controller.class);
+        launch(ClientApplication.class);
     }
 
     @Override
     public void start(Stage stage) {
 
-        this.connection = new Connection(this);
+        this.serverConnection = new ServerConnection(this);
+        this.gameData = new GameData();
 
-        if (this.connection.connect()) {
+        if (this.serverConnection.connect()) {
 
             this.stage = stage;
             this.stage.setTitle("Boter Kaas & Eieren - Battle Royale");
@@ -64,16 +68,16 @@ public class Controller extends Application implements ControllerInterface {
 
     // observer
     @Override
-    public void receiveData(String data) {
+    public void receiveData(String json) {
 
-        System.out.println("received: " + data);
+        this.gameData = JSONModel.convertClientJSON(json);
     }
 
     @Override
-    public void sendData(String name) {
+    public void sendData(String json) {
 
-        System.out.println("send: " + name);
-        this.connection.writeUTF(name);
+        System.out.println("send: " + json);
+        this.serverConnection.writeUTF(json);
     }
 
     @Override

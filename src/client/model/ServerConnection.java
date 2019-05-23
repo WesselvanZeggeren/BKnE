@@ -1,6 +1,6 @@
 package client.model;
 
-import client.controller.interfaces.ControllerInterface;
+import client.controller.interfaces.ClientInterface;
 import both.Config;
 
 import java.io.DataInputStream;
@@ -8,9 +8,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class Connection {
+public class ServerConnection {
 
-    private ControllerInterface observer;
+    private ClientInterface observer;
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
@@ -20,7 +20,7 @@ public class Connection {
     private boolean isRunning;
     private int port;
 
-    public Connection(ControllerInterface observer) {
+    public ServerConnection(ClientInterface observer) {
 
         this.observer = observer;
         this.host = Config.SERVER_HOST;

@@ -1,6 +1,6 @@
 package server.model;
 
-import server.controller.Server;
+import server.controller.ServerApplication;
 
 import java.awt.*;
 import java.io.DataInputStream;
@@ -13,10 +13,10 @@ public class Client implements Runnable {
 
     private Game game;
     private Socket socket;
-    private Server server;
     private ArrayList<Pin> pins;
     private DataInputStream in;
     private DataOutputStream out;
+    private ServerApplication serverApplication;
 
     private Color color;
     private String name = "";
@@ -24,10 +24,10 @@ public class Client implements Runnable {
     private boolean isRunning = true;
 
     // constructor
-    public Client (Socket socket, Server server) {
+    public Client (Socket socket, ServerApplication serverApplication) {
 
         this.socket = socket;
-        this.server = server;
+        this.serverApplication = serverApplication;
         this.color = new Color(0, 0, 0);
         this.pins = new ArrayList<>();
     }
@@ -60,10 +60,10 @@ public class Client implements Runnable {
                     if (this.name.equals("")) {
 
                         this.name = this.in.readUTF();
-                        this.server.addToGame(this);
+                        this.serverApplication.addToGame(this);
                     } else {
 
-                        this.server.receiveData(this.in.readUTF(), this);
+                        this.serverApplication.receiveData(this.in.readUTF(), this);
                     }
                 } catch (IOException e) {
 

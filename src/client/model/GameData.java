@@ -1,8 +1,8 @@
 package client.model;
 
-public class Player {
+public class GameData {
 
     private String name;
 
-    public Player() {}
+    public GameData() {}
 }
