@@ -22,6 +22,11 @@ public class JSONModel {
         return new ClientData();
     }
 
+    public static String convertClientName(String jsonString) {
+
+        return "";
+    }
+
     //
     private static JSONObject parseJSON(String jsonString) {
 

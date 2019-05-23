@@ -1,5 +1,6 @@
 package server.model;
 
+import both.JSONModel;
 import server.controller.ServerApplication;
 
 import java.awt.*;
@@ -59,7 +60,7 @@ public class Client implements Runnable {
 
                     if (this.name.equals("")) {
 
-                        this.name = this.in.readUTF();
+                        this.name = JSONModel.convertClientName(this.in.readUTF());
                         this.serverApplication.addToGame(this);
                     } else {
 

@@ -60,7 +60,7 @@ public class ClientApplication extends Application implements ClientInterface {
                 if ((now - this.last) / 1000000.0 > (1000.0 / Config.GAME_FPS)) {
 
                     this.last = now;
-                    scene.update();
+                    scene.update(gameData);
                 }
             }
         }.start();
@@ -70,7 +70,7 @@ public class ClientApplication extends Application implements ClientInterface {
     @Override
     public void receiveData(String json) {
 
-        this.gameData = JSONModel.convertClientJSON(json);
+        this.gameData = JSONModel.convertServerJSON(json);
     }
 
     @Override
