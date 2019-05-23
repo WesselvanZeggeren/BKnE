@@ -6,7 +6,7 @@ public class Pin {
     private int y;
     private Client client;
 
-    // getters
+    // contstucter
     public Pin(int x, int y) {
 
         this.x = x;
@@ -17,6 +17,16 @@ public class Pin {
     public boolean hasClient() {
 
         return (this.client != null);
+    }
+
+    public int getX() {
+
+        return this.x;
+    }
+
+    public int getY() {
+
+        return this.y;
     }
 
     // setters

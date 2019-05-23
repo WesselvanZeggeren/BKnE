@@ -42,6 +42,15 @@ public class Game implements Runnable {
        this.serverApplication.sendToClients(this.clients, message);
    }
 
+   public boolean isFreePin(int x, int y) {
+
+       for (Client client : this.clients)
+           if (client.containsPin(x, y))
+               return false;
+
+       return true;
+   }
+
    // setters
    public void addClient(Client client) {
 

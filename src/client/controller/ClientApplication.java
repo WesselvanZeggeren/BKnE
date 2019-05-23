@@ -68,9 +68,9 @@ public class ClientApplication extends Application implements ClientInterface {
 
     // observer
     @Override
-    public void receiveData(String json) {
+    public void receiveData(GameData gameData) {
 
-        this.gameData = JSONModel.convertServerJSON(json);
+        this.gameData = gameData;
     }
 
     @Override

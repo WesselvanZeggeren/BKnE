@@ -4,6 +4,7 @@ import client.model.GameData;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import server.model.Client;
 import server.model.ClientData;
 
 public class JSONModel {
@@ -15,16 +16,21 @@ public class JSONModel {
         return new GameData();
     }
 
-    public static ClientData convertClientJSON(String jsonString) {
+    public static ClientData convertClientJSON(String jsonString, Client client) {
 
         JSONObject json = parseJSON(jsonString);
 
-        return new ClientData();
+        ClientData clientData = new ClientData(client);
+        clientData.setMessage((String) json.get("message"));
+        clientData.setX(Math.toIntExact((long) json.get("x")));
+        clientData.setY(Math.toIntExact((long) json.get("y")));
+
+        return clientData;
     }
 
     public static String convertClientName(String jsonString) {
 
-        return "";
+        return (String) parseJSON(jsonString).get("name");
     }
 
     //

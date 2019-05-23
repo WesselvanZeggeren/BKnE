@@ -1,5 +1,6 @@
 package client.model;
 
+import both.JSONModel;
 import client.controller.interfaces.ClientInterface;
 import both.Config;
 
@@ -54,7 +55,7 @@ public class ServerConnection {
 
                 try {
 
-                    this.observer.receiveData(this.in.readUTF());
+                    this.observer.receiveData(JSONModel.convertServerJSON(this.in.readUTF()));
 
                 } catch (IOException e) {
 

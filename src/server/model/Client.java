@@ -64,7 +64,7 @@ public class Client implements Runnable {
                         this.serverApplication.addToGame(this);
                     } else {
 
-                        this.serverApplication.receiveData(this.in.readUTF(), this);
+                        this.serverApplication.receiveData(JSONModel.convertClientJSON(this.in.readUTF(), this));
                     }
                 } catch (IOException e) {
 
@@ -87,6 +87,16 @@ public class Client implements Runnable {
         }
     }
 
+    // methods
+    public boolean containsPin(int x, int y) {
+
+        for (Pin pin : this.pins)
+            if (pin.getX() == x && pin.getY() == y)
+                return true;
+
+        return false;
+    }
+
     // setters
     public void setGame(Game game) {
 
@@ -105,7 +115,6 @@ public class Client implements Runnable {
     }
 
     // to String
-
     @Override
     public String toString() {
 

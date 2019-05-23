@@ -3,6 +3,7 @@ package server.controller;
 import both.Config;
 import server.controller.interfaces.ServerInterface;
 import server.model.Client;
+import server.model.ClientData;
 import server.model.Game;
 
 import java.io.IOException;
@@ -116,9 +117,9 @@ public class ServerApplication implements ServerInterface {
 
     // observer
     @Override
-    public void receiveData(String data, Client client) {
+    public void receiveData(ClientData clientData) {
 
-        client.writeUTF("server received from client" + client.getName() + ": " + data);
+
     }
 
     @Override

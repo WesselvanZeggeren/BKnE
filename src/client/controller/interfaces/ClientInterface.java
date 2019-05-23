@@ -1,9 +1,11 @@
 package client.controller.interfaces;
 
+import client.model.GameData;
+
 public interface ClientInterface {
 
     // connection
-    void receiveData(String data);
+    void receiveData(GameData gamedata);
     void sendData(String data);
 
     // all scenes
