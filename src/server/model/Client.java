@@ -23,6 +23,7 @@ public class Client implements Runnable {
     private Color color;
     private String name = "";
 
+    private boolean isPlaying = true;
     private boolean isRunning = true;
 
     // constructor

@@ -11,6 +11,7 @@ public class Game implements Runnable {
    private ServerApplication serverApplication;
    private ArrayList<Pin> pins;
    private ArrayList<Client> clients;
+   private ArrayList<Client> clientsOrder;
 
    private boolean isRunning = false;
 
