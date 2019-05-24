@@ -2,6 +2,7 @@ package server.model;
 
 import both.JSONModel;
 import server.controller.ServerApplication;
+import server.controller.interfaces.ServerInterface;
 
 import java.awt.*;
 import java.io.DataInputStream;
@@ -17,7 +18,7 @@ public class Client implements Runnable {
     private ArrayList<Pin> pins;
     private DataInputStream in;
     private DataOutputStream out;
-    private ServerApplication serverApplication;
+    private ServerInterface observer;
 
     private Color color;
     private String name = "";
@@ -25,10 +26,10 @@ public class Client implements Runnable {
     private boolean isRunning = true;
 
     // constructor
-    public Client (Socket socket, ServerApplication serverApplication) {
+    public Client (Socket socket, ServerInterface observer) {
 
         this.socket = socket;
-        this.serverApplication = serverApplication;
+        this.observer = observer;
         this.color = new Color(0, 0, 0);
         this.pins = new ArrayList<>();
     }
@@ -61,10 +62,11 @@ public class Client implements Runnable {
                     if (this.name.equals("")) {
 
                         this.name = JSONModel.convertClientName(this.in.readUTF());
-                        this.serverApplication.addToGame(this);
+                        this.observer.addToGame(this);
                     } else {
 
-                        this.serverApplication.receiveData(JSONModel.convertClientJSON(this.in.readUTF(), this));
+
+                        this.observer.receiveData(JSONModel.convertClientJSON(this.in.readUTF(), this));
                     }
                 } catch (IOException e) {
 
@@ -112,6 +114,11 @@ public class Client implements Runnable {
     public boolean isInGame() {
 
         return (this.game != null);
+    }
+
+    public Game getGame() {
+
+        return this.game;
     }
 
     // to String

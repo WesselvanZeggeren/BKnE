@@ -18,6 +18,8 @@ public class JSONModel {
 
     public static ClientData convertClientJSON(String jsonString, Client client) {
 
+        System.out.println("received: " + client);
+
         JSONObject json = parseJSON(jsonString);
 
         ClientData clientData = new ClientData(client);

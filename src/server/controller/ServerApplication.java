@@ -89,19 +89,6 @@ public class ServerApplication implements ServerInterface {
             this.addToGame(client);
     }
 
-    public void addToGame(Client client) {
-
-        for (Game game : this.games)
-            if (!game.isRunning() && !client.isInGame())
-                game.addClient(client);
-
-        if (!client.isInGame()) {
-
-            this.createGame();
-            this.addToGame(client);
-        }
-    }
-
     private void sleepThread(int miliseconds) {
 
         try {
@@ -119,7 +106,7 @@ public class ServerApplication implements ServerInterface {
     @Override
     public void receiveData(ClientData clientData) {
 
-
+        this.sendToClients(this.clients, clientData.getMessage());
     }
 
     @Override
@@ -127,5 +114,19 @@ public class ServerApplication implements ServerInterface {
 
         for (Client client : clients)
             client.writeUTF(data);
+    }
+
+    @Override
+    public void addToGame(Client client) {
+
+        for (Game game : this.games)
+            if (!game.isRunning() && !client.isInGame())
+                game.addClient(client);
+
+        if (!client.isInGame()) {
+
+            this.createGame();
+            this.addToGame(client);
+        }
     }
 }

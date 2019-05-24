@@ -28,7 +28,16 @@ public class Game implements Runnable {
 
        if (isRunning()) {
 
-           this.isRunning = true;
+           if (!this.isRunning) {
+
+               this.isRunning = true;
+
+               int size = this.getSize(0);
+
+               for (int x = 0; x < size; x++)
+                   for (int y = 0; y < size; y++)
+                       this.pins.add(new Pin(x, y));
+           }
        }
    }
 
@@ -73,6 +82,19 @@ public class Game implements Runnable {
    public ArrayList<Client> getClients() {
 
        return this.clients;
+   }
+
+   private int getSize() {
+
+       return this.getSize(0);
+   }
+
+   private int getSize(int size) {
+
+       if ((size * size) > (this.clients.size() * Config.GAME_PIN_PER_CLIENT))
+           return size;
+
+       return this.getSize(++size);
    }
 
    // toString

@@ -35,7 +35,7 @@ public class ClientApplication extends Application implements ClientInterface {
         if (this.serverConnection.connect()) {
 
             this.stage = stage;
-            this.stage.setTitle("Boter Kaas & Eieren - Battle Royale");
+            this.stage.setTitle(Config.GAME_TITLE);
             this.stage.show();
 
             this.setScene(new NameScene(this));
