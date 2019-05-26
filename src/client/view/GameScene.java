@@ -3,6 +3,7 @@ package client.view;
 import client.controller.interfaces.SceneInterface;
 import _old.entity.GameEntity;
 import javafx.scene.Scene;
+import org.json.simple.JSONObject;
 
 public class GameScene implements SceneInterface {
 
@@ -13,7 +14,7 @@ public class GameScene implements SceneInterface {
     }
 
     @Override
-    public void update(GameEntity gameEntity) {
+    public void update(JSONObject json) {
 
     }
 }

@@ -11,6 +11,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import org.json.simple.JSONObject;
 
 public class LobbyScene implements SceneInterface {
 
@@ -51,7 +52,7 @@ public class LobbyScene implements SceneInterface {
     }
 
     @Override
-    public void update(GameEntity gameEntity) {
+    public void update(JSONObject json) {
 
         // empty
     }

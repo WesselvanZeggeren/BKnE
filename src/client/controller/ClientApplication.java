@@ -16,7 +16,7 @@ public class ClientApplication extends Application implements ClientInterface {
     // attributes
     private ServerConnection serverConnection;
     private SceneInterface scene;
-    private JSONObject gameData;
+    private JSONObject json;
     private Stage stage;
 
     // start
@@ -58,7 +58,7 @@ public class ClientApplication extends Application implements ClientInterface {
                 if ((now - this.last) / 1000000.0 > (1000.0 / Config.GAME_FPS)) {
 
                     this.last = now;
-                    scene.update(gameData);
+                    scene.update(json);
                 }
             }
         }.start();
@@ -66,9 +66,9 @@ public class ClientApplication extends Application implements ClientInterface {
 
     // observer
     @Override
-    public void receiveData(JSONObject jsonObject) {
+    public void receiveData(JSONObject json) {
 
-        this.gameData = jsonObject;
+        this.json = json;
     }
 
     @Override

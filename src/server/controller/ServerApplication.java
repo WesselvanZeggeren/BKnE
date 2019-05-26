@@ -1,6 +1,7 @@
 package server.controller;
 
 import both.Config;
+import org.json.simple.JSONObject;
 import server.controller.interfaces.ServerInterface;
 import server.model.Client;
 import _old.entity.entity.ClientEntity;
@@ -104,9 +105,9 @@ public class ServerApplication implements ServerInterface {
 
     // observer
     @Override
-    public void receiveData(ClientEntity clientEntity) {
+    public void receiveData(JSONObject json, Client client) {
 
-        this.sendToClients(this.clients, clientEntity.getMessage());
+        this.sendToClients(this.clients, (String) json.get("message"));
     }
 
     @Override

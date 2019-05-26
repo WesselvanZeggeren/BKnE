@@ -5,7 +5,7 @@ import org.json.simple.JSONObject;
 public interface ClientInterface {
 
     // connection
-    void receiveData(JSONObject jsonObject);
+    void receiveData(JSONObject json);
     void sendData(String data);
 
     // all scenes

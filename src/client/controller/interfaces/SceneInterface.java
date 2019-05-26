@@ -6,5 +6,5 @@ import org.json.simple.JSONObject;
 public interface SceneInterface {
 
     Scene getScene();
-    void update(JSONObject jsonObject);
+    void update(JSONObject json);
 }

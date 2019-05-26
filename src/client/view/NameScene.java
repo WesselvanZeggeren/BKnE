@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import org.json.simple.JSONObject;
 
 public class NameScene implements SceneInterface {
 
@@ -49,7 +50,7 @@ public class NameScene implements SceneInterface {
     }
 
     @Override
-    public void update(GameEntity gameEntity) {
+    public void update(JSONObject json) {
 
     }
 
