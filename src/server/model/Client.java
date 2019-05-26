@@ -62,12 +62,12 @@ public class Client implements Runnable {
 
                     if (this.name.equals("")) {
 
-                        this.name = JSONModel.convertClientName(this.in.readUTF());
+                        this.name = (String) JSONModel.parseJSONOject(this.in.readUTF()).get("name");
                         this.observer.addToGame(this);
                     } else {
 
 
-                        this.observer.receiveData(JSONModel.convertClientJSON(this.in.readUTF(), this));
+                        this.observer.receiveData(JSONModel.parseJSONOject(this.in.readUTF()), this);
                     }
                 } catch (IOException e) {
 
@@ -128,11 +128,11 @@ public class Client implements Runnable {
 
         StringBuilder clientString = new StringBuilder();
 
-        clientString.append("{");
-        clientString.append("\n\t\"name\": \"")      .append(this.name)             .append("\",");
-        clientString.append("\n\t\"color\": \"")     .append(this.color.toString()) .append("\",");
-        clientString.append("\n\t\"pins\": [\n\t\t") .append(this.pinsToString())   .append("\n\t]");
-        clientString.append("\n}");
+        clientString.append("{\n\t");
+        clientString.append("\"name\": \"")      .append(this.name)             .append("\",\n\t");
+        clientString.append("\"color\": \"")     .append(this.color.toString()) .append("\",\n\t");
+        clientString.append("\"pins\": [\n\t\t") .append(this.pinsToString())   .append("\n\t]\n");
+        clientString.append("}");
 
         return clientString.toString();
     }

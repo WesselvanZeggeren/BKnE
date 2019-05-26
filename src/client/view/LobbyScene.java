@@ -3,7 +3,7 @@ package client.view;
 import both.Config;
 import client.controller.interfaces.ClientInterface;
 import client.controller.interfaces.SceneInterface;
-import client.model.GameData;
+import _old.entity.GameEntity;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -51,7 +51,7 @@ public class LobbyScene implements SceneInterface {
     }
 
     @Override
-    public void update(GameData gameData) {
+    public void update(GameEntity gameEntity) {
 
         // empty
     }

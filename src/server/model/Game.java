@@ -103,12 +103,13 @@ public class Game implements Runnable {
 
        StringBuilder gameString = new StringBuilder();
 
-       gameString.append("{\n");
-       gameString.append("\t\"pins\": [\n\t\t")      .append(this.pinsToString())                         .append("\n\t],");
-       gameString.append("\n\t\"clients\": [\n\t\t") .append(this.clientsToString())                      .append("\n\t],");
-       gameString.append("\n\t\"trigger\": ")        .append(client.toString().replace(("\n"), ("\n\t"))) .append(",");
-       gameString.append("\n\t\"clientAmount\": ")   .append(this.clients.size());
-       gameString.append("\n}");
+       gameString.append("{\n\t");
+       gameString.append("\"size\": ")           .append(this.getSize())                              .append(",\n\t");
+       gameString.append("\"pins\": [\n\t\t")    .append(this.pinsToString())                         .append("\n\t],\n\t");
+       gameString.append("\"clients\": [\n\t\t") .append(this.clientsToString())                      .append("\n\t],\n\t");
+       gameString.append("\"trigger\": ")        .append(client.toString().replace(("\n"), ("\n\t"))) .append(",\n\t");
+       gameString.append("\"clientAmount\": ")   .append(this.clients.size())                         .append("\n");
+       gameString.append("}");
 
        return gameString.toString();
    }

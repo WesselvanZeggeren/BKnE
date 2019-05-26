@@ -1,14 +1,14 @@
 package server.controller.interfaces;
 
+import org.json.simple.JSONObject;
 import server.model.Client;
-import server.model.ClientData;
 
 import java.util.ArrayList;
 
 public interface ServerInterface {
 
     // connection
-    void receiveData(ClientData clientData);
+    void receiveData(JSONObject json, Client client);
     void sendToClients(ArrayList<Client> clients, String data);
 
     // Client

@@ -3,7 +3,7 @@ package server.controller;
 import both.Config;
 import server.controller.interfaces.ServerInterface;
 import server.model.Client;
-import server.model.ClientData;
+import _old.entity.entity.ClientEntity;
 import server.model.Game;
 
 import java.io.IOException;
@@ -104,9 +104,9 @@ public class ServerApplication implements ServerInterface {
 
     // observer
     @Override
-    public void receiveData(ClientData clientData) {
+    public void receiveData(ClientEntity clientEntity) {
 
-        this.sendToClients(this.clients, clientData.getMessage());
+        this.sendToClients(this.clients, clientEntity.getMessage());
     }
 
     @Override

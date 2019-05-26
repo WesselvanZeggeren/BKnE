@@ -1,10 +1,10 @@
 package client.controller.interfaces;
 
-import client.model.GameData;
 import javafx.scene.Scene;
+import org.json.simple.JSONObject;
 
 public interface SceneInterface {
 
     Scene getScene();
-    void update(GameData gameData);
+    void update(JSONObject jsonObject);
 }

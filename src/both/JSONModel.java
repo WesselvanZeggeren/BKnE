@@ -1,42 +1,51 @@
 package both;
 
-import client.model.GameData;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import server.model.Client;
-import server.model.ClientData;
+
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class JSONModel {
 
-    public static GameData convertServerJSON(String jsonString) {
+//    public static GameEntity convertServerJSON(String jsonString) {
+//
+//        JSONObject json = parseJSON(jsonString);
+//
+//        GameEntity gameEntity = new GameEntity();
+//        gameEntity.setSize(Math.toIntExact((long) json.get("size")));
+//
+//
+//
+//        return new GameEntity();
+//    }
+//
+//    private static ArrayList<PlayerEntity> convertPlayersJSON(JSONArray) {
+//
+//    }
+//
+//    public static ClientEntity convertClientJSON(String jsonString) {
+//
+//        System.out.println("received: " + client);
+//
+//        JSONObject json = parseJSON(jsonString);
+//
+//        ClientEntity clientEntity = new ClientEntity(client);
+//        clientEntity.setMessage((String) json.get("message"));
+//        clientEntity.setX(Math.toIntExact((long) json.get("x")));
+//        clientEntity.setY(Math.toIntExact((long) json.get("y")));
+//
+//        return clientEntity;
+//    }
+//
+//    public static String convertClientName(String jsonString) {
+//
+//        return (String) parseJSON(jsonString).get("name");
+//    }
 
-        JSONObject json = parseJSON(jsonString);
-
-        return new GameData();
-    }
-
-    public static ClientData convertClientJSON(String jsonString, Client client) {
-
-        System.out.println("received: " + client);
-
-        JSONObject json = parseJSON(jsonString);
-
-        ClientData clientData = new ClientData(client);
-        clientData.setMessage((String) json.get("message"));
-        clientData.setX(Math.toIntExact((long) json.get("x")));
-        clientData.setY(Math.toIntExact((long) json.get("y")));
-
-        return clientData;
-    }
-
-    public static String convertClientName(String jsonString) {
-
-        return (String) parseJSON(jsonString).get("name");
-    }
-
-    //
-    private static JSONObject parseJSON(String jsonString) {
+    public static JSONObject parseJSONOject(String jsonString) {
 
         JSONObject json = null;
         JSONParser parser = new JSONParser();
@@ -51,5 +60,15 @@ public class JSONModel {
         }
 
         return json;
+    }
+
+    public static ArrayList<JSONObject> parseJSONArray(JSONArray jsonArray) {
+
+        ArrayList<JSONObject> jsonObjects = new ArrayList<>();
+
+        for (Object jsonObject : jsonArray)
+            jsonObjects.add((JSONObject) jsonObject);
+
+        return jsonObjects;
     }
 }

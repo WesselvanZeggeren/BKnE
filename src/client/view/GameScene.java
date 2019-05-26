@@ -1,7 +1,7 @@
 package client.view;
 
 import client.controller.interfaces.SceneInterface;
-import client.model.GameData;
+import _old.entity.GameEntity;
 import javafx.scene.Scene;
 
 public class GameScene implements SceneInterface {
@@ -13,7 +13,7 @@ public class GameScene implements SceneInterface {
     }
 
     @Override
-    public void update(GameData gameData) {
+    public void update(GameEntity gameEntity) {
 
     }
 }

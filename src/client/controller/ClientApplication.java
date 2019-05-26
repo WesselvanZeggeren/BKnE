@@ -1,9 +1,7 @@
 package client.controller;
 
-import both.JSONModel;
 import client.controller.interfaces.ClientInterface;
 import client.controller.interfaces.SceneInterface;
-import client.model.GameData;
 import client.model.ServerConnection;
 import client.view.NameScene;
 import both.Config;
@@ -11,13 +9,14 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.json.simple.JSONObject;
 
 public class ClientApplication extends Application implements ClientInterface {
 
     // attributes
     private ServerConnection serverConnection;
     private SceneInterface scene;
-    private GameData gameData;
+    private JSONObject gameData;
     private Stage stage;
 
     // start
@@ -30,7 +29,6 @@ public class ClientApplication extends Application implements ClientInterface {
     public void start(Stage stage) {
 
         this.serverConnection = new ServerConnection(this);
-        this.gameData = new GameData();
 
         if (this.serverConnection.connect()) {
 
@@ -68,9 +66,9 @@ public class ClientApplication extends Application implements ClientInterface {
 
     // observer
     @Override
-    public void receiveData(GameData gameData) {
+    public void receiveData(JSONObject jsonObject) {
 
-        this.gameData = gameData;
+        this.gameData = jsonObject;
     }
 
     @Override
