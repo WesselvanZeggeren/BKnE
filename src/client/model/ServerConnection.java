@@ -55,7 +55,7 @@ public class ServerConnection {
 
                 try {
 
-                    this.observer.receiveData(JSONModel.parseJSONOject(this.in.readUTF()));
+                    this.observer.receiveJSON(JSONModel.parseJSONObject(this.in.readUTF()));
 
                 } catch (IOException e) {
 

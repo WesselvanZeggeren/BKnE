@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class JSONModel {
 
-    public static JSONObject parseJSONOject(String jsonString) {
+    public static JSONObject parseJSONObject(String jsonString) {
 
         JSONObject json = null;
         JSONParser parser = new JSONParser();

@@ -1,7 +1,6 @@
 package client.view;
 
 import client.controller.interfaces.SceneInterface;
-import _old.entity.GameEntity;
 import javafx.scene.Scene;
 import org.json.simple.JSONObject;
 

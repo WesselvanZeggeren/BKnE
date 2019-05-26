@@ -68,7 +68,7 @@ public class Game implements Runnable {
 
        this.clients.add(client);
 
-       this.sendToAllClients(this.toString(client));
+       this.sendToAllClients(this.toString(client, client.getName() + "Joined the game!"));
    }
 
    public void removeClients() {
@@ -99,7 +99,7 @@ public class Game implements Runnable {
    }
 
    // toString
-   public String toString(Client client) {
+   public String toString(Client client, String message) {
 
        StringBuilder gameString = new StringBuilder();
 
@@ -108,7 +108,8 @@ public class Game implements Runnable {
        gameString.append("\"pins\": [\n\t\t")    .append(this.pinsToString())                         .append("\n\t],\n\t");
        gameString.append("\"clients\": [\n\t\t") .append(this.clientsToString())                      .append("\n\t],\n\t");
        gameString.append("\"trigger\": ")        .append(client.toString().replace(("\n"), ("\n\t"))) .append(",\n\t");
-       gameString.append("\"clientAmount\": ")   .append(this.clients.size())                         .append("\n");
+       gameString.append("\"clientAmount\": ")   .append(this.clients.size())                         .append(",\n\t");
+       gameString.append("\"message\": \"")      .append(message)                                     .append("\"\n");
        gameString.append("}");
 
        return gameString.toString();

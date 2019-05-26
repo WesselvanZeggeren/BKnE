@@ -1,7 +1,6 @@
 package server.model;
 
 import both.JSONModel;
-import server.controller.ServerApplication;
 import server.controller.interfaces.ServerInterface;
 
 import java.awt.*;
@@ -62,12 +61,12 @@ public class Client implements Runnable {
 
                     if (this.name.equals("")) {
 
-                        this.name = (String) JSONModel.parseJSONOject(this.in.readUTF()).get("name");
+                        this.name = (String) JSONModel.parseJSONObject(this.in.readUTF()).get("name");
                         this.observer.addToGame(this);
                     } else {
 
 
-                        this.observer.receiveData(JSONModel.parseJSONOject(this.in.readUTF()), this);
+                        this.observer.receiveJSON(JSONModel.parseJSONObject(this.in.readUTF()), this);
                     }
                 } catch (IOException e) {
 

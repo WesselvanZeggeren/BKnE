@@ -24,5 +24,27 @@
     -fx-spacing: 100px 0 0 0;
 }
 
+/* LobbyScene */
+.lobbyScene-vBox {
+
+    -fx-background-color: #44b;
+    -fx-background-radius: 20px;
+    -fx-max-height: 75px;
+    -fx-max-width: 180px;
+    -fx-padding: 20px;
+    -fx-spacing: 3px;
+}
+
+.lobbyScene-borderPane {
+
+    -fx-background-color: #55c;
+}
+
+.lobbyScene-button, .lobbyScene-textField {
+
+    -fx-max-width: 140px;
+    -fx-spacing: 100px 0 0 0;
+}
+
 
 

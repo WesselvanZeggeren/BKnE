@@ -3,13 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="6ea21d2c-bf3b-4a0c-9c67-b5ff9ab0eacd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/both/JSONModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/both/JSONModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/controller/ClientApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/controller/ClientApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/controller/interfaces/ClientInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/controller/interfaces/ClientInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/controller/interfaces/SceneInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/controller/interfaces/SceneInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/model/ServerConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/model/ServerConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/view/GameScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/view/GameScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/view/LobbyScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/view/LobbyScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/view/NameScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/view/NameScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/view/style/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/view/style/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/controller/ServerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/controller/ServerApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/controller/interfaces/ServerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/controller/interfaces/ServerInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/model/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/model/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/model/Game.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,40 +47,40 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="481" />
+          <entry key="css" value="527" />
           <entry key="dummy" value="118" />
-          <entry key="java" value="9302" />
-          <entry key="txt" value="452" />
+          <entry key="java" value="9633" />
+          <entry key="txt" value="462" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="481" />
-          <entry key="JAVA" value="9302" />
-          <entry key="PLAIN_TEXT" value="570" />
+          <entry key="CSS" value="527" />
+          <entry key="JAVA" value="9633" />
+          <entry key="PLAIN_TEXT" value="580" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="css" value="1" />
-          <entry key="java" value="75" />
+          <entry key="css" value="2" />
+          <entry key="java" value="85" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="1" />
-          <entry key="JAVA" value="75" />
+          <entry key="CSS" value="2" />
+          <entry key="JAVA" value="85" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/client/controller/ClientApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="119">
+              <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -84,10 +89,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/client/view/NameScene.java">
+        <entry file="file://$PROJECT_DIR$/src/server/model/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="52" column="38" selection-start-line="52" selection-start-column="38" selection-end-line="52" selection-end-column="38" />
+            <state relative-caret-position="277">
+              <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -96,10 +101,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/client/view/LobbyScene.java">
+        <entry file="file://$PROJECT_DIR$/src/client/controller/interfaces/SceneInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="73">
-              <caret line="53" column="13" lean-forward="true" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
+            <state relative-caret-position="85">
+              <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/client/model/ServerConnection.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="57" selection-start-line="57" selection-end-line="57" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -109,18 +126,6 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/client/view/GameScene.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/server/controller/interfaces/ServerInterface.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="221">
               <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
@@ -132,19 +137,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/client/controller/interfaces/ClientInterface.java">
+        <entry file="file://$PROJECT_DIR$/src/client/view/NameScene.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/client/controller/interfaces/SceneInterface.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="31" lean-forward="true" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+            <state relative-caret-position="226">
+              <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -153,10 +149,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/_old/entity/PlayerEntity.java">
+        <entry file="file://$PROJECT_DIR$/src/both/JSONModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="120">
+              <caret line="18" selection-start-line="18" selection-end-line="18" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/client/view/LobbyScene.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="18" column="32" lean-forward="true" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -168,7 +176,7 @@
         <entry file="file://$PROJECT_DIR$/src/server/controller/ServerApplication.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="328">
-              <caret line="111" lean-forward="true" selection-start-line="111" selection-end-line="111" />
+              <caret line="135" lean-forward="true" selection-start-line="135" selection-end-line="135" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -177,10 +185,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Test.java">
+        <entry file="file://$PROJECT_DIR$/src/server/model/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
+            <state relative-caret-position="158">
+              <caret line="113" lean-forward="true" selection-start-line="113" selection-end-line="113" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -198,6 +206,16 @@
         <option value="Interface" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>sendData</find>
+      <find>receiveData</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>sendJSON</replace>
+      <replace>receiveJSON</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -221,7 +239,6 @@
         <option value="$PROJECT_DIR$/src/client/controller/interfaces/Stage.java" />
         <option value="$PROJECT_DIR$/src/client/view/NameStage.java" />
         <option value="$PROJECT_DIR$/../BKnE.old/src/client/controller/Client.java" />
-        <option value="$PROJECT_DIR$/src/client/view/style/style.css" />
         <option value="$PROJECT_DIR$/src/client/model/Player.java" />
         <option value="$PROJECT_DIR$/src/client/controller/interfaces/ControllerInterface.java" />
         <option value="$PROJECT_DIR$/src/client/model/Connection.java" />
@@ -232,7 +249,6 @@
         <option value="$PROJECT_DIR$/src/server/model/ClientData.java" />
         <option value="$PROJECT_DIR$/src/both/Config.java" />
         <option value="$PROJECT_DIR$/src/client/model/GameData.java" />
-        <option value="$PROJECT_DIR$/src/server/model/Game.java" />
         <option value="$PROJECT_DIR$/src/server/controller/interfaces/GameInterface.java" />
         <option value="$PROJECT_DIR$/src/server/model/Pin.java" />
         <option value="$PROJECT_DIR$/src/client/model/entity/GameEntity.java" />
@@ -240,17 +256,19 @@
         <option value="$PROJECT_DIR$/src/client/model/entity/PlayerEntity.java" />
         <option value="$PROJECT_DIR$/src/server/model/entity/ClientEntity.java" />
         <option value="$PROJECT_DIR$/src/server/controller/interfaces/ServerInterface.java" />
+        <option value="$PROJECT_DIR$/src/_old/entity/PlayerEntity.java" />
+        <option value="$PROJECT_DIR$/src/client/controller/interfaces/ClientInterface.java" />
+        <option value="$PROJECT_DIR$/src/client/controller/interfaces/SceneInterface.java" />
         <option value="$PROJECT_DIR$/src/both/JSONModel.java" />
         <option value="$PROJECT_DIR$/src/server/model/Client.java" />
         <option value="$PROJECT_DIR$/src/client/model/ServerConnection.java" />
-        <option value="$PROJECT_DIR$/src/_old/entity/PlayerEntity.java" />
+        <option value="$PROJECT_DIR$/src/client/view/style/style.css" />
+        <option value="$PROJECT_DIR$/src/client/view/GameScene.java" />
         <option value="$PROJECT_DIR$/src/server/controller/ServerApplication.java" />
         <option value="$PROJECT_DIR$/src/client/view/NameScene.java" />
-        <option value="$PROJECT_DIR$/src/client/controller/interfaces/ClientInterface.java" />
-        <option value="$PROJECT_DIR$/src/client/controller/interfaces/SceneInterface.java" />
-        <option value="$PROJECT_DIR$/src/client/view/LobbyScene.java" />
-        <option value="$PROJECT_DIR$/src/client/view/GameScene.java" />
+        <option value="$PROJECT_DIR$/src/server/model/Game.java" />
         <option value="$PROJECT_DIR$/src/client/controller/ClientApplication.java" />
+        <option value="$PROJECT_DIR$/src/client/view/LobbyScene.java" />
       </list>
     </option>
   </component>
@@ -288,6 +306,12 @@
               <item name="BKnE" type="b2602c69:ProjectViewProjectNode" />
               <item name="BKnE" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="both" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BKnE" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BKnE" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -310,7 +334,22 @@
               <item name="BKnE" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BKnE" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BKnE" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BKnE" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BKnE" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="style" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="BKnE" type="b2602c69:ProjectViewProjectNode" />
@@ -352,7 +391,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558864827717" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558866394477" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Periode 1.3/Proftaak/Proftaak-Festival-Planner-TI-B3/src/model/JSONModel.java" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -454,7 +493,7 @@
       <workItem from="1558608341056" duration="1676000" />
       <workItem from="1558622316929" duration="2543000" />
       <workItem from="1558693306386" duration="4690000" />
-      <workItem from="1558853151723" duration="3327000" />
+      <workItem from="1558853151723" duration="4965000" />
     </task>
     <task id="LOCAL-00001" summary="Added the Game class to the server (small restructure)">
       <created>1558357685777</created>
@@ -533,11 +572,18 @@
       <option name="project" value="LOCAL" />
       <updated>1558864332848</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Bug fix">
+      <created>1558864933938</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1558864933938</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41961000" />
+    <option name="totallyTimeSpent" value="43599000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -552,7 +598,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32786885" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32786885" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -561,7 +607,7 @@
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="TMC Test Results" order="10" />
-      <window_info anchor="bottom" id="Messages" order="11" visible="true" weight="0.32786885" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32786885" />
       <window_info anchor="bottom" id="Boebot Uploader" order="12" />
       <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -627,7 +673,8 @@
     <MESSAGE value="JSON parser for ClientData &amp; name created" />
     <MESSAGE value="Small changes" />
     <MESSAGE value="JSON wont be put in a Entity but will be used loosely where needed (old entities are put in the package _old.entity)" />
-    <option name="LAST_COMMIT_MESSAGE" value="JSON wont be put in a Entity but will be used loosely where needed (old entities are put in the package _old.entity)" />
+    <MESSAGE value="Bug fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug fix" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/server/model/ServerConnection.java" />
@@ -642,13 +689,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/client/view/style/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -680,23 +720,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/model/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/model/Pin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/_old/entity/entity/ClientEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="358">
@@ -708,33 +731,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="528">
           <caret line="95" lean-forward="true" selection-start-line="95" selection-end-line="95" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/both/JSONModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/model/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/client/model/ServerConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -772,26 +768,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/controller/ServerApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="111" lean-forward="true" selection-start-line="111" selection-end-line="111" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/client/view/NameScene.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="52" column="38" selection-start-line="52" selection-start-column="38" selection-end-line="52" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/server/controller/interfaces/ServerInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -809,20 +785,84 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/model/Pin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/client/view/style/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/client/controller/interfaces/SceneInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="31" lean-forward="true" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+        <state relative-caret-position="85">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/client/view/LobbyScene.java">
+    <entry file="file://$PROJECT_DIR$/src/both/JSONModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="53" column="13" lean-forward="true" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
+        <state relative-caret-position="120">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/controller/ServerApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="135" lean-forward="true" selection-start-line="135" selection-end-line="135" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/model/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/client/view/NameScene.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/client/model/ServerConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="57" selection-start-line="57" selection-end-line="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/model/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="113" lean-forward="true" selection-start-line="113" selection-end-line="113" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -831,8 +871,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/client/view/GameScene.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        <state relative-caret-position="221">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -841,8 +881,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/client/controller/ClientApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        <state relative-caret-position="119">
+          <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/client/view/LobbyScene.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="18" column="32" lean-forward="true" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

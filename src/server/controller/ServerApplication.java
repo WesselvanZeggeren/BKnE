@@ -4,7 +4,6 @@ import both.Config;
 import org.json.simple.JSONObject;
 import server.controller.interfaces.ServerInterface;
 import server.model.Client;
-import _old.entity.entity.ClientEntity;
 import server.model.Game;
 
 import java.io.IOException;
@@ -105,9 +104,12 @@ public class ServerApplication implements ServerInterface {
 
     // observer
     @Override
-    public void receiveData(JSONObject json, Client client) {
+    public void receiveJSON(JSONObject json, Client client) {
 
-        this.sendToClients(this.clients, (String) json.get("message"));
+        this.sendToClients(
+            client.getGame().getClients(),
+            client.getGame().toString(client, (String) json.get("message"))
+        );
     }
 
     @Override

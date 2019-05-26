@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public interface ServerInterface {
 
     // connection
-    void receiveData(JSONObject json, Client client);
+    void receiveJSON(JSONObject json, Client client);
     void sendToClients(ArrayList<Client> clients, String data);
 
     // Client

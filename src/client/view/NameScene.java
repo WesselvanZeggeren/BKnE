@@ -3,7 +3,6 @@ package client.view;
 import client.controller.interfaces.ClientInterface;
 import client.controller.interfaces.SceneInterface;
 import both.Config;
-import _old.entity.GameEntity;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -52,6 +51,7 @@ public class NameScene implements SceneInterface {
     @Override
     public void update(JSONObject json) {
 
+        // empty
     }
 
     // events
@@ -59,8 +59,8 @@ public class NameScene implements SceneInterface {
 
         if (this.textField.getText().length() > 0) {
 
-            this.observer.sendData("{\"name\":\"" + this.textField.getText() + "\"}");
-//            this.observer.setScene(new LobbyScene(this.observer));
+            this.observer.sendJSON("{\"name\": \"" + this.textField.getText() + "\"}");
+            this.observer.setScene(new LobbyScene(this.observer));
         }
     }
 }

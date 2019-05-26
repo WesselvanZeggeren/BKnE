@@ -16,7 +16,6 @@ public class ClientApplication extends Application implements ClientInterface {
     // attributes
     private ServerConnection serverConnection;
     private SceneInterface scene;
-    private JSONObject json;
     private Stage stage;
 
     // start
@@ -37,42 +36,18 @@ public class ClientApplication extends Application implements ClientInterface {
             this.stage.show();
 
             this.setScene(new NameScene(this));
-
-            this.setAnimationTimer();
         }
-    }
-
-    // main loop
-    private void setAnimationTimer() {
-
-        new AnimationTimer() {
-
-            private long last  = -1;
-
-            @Override
-            public void handle(long now) {
-
-                if (this.last == -1)
-                    this.last = now;
-
-                if ((now - this.last) / 1000000.0 > (1000.0 / Config.GAME_FPS)) {
-
-                    this.last = now;
-                    scene.update(json);
-                }
-            }
-        }.start();
     }
 
     // observer
     @Override
-    public void receiveData(JSONObject json) {
+    public void receiveJSON(JSONObject json) {
 
-        this.json = json;
+        this.scene.update(json);
     }
 
     @Override
-    public void sendData(String json) {
+    public void sendJSON(String json) {
 
         System.out.println("send: " + json);
         this.serverConnection.writeUTF(json);
