@@ -35,18 +35,22 @@
     -fx-spacing: 5px;
 }
 
+.lobbyScene-textArea {
+
+    -fx-text-fill: #333 !important;
+    -fx-pref-width: 300px;
+    -fx-pref-height: 250px;
+    -fx-font-size: 10px;
+}
+
+.lobbyScene-textArea:disabled, .lobbyScene-textArea:disabled > * {
+
+    -fx-opacity: 1.0;
+}
+
 .lobbyScene-vBox {
 
     -fx-spacing: 3px;
-}
-
-.lobbyScene-textArea {
-
-    -fx-background-color: #fff;
-    -fx-pref-width: 300px;
-    -fx-pref-height: 250px;
-    -fx-text-fill: #333;
-    -fx-font-size: 10px;
 }
 
 .lobbyScene-borderPane {

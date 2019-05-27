@@ -80,6 +80,7 @@ public class LobbyScene implements SceneInterface {
         if (this.textField.getText().length() > 0) {
 
             this.observer.sendJSON("{\"message\": \"" + this.textField.getText() + "\"}");
+            this.textField.setText("");
         }
     }
 }
