@@ -39,11 +39,12 @@ public class LobbyScene implements SceneInterface {
         this.players = new VBox();
         this.players.getStyleClass().add("lobbyScene-players");
 
-        this.timer = new Label();
+        this.timer = new Label("60");
         this.timer.getStyleClass().add("lobbyScene-timer");
 
         this.chat = new TextArea();
         this.chat.getStyleClass().add("lobbyScene-textArea");
+        this.chat.setDisable(true);
 
         Button button = new Button("Send");
         button.getStyleClass().add("lobbyScene-button");
@@ -70,7 +71,7 @@ public class LobbyScene implements SceneInterface {
         JSONObject trigger = (JSONObject) json.get("trigger");
 
         if (!json.get("message").equals(""))
-            this.chat.setText(this.chat.getText() + "\n<" + trigger.get("name") + "> " + json.get("message"));
+            this.chat.setText(this.chat.getText() + "<" + trigger.get("name") + "> " + json.get("message") + "\n");
     }
 
     // events

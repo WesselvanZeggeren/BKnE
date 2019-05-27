@@ -68,7 +68,7 @@ public class Game implements Runnable {
 
        this.clients.add(client);
 
-       this.sendToAllClients(this.toString(client, client.getName() + "Joined the game!"));
+       this.sendToAllClients(this.toString(client, "Joined the game!"));
    }
 
    public void removeClients() {

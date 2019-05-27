@@ -40,10 +40,13 @@
     -fx-spacing: 3px;
 }
 
-.lobbyScene-textArea {
+.lobbyScene-chat {
 
+    -fx-background-color: #fff;
     -fx-pref-width: 200px;
     -fx-pref-height: 250px;
+    -fx-text-fill: #333;
+    -fx-font-size: 10px;
 }
 
 .lobbyScene-borderPane {
@@ -59,10 +62,14 @@
 
 .lobbyScene-button {
 
-    -fx-translate-x: 127px;
-    -fx-translate-y: -30px;
-    -fx-max-width: 73px;
+    -fx-translate-x: 128px;
+    -fx-translate-y: -26px;
+    -fx-max-width: 72px;
 }
 
+.lobbyScene-timer {
 
+    -fx-font-size: 50px;
+    -fx-text-fill: #fff;
+}
 
