@@ -5,7 +5,6 @@ import client.controller.interfaces.SceneInterface;
 import client.model.ServerConnection;
 import client.view.NameScene;
 import both.Config;
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -49,7 +48,6 @@ public class ClientApplication extends Application implements ClientInterface {
     @Override
     public void sendJSON(String json) {
 
-        System.out.println("send: " + json);
         this.serverConnection.writeUTF(json);
     }
 
