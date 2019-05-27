@@ -47,7 +47,8 @@ public class LobbyScene implements SceneInterface {
 
         this.chat = new TextArea();
         this.chat.getStyleClass().add("lobbyScene-textArea");
-        this.chat.setDisable(true);
+        this.chat.setEditable(false);
+
 
         Button button = new Button("Send");
         button.getStyleClass().add("lobbyScene-button");
@@ -73,8 +74,10 @@ public class LobbyScene implements SceneInterface {
 
         JSONObject trigger = (JSONObject) json.get("trigger");
 
-        if (!json.get("message").equals(""))
-            this.chat.setText(this.chat.getText() + "<" + trigger.get("name") + "> " + json.get("message") + "\n");
+        if (!json.get("message").equals("")){
+                this.chat.setText(this.chat.getText() + "<" + trigger.get("name") + "> " + json.get("message") + "\n");
+                this.chat.setScrollTop(Double.MAX_VALUE);
+        }
     }
 
     // events
