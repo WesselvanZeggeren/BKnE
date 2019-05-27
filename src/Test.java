@@ -8,7 +8,7 @@ public class Test {
         ServerApplication serverApplication = new ServerApplication();
         serverApplication.startup();
 
-        ClientApplication clientApplication = new ClientApplication();
-        clientApplication.startup();
+        ClientApplication clientApplication1 = new ClientApplication();
+        clientApplication1.startup();
     }
 }

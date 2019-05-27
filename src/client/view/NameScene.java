@@ -59,8 +59,8 @@ public class NameScene implements SceneInterface {
 
         if (this.textField.getText().length() > 0) {
 
-            this.observer.sendJSON("{\"name\": \"" + this.textField.getText() + "\"}");
             this.observer.setScene(new LobbyScene(this.observer));
+            this.observer.sendJSON("{\"name\": \"" + this.textField.getText() + "\"}");
         }
     }
 }
