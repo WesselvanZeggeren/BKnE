@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="BK-E---Battle-Royale:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/BK_E___Battle_Royale_jar</output-path>
+    <root id="archive" name="BK-E---Battle-Royale.jar">
+      <element id="module-output" name="BK-E---Battle-Royale" />
+      <element id="library" level="project" name="fxgraphics2d-1.9" />
+      <element id="library" level="project" name="json-simple-1.1" />
+    </root>
+  </artifact>
+</component>
