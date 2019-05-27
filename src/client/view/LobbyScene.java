@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -35,6 +37,7 @@ public class LobbyScene implements SceneInterface {
 
         this.textField = new TextField();
         this.textField.getStyleClass().add("lobbyScene-textField");
+        this.textField.setOnKeyPressed(this::keyPressed);
 
         this.players = new VBox();
         this.players.getStyleClass().add("lobbyScene-players");
@@ -75,11 +78,18 @@ public class LobbyScene implements SceneInterface {
     }
 
     // events
+
+    private void keyPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            mouseClicked();
+        }
+    }
+
     private void mouseClicked() {
 
         if (this.textField.getText().length() > 0) {
-
             this.observer.sendJSON("{\"message\": \"" + this.textField.getText() + "\"}");
+            this.textField.setText("");
         }
     }
 }

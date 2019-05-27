@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import org.json.simple.JSONObject;
@@ -32,6 +34,7 @@ public class NameScene implements SceneInterface {
 
         this.textField = new TextField();
         this.textField.getStyleClass().add("nameScene-textField");
+        this.textField.setOnKeyPressed(this::keyPressed);
 
         Button button = new Button("Start");
         button.getStyleClass().add("nameScene-button");
@@ -55,12 +58,19 @@ public class NameScene implements SceneInterface {
     }
 
     // events
+
+    private void keyPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER){
+            mouseClicked();
+        }
+    }
     private void mouseClicked() {
 
         if (this.textField.getText().length() > 0) {
 
             this.observer.setScene(new LobbyScene(this.observer));
             this.observer.sendJSON("{\"name\": \"" + this.textField.getText() + "\"}");
+            this.textField.setText("");
         }
     }
 }
