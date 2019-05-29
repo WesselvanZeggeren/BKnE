@@ -12,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import org.json.simple.JSONObject;
+import server.model.Game;
 
 public class NameScene implements SceneInterface {
 
@@ -19,7 +20,7 @@ public class NameScene implements SceneInterface {
     private ClientInterface observer;
     private TextField textField;
 
-    // constructer
+    // constructor
     public NameScene(ClientInterface observer) {
 
         this.observer = observer;
@@ -48,29 +49,33 @@ public class NameScene implements SceneInterface {
         borderPane.getStyleClass().add("nameScene-borderPane");
         borderPane.setCenter(vBox);
 
+        System.out.println("scene");
+
         return new Scene(borderPane, Config.GAME_SCREEN_WIDTH, Config.GAME_SCREEN_HEIGHT);
     }
 
     @Override
-    public void update(JSONObject json) {
+    public void update(Object object) {
 
         // empty
     }
 
     // events
-
     private void keyPressed(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.ENTER){
+
+        if (keyEvent.getCode() == KeyCode.ENTER)
             mouseClicked();
-        }
     }
     private void mouseClicked() {
 
-        if (this.textField.getText().length() > 0) {
+        String name = this.textField.getText();
+
+        if (name.length() > 0) {
 
             this.observer.setScene(new LobbyScene(this.observer));
-            this.observer.sendJSON("{\"name\": \"" + this.textField.getText() + "\"}");
-            this.textField.setText("");
+
+            this.observer.setName(name);
+            this.observer.writeObject(name);
         }
     }
 }

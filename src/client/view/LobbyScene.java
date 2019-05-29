@@ -1,7 +1,6 @@
 package client.view;
 
 import both.Config;
-import both.JSONModel;
 import client.controller.interfaces.ClientInterface;
 import client.controller.interfaces.SceneInterface;
 import javafx.scene.Scene;
@@ -13,8 +12,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.json.simple.JSONObject;
+import server.model.Client;
+import server.model.Game;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class LobbyScene implements SceneInterface {
 
@@ -69,26 +74,63 @@ public class LobbyScene implements SceneInterface {
     }
 
     @Override
-    public void update(JSONObject json) {
+    public void update(Object object) {
 
-        JSONObject trigger = (JSONObject) json.get("trigger");
+        if (object instanceof String)
+            this.printMessage((String) object);
 
-        if (!json.get("message").equals(""))
-            this.chat.setText(this.chat.getText() + "<" + trigger.get("name") + "> " + json.get("message") + "\n");
+        if (object instanceof Game) {
+
+            Game game = (Game) object;
+
+            this.startGame(game);
+            this.setClients(game.getClients());
+        }
+    }
+
+    private void printMessage(String message) {
+
+        this.chat.setText(this.chat.getText() + message + "\n");
+    }
+
+    private void startGame(Game game) {
+
+        if (game.isRunning())
+            this.observer.setScene(new GameScene(this.observer));
+    }
+
+    private void setClients(ArrayList<Client> clients) {
+
+        for (Client client : clients) {
+
+            Color color = client.getColor();
+
+            Pane pane = new Pane();
+            pane.getStylesheets().add("lobbyScene-pane");
+            pane.setStyle("-fx-background-color: rgb(" + color.getRed() + "," + color.getGreen() + "," + color.getBlue() + ");");
+
+            Label label = new Label(client.getName());
+            label.getStyleClass().add("lobbyScene-clientName");
+
+            HBox hBox = new HBox();
+            hBox.getChildren().addAll(pane, label);
+
+            this.players.getChildren().add(hBox);
+        }
     }
 
     // events
-
     private void keyPressed(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.ENTER) {
+
+        if (keyEvent.getCode() == KeyCode.ENTER)
             mouseClicked();
-        }
     }
 
     private void mouseClicked() {
 
         if (this.textField.getText().length() > 0) {
-            this.observer.sendJSON("{\"message\": \"" + this.textField.getText() + "\"}");
+
+            this.observer.writeObject("<" + this.observer.getName() + "> " + this.textField.getText());
             this.textField.setText("");
         }
     }

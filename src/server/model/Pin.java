@@ -1,13 +1,15 @@
 package server.model;
 
-public class Pin {
+import java.io.Serializable;
+
+public class Pin implements Serializable {
 
     private int x;
     private int y;
     private Client client;
     private boolean isSolid = false;
 
-    // contstucter
+    // constructor
     public Pin(int x, int y) {
 
         this.x = x;
@@ -44,20 +46,5 @@ public class Pin {
     public void isSolid(boolean isSolid) {
 
         this.isSolid = isSolid;
-    }
-
-    // toString
-    @Override
-    public String toString() {
-
-        StringBuilder pinString = new StringBuilder();
-
-        pinString.append("{\n\t");
-        pinString.append("\"x\": ")     .append(this.x)       .append(",\n\t");
-        pinString.append("\"y\": ")     .append(this.y)       .append(",\n\t");
-        pinString.append("\"solid\": ") .append(this.isSolid) .append("\n");
-        pinString.append("}");
-
-        return pinString.toString();
     }
 }

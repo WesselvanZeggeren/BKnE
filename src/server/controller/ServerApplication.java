@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 import server.controller.interfaces.ServerInterface;
 import server.model.Client;
 import server.model.Game;
+import server.model.Pin;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -92,8 +93,8 @@ public class ServerApplication implements ServerInterface {
     private void sleepThread(int miliseconds) {
 
         try {
-            Thread.sleep(miliseconds);
 
+            Thread.sleep(miliseconds);
         } catch (InterruptedException e) {
 
             e.printStackTrace();
@@ -102,23 +103,21 @@ public class ServerApplication implements ServerInterface {
         Thread.yield();
     }
 
-    // observer
+    // connection observer
     @Override
-    public void receiveJSON(JSONObject json, Client client) {
+    public void receiveObject(Client client, Object object) {
 
-        this.sendToClients(
-            client.getGame().getClients(),
-            client.getGame().toString(client, (String) json.get("message"))
-        );
+        // manage input
     }
 
     @Override
-    public void sendToClients (ArrayList<Client> clients, String data) {
+    public void writeObject(ArrayList<Client> clients, Object object) {
 
         for (Client client : clients)
-            client.writeUTF(data);
+            client.writeObject(object);
     }
 
+    // game observer
     @Override
     public void addToGame(Client client) {
 

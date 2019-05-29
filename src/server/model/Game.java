@@ -1,137 +1,106 @@
 package server.model;
 
 import both.Config;
+import javafx.animation.AnimationTimer;
 import server.controller.ServerApplication;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Game implements Runnable {
+public class Game implements Runnable, Serializable {
 
-   // attributes
-   private ServerApplication serverApplication;
-   private ArrayList<Pin> pins;
-   private ArrayList<Client> clients;
-   private ArrayList<Client> clientsOrder;
+    // attributes
+    private ServerApplication observer;
+    private ArrayList<Client> clientsOrder;
+    private ArrayList<Client> clients;
+    private ArrayList<Pin> pins;
+    private int size;
 
-   private boolean isRunning = false;
+    private boolean isRunning = false;
 
-   // startup
-   public Game(ServerApplication serverApplication) {
+    // startup
+    public Game(ServerApplication observer) {
 
-       this.serverApplication = serverApplication;
-       this.clients = new ArrayList<>();
-       this.pins = new ArrayList<>();
-   }
+        this.observer = observer;
+        this.clientsOrder = new ArrayList<>();
+        this.clients = new ArrayList<>();
+        this.pins = new ArrayList<>();
+    }
 
-   // methods
-   @Override
-   public void run() {
+    // methods
+    @Override
+    public void run() {
 
-       if (isRunning()) {
+        if (this.isRunning) {
 
-           if (!this.isRunning) {
+            this.size = this.getSize(0);
 
-               this.isRunning = true;
+            for (int x = 0; x < this.size; x++)
+                for (int y = 0; y < this.size; y++)
+                    this.pins.add(new Pin(x, y));
 
-               int size = this.getSize(0);
+            this.startGame();
+        }
+    }
 
-               for (int x = 0; x < size; x++)
-                   for (int y = 0; y < size; y++)
-                       this.pins.add(new Pin(x, y));
-           }
-       }
-   }
+    private void startGame() {
 
-   public boolean isRunning() {
+    }
 
-       return (this.clients.size() == Config.GAME_MAX_PLAYERS || this.isRunning);
-   }
+    public boolean isFreePin(int x, int y) {
 
-   public void sendToAllClients(String message) {
+        for (Client client : this.clients)
+            if (client.containsPin(x, y))
+                return false;
 
-       this.serverApplication.sendToClients(this.clients, message);
-   }
+        return true;
+    }
 
-   public boolean isFreePin(int x, int y) {
+    // setters
+    public void addClient(Client client) {
 
-       for (Client client : this.clients)
-           if (client.containsPin(x, y))
-               return false;
+        client.setGame(this);
 
-       return true;
-   }
+        this.clients.add(client);
 
-   // setters
-   public void addClient(Client client) {
+        this.observer.writeObject(this.clients, "<" + client.getName() + "> Joined the game!");
 
-       client.setGame(this);
+        if (this.clients.size() > Config.GAME_MAX_PLAYERS)
+            this.isRunning = true;
+    }
 
-       this.clients.add(client);
+    public void removeClients() {
 
-       this.sendToAllClients(this.toString(client, "Joined the game!"));
-   }
+        for (Client client : this.clients) {
 
-   public void removeClients() {
+            client.setGame(null);
+            client.setPins(new ArrayList<>());
+        }
 
-       for (Client client : this.clients)
-         client.setGame(null);
+        this.clients = new ArrayList<>();
+    }
 
-       this.clients = new ArrayList<>();
-   }
+    // getters
+    public ArrayList<Client> getClients() {
 
-   // getters
-   public ArrayList<Client> getClients() {
+        return this.clients;
+    }
 
-       return this.clients;
-   }
+    public int getSize() {
 
-   private int getSize() {
+        return this.size;
+    }
 
-       return this.getSize(0);
-   }
+    private int getSize(int size) {
 
-   private int getSize(int size) {
+        if ((size * size) > (this.clients.size() * Config.GAME_PIN_PER_CLIENT))
+            return size;
 
-       if ((size * size) > (this.clients.size() * Config.GAME_PIN_PER_CLIENT))
-           return size;
+        return this.getSize(++size);
+    }
 
-       return this.getSize(++size);
-   }
+    public boolean isRunning() {
 
-   // toString
-   public String toString(Client client, String message) {
-
-       StringBuilder gameString = new StringBuilder();
-
-       gameString.append("{\n\t");
-       gameString.append("\"size\": ")           .append(this.getSize())                              .append(",\n\t");
-       gameString.append("\"pins\": [\n\t\t")    .append(this.pinsToString())                         .append("\n\t],\n\t");
-       gameString.append("\"clients\": [\n\t\t") .append(this.clientsToString())                      .append("\n\t],\n\t");
-       gameString.append("\"trigger\": ")        .append(client.toString().replace(("\n"), ("\n\t"))) .append(",\n\t");
-       gameString.append("\"clientAmount\": ")   .append(this.clients.size())                         .append(",\n\t");
-       gameString.append("\"message\": \"")      .append(message)                                     .append("\"\n");
-       gameString.append("}");
-
-       return gameString.toString();
-   }
-
-   public String pinsToString() {
-
-       StringBuilder pinsString = new StringBuilder();
-
-       for (int i = 0; i < this.pins.size(); i++)
-           pinsString.append(this.pins.get(i).toString()).append(i == (this.pins.size() - 1) ? "" : ",\n");
-
-       return pinsString.toString().replace("\n", "\n\t\t");
-   }
-
-   public String clientsToString() {
-
-       StringBuilder clientsString = new StringBuilder();
-
-       for (int i = 0; i < this.clients.size(); i++)
-           clientsString.append(this.clients.get(i).toString()).append(i == (this.clients.size() - 1) ? "" : ",\n");
-
-       return clientsString.toString().replace("\n", "\n\t\t");
-   }
+        return this.isRunning;
+    }
 }

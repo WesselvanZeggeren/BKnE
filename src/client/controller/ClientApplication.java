@@ -9,6 +9,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.json.simple.JSONObject;
+import server.model.Game;
+import server.model.Pin;
 
 public class ClientApplication extends Application implements ClientInterface {
 
@@ -16,6 +18,8 @@ public class ClientApplication extends Application implements ClientInterface {
     private ServerConnection serverConnection;
     private SceneInterface scene;
     private Stage stage;
+
+    private String name;
 
     // start
     public void startup() {
@@ -28,29 +32,34 @@ public class ClientApplication extends Application implements ClientInterface {
 
         this.serverConnection = new ServerConnection(this);
 
+        System.out.println("build");
+
         if (this.serverConnection.connect()) {
 
             this.stage = stage;
             this.stage.setTitle(Config.GAME_TITLE);
             this.stage.show();
 
+            System.out.println("scene0");
+
             this.setScene(new NameScene(this));
         }
     }
 
-    // observer
+    // connection observer
     @Override
-    public void receiveJSON(JSONObject json) {
+    public void receiveObject(Object object) {
 
-        this.scene.update(json);
+        this.scene.update(object);
     }
 
     @Override
-    public void sendJSON(String json) {
+    public void writeObject(Object object) {
 
-        this.serverConnection.writeUTF(json);
+        this.serverConnection.writeObject(object);
     }
 
+    // scene observer
     @Override
     public void setScene(SceneInterface sceneInterface) {
 
@@ -60,5 +69,17 @@ public class ClientApplication extends Application implements ClientInterface {
         scene.getStylesheets().add(Config.CSS_PATH);
 
         this.stage.setScene(scene);
+    }
+
+    @Override
+    public void setName(String name) {
+
+        this.name = name;
+    }
+
+    @Override
+    public String getName() {
+
+        return this.name;
     }
 }

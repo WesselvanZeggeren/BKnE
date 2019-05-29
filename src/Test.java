@@ -8,7 +8,9 @@ public class Test {
         ServerApplication serverApplication = new ServerApplication();
         serverApplication.startup();
 
-        ClientApplication clientApplication1 = new ClientApplication();
-        clientApplication1.startup();
+        System.out.println("test!");
+
+        ClientApplication clientApplication = new ClientApplication();
+        clientApplication.startup();
     }
 }

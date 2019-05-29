@@ -1,23 +1,22 @@
 package server.model;
 
-import both.JSONModel;
 import server.controller.interfaces.ServerInterface;
 
 import java.awt.*;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class Client implements Runnable {
+public class Client implements Runnable, Serializable {
 
+    // attributes
     private Game game;
     private Socket socket;
     private ArrayList<Pin> pins;
-    private DataInputStream in;
-    private DataOutputStream out;
     private ServerInterface observer;
+
+    private ObjectInputStream objectIn;
+    private ObjectOutputStream objectOut;
 
     private Color color;
     private String name = "";
@@ -40,10 +39,10 @@ public class Client implements Runnable {
 
         try {
 
-            this.in  = new DataInputStream(this.socket.getInputStream());
-            this.out = new DataOutputStream(this.socket.getOutputStream());
+            this.objectIn  = new ObjectInputStream(this.socket.getInputStream());
+            this.objectOut = new ObjectOutputStream(this.socket.getOutputStream());
 
-            this.manageInput();
+            this.manageObjectInput();
 
         } catch (IOException e) {
 
@@ -51,39 +50,36 @@ public class Client implements Runnable {
         }
     }
 
-    private void manageInput() {
+    private void manageObjectInput() {
 
-        new Thread(() -> {
+        new Thread(() -> { while (this.isRunning) {
 
-            while (this.isRunning) {
+            try {
 
-                try {
+                Object object = this.objectIn.readObject();
 
-                    if (this.name.equals("")) {
+                if (this.name.length() == 0 && object instanceof String) {
 
-                        this.name = (String) JSONModel.parseJSONObject(this.in.readUTF()).get("name");
-                        this.observer.addToGame(this);
-                    } else {
+                    this.name = (String) object;
+                    this.observer.addToGame(this);
+                } else {
 
-
-                        this.observer.receiveJSON(JSONModel.parseJSONObject(this.in.readUTF()), this);
-                    }
-                } catch (IOException e) {
-
-                    e.printStackTrace();
+                    this.observer.receiveObject(this, object);
                 }
+            } catch (Exception e) {
+
+                e.printStackTrace();
             }
-        }).start();
+        }}).start();
     }
 
-    public void writeUTF (String text) {
+    public void writeObject(Object object) {
 
         try {
 
-            this.out.writeUTF(text);
+            this.objectOut.writeObject(object);
 
-        } catch (IOException
-                e) {
+        } catch (IOException e) {
 
             e.printStackTrace();
         }
@@ -105,15 +101,25 @@ public class Client implements Runnable {
         this.game = game;
     }
 
+    public void setPins(ArrayList<Pin> pins) {
+
+        this.pins = pins;
+    }
+
+    public void addPin(Pin pin) {
+
+        this.pins.add(pin);
+    }
+
     // getters
     public String getName() {
 
         return this.name;
     }
 
-    public boolean isInGame() {
+    public Color getColor() {
 
-        return (this.game != null);
+        return this.color;
     }
 
     public Game getGame() {
@@ -121,28 +127,8 @@ public class Client implements Runnable {
         return this.game;
     }
 
-    // to String
-    @Override
-    public String toString() {
+    public boolean isInGame() {
 
-        StringBuilder clientString = new StringBuilder();
-
-        clientString.append("{\n\t");
-        clientString.append("\"name\": \"")      .append(this.name)             .append("\",\n\t");
-        clientString.append("\"color\": \"")     .append(this.color.toString()) .append("\",\n\t");
-        clientString.append("\"pins\": [\n\t\t") .append(this.pinsToString())   .append("\n\t]\n");
-        clientString.append("}");
-
-        return clientString.toString();
-    }
-
-    public String pinsToString() {
-
-        StringBuilder pinsString = new StringBuilder();
-
-        for (int i = 0; i < this.pins.size(); i++)
-            pinsString.append(this.pins.get(i).toString()).append(i == (this.pins.size() - 1) ? "" : ",\n");
-
-        return pinsString.toString().replace("\n", "\n\t\t");
+        return (this.game != null);
     }
 }

@@ -1,13 +1,14 @@
 package client.controller.interfaces;
 
-import org.json.simple.JSONObject;
-
 public interface ClientInterface {
 
     // connection
-    void receiveJSON(JSONObject json);
-    void sendJSON(String data);
+    void receiveObject(Object object);
+    void writeObject(Object object);
 
     // all scenes
     void setScene(SceneInterface sceneInterface);
+    void setName(String name);
+
+    String getName();
 }

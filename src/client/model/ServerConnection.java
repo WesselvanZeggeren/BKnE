@@ -1,22 +1,20 @@
 package client.model;
 
-import both.JSONModel;
 import client.controller.interfaces.ClientInterface;
 import both.Config;
+import server.model.Game;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 public class ServerConnection {
 
     private ClientInterface observer;
     private Socket socket;
-    private DataInputStream in;
-    private DataOutputStream out;
-
     private String host;
+
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
 
     private boolean isRunning;
     private int port;
@@ -33,13 +31,21 @@ public class ServerConnection {
         try {
 
             this.socket = new Socket(this.host, this.port);
-            this.in = new DataInputStream(this.socket.getInputStream());
-            this.out = new DataOutputStream(this.socket.getOutputStream());
+
             this.isRunning = true;
 
-            this.manageInput();
+            System.out.println("before");
+
+            this.in = new ObjectInputStream(this.socket.getInputStream());
+            this.out = new ObjectOutputStream(this.socket.getOutputStream());
+
+            System.out.println("after");
+
+            this.manageObjectInput();
 
         } catch (IOException e) {
+
+            e.printStackTrace();
 
             return false;
         }
@@ -47,31 +53,28 @@ public class ServerConnection {
         return true;
     }
 
-    private void manageInput() {
+    private void manageObjectInput() {
 
-        new Thread(() -> {
+        new Thread(() -> { while (this.isRunning) {
 
-            while (this.isRunning) {
+            try {
 
-                try {
+                this.observer.receiveObject(this.in.readObject());
 
-                    this.observer.receiveJSON(JSONModel.parseJSONObject(this.in.readUTF()));
+            } catch (Exception e) {
 
-                } catch (IOException e) {
-
-                    e.printStackTrace();
-                }
+                e.printStackTrace();
             }
-        }).start();
+        }}).start();
     }
 
-    public void writeUTF(String data) {
+    public void writeObject(Object object) {
 
         try {
 
-            this.out.writeUTF(data);
+            this.out.writeObject(object);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
