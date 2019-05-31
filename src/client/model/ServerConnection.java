@@ -3,6 +3,7 @@ package client.model;
 import client.controller.interfaces.ClientInterface;
 import both.Config;
 
+import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 
@@ -15,6 +16,7 @@ public class ServerConnection {
     private ObjectInputStream in;
     private ObjectOutputStream out;
 
+
     private boolean isRunning;
     private int port;
 
@@ -25,7 +27,7 @@ public class ServerConnection {
         this.port = Config.SERVER_PORT;
     }
 
-    public boolean connect () {
+    public boolean connect() {
 
         try {
 
@@ -50,17 +52,19 @@ public class ServerConnection {
 
     private void manageObjectInput() {
 
-        new Thread(() -> { while (this.isRunning) {
+        new Thread(() -> {
+            while (this.isRunning) {
 
-            try {
+                try {
 
-                this.observer.receiveObject(this.in.readObject());
+                    this.observer.receiveObject(this.in.readObject());
 
-            } catch (Exception e) {
+                } catch (Exception e) {
 
-                e.printStackTrace();
+                    e.printStackTrace();
+                }
             }
-        }}).start();
+        }).start();
     }
 
     public void writeObject(Object object) {
