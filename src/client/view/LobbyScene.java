@@ -3,6 +3,7 @@ package client.view;
 import both.Config;
 import client.controller.interfaces.ClientInterface;
 import client.controller.interfaces.SceneInterface;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,9 +15,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import org.json.simple.JSONObject;
-import server.model.Client;
-import server.model.Game;
+import server.entity.GameEntity;
+import server.entity.ClientEntity;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -54,7 +54,6 @@ public class LobbyScene implements SceneInterface {
         this.chat.getStyleClass().add("lobbyScene-textArea");
         this.chat.setEditable(false);
 
-
         Button button = new Button("Send");
         button.getStyleClass().add("lobbyScene-button");
         button.setOnMouseClicked((e) -> this.mouseClicked());
@@ -65,7 +64,7 @@ public class LobbyScene implements SceneInterface {
 
         HBox hBox = new HBox();
         hBox.getStyleClass().add("lobbyScene-hBox");
-        hBox.getChildren().addAll(vBox1, this.timer, this.players);
+        hBox.getChildren().addAll(vBox1, this.players);
 
         BorderPane borderPane = new BorderPane();
         borderPane.getStyleClass().add("lobbyScene-borderPane");
@@ -80,18 +79,12 @@ public class LobbyScene implements SceneInterface {
         if (object instanceof String)
             this.printMessage((String) object);
 
-        if (object instanceof Game) {
+        if (object instanceof GameEntity) {
 
-            Game game = (Game) object;
+            GameEntity gameEntity = (GameEntity) object;
 
-<<<<<<< HEAD
-            this.startGame(game);
-            this.setClients(game.getClients());
-=======
-        if (!json.get("message").equals("")){
-                this.chat.setText(this.chat.getText() + "<" + trigger.get("name") + "> " + json.get("message") + "\n");
-                this.chat.setScrollTop(Double.MAX_VALUE);
->>>>>>> origin/development
+            this.startGame(gameEntity);
+            this.setClients(gameEntity.getClientEntities());
         }
     }
 
@@ -100,29 +93,29 @@ public class LobbyScene implements SceneInterface {
         this.chat.setText(this.chat.getText() + message + "\n");
     }
 
-    private void startGame(Game game) {
+    private void startGame(GameEntity gameEntity) {
 
-        if (game.isRunning())
+        if (gameEntity.isRunning())
             this.observer.setScene(new GameScene(this.observer));
     }
 
-    private void setClients(ArrayList<Client> clients) {
+    private void setClients(ArrayList<ClientEntity> clients) {
 
-        for (Client client : clients) {
+        for (ClientEntity clientEntity : clients) {
 
-            Color color = client.getColor();
+            Color color = clientEntity.getColor();
 
             Pane pane = new Pane();
-            pane.getStylesheets().add("lobbyScene-pane");
+            pane.getStyleClass().add("lobbyScene-pane");
             pane.setStyle("-fx-background-color: rgb(" + color.getRed() + "," + color.getGreen() + "," + color.getBlue() + ");");
 
-            Label label = new Label(client.getName());
+            Label label = new Label(clientEntity.getName());
             label.getStyleClass().add("lobbyScene-clientName");
 
             HBox hBox = new HBox();
             hBox.getChildren().addAll(pane, label);
 
-            this.players.getChildren().add(hBox);
+            Platform.runLater(() -> this.players.getChildren().add(hBox));
         }
     }
 

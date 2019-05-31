@@ -2,7 +2,6 @@ package client.model;
 
 import client.controller.interfaces.ClientInterface;
 import both.Config;
-import server.model.Game;
 
 import java.io.*;
 import java.net.Socket;
@@ -34,12 +33,8 @@ public class ServerConnection {
 
             this.isRunning = true;
 
-            System.out.println("before");
-
-            this.in = new ObjectInputStream(this.socket.getInputStream());
             this.out = new ObjectOutputStream(this.socket.getOutputStream());
-
-            System.out.println("after");
+            this.in = new ObjectInputStream(this.socket.getInputStream());
 
             this.manageObjectInput();
 

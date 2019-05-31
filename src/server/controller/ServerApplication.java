@@ -1,11 +1,9 @@
 package server.controller;
 
 import both.Config;
-import org.json.simple.JSONObject;
 import server.controller.interfaces.ServerInterface;
-import server.model.Client;
-import server.model.Game;
-import server.model.Pin;
+import server.model.ClientModel;
+import server.model.GameModel;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -17,18 +15,18 @@ public class ServerApplication implements ServerInterface {
     // attributes
     private ServerSocket serverSocket;
 
-    private ArrayList<Client> clients;
+    private ArrayList<ClientModel> clientModels;
     private ArrayList<Thread> threads;
-    private ArrayList<Game> games;
+    private ArrayList<GameModel> gameModels;
 
     private boolean isRunning = true;
 
     // startup
     public ServerApplication() {
 
-        this.clients = new ArrayList<>();
+        this.clientModels = new ArrayList<>();
         this.threads = new ArrayList<>();
-        this.games = new ArrayList<>();
+        this.gameModels = new ArrayList<>();
     }
 
     public void startup() {
@@ -61,11 +59,11 @@ public class ServerApplication implements ServerInterface {
 
             Socket socket = this.serverSocket.accept();
 
-            Client client = new Client(socket, this);
-            Thread thread = new Thread(client);
+            ClientModel clientModel = new ClientModel(socket, this);
+            Thread thread = new Thread(clientModel);
             thread.start();
 
-            this.clients.add(client);
+            this.clientModels.add(clientModel);
             this.threads.add(thread);
 
         } catch (IOException e) {
@@ -76,18 +74,18 @@ public class ServerApplication implements ServerInterface {
 
     private void createGame() {
 
-        Game game = new Game(this);
-        Thread thread = new Thread(game);
+        GameModel gameModel = new GameModel(this);
+        Thread thread = new Thread(gameModel);
         thread.start();
 
         this.threads.add(thread);
-        this.games.add(game);
+        this.gameModels.add(gameModel);
     }
 
-    private void addAllToGame(ArrayList<Client> clients) {
+    private void addAllToGame(ArrayList<ClientModel> clientModels) {
 
-        for (Client client : this.clients)
-            this.addToGame(client);
+        for (ClientModel clientModel : this.clientModels)
+            this.addToGame(clientModel);
     }
 
     private void sleepThread(int miliseconds) {
@@ -105,30 +103,31 @@ public class ServerApplication implements ServerInterface {
 
     // connection observer
     @Override
-    public void receiveObject(Client client, Object object) {
+    public void receiveObject(ClientModel clientModel, Object object) {
 
-        // manage input
+        if (object instanceof String)
+            this.writeObject(clientModel.getGameModel().getClientModels(), object);
     }
 
     @Override
-    public void writeObject(ArrayList<Client> clients, Object object) {
+    public void writeObject(ArrayList<ClientModel> clientModels, Object object) {
 
-        for (Client client : clients)
-            client.writeObject(object);
+        for (ClientModel clientModel : clientModels)
+            clientModel.writeObject(object);
     }
 
     // game observer
     @Override
-    public void addToGame(Client client) {
+    public void addToGame(ClientModel clientModel) {
 
-        for (Game game : this.games)
-            if (!game.isRunning() && !client.isInGame())
-                game.addClient(client);
+        for (GameModel gameModel : this.gameModels)
+            if (!gameModel.isRunning() && !clientModel.isInGame())
+                gameModel.addClient(clientModel);
 
-        if (!client.isInGame()) {
+        if (!clientModel.isInGame()) {
 
             this.createGame();
-            this.addToGame(client);
+            this.addToGame(clientModel);
         }
     }
 }

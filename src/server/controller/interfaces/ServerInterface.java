@@ -1,20 +1,17 @@
 package server.controller.interfaces;
 
-import org.json.simple.JSONObject;
-import server.model.Client;
-import server.model.Game;
-import server.model.Pin;
+import server.model.ClientModel;
 
 import java.util.ArrayList;
 
 public interface ServerInterface {
 
     // connection
-    void receiveObject(Client client, Object object);
+    void receiveObject(ClientModel clientModel, Object object);
 
     // game
-    void writeObject(ArrayList<Client> clients, Object object);
+    void writeObject(ArrayList<ClientModel> clientModels, Object object);
 
     // Client
-    void addToGame(Client client);
+    void addToGame(ClientModel clientModel);
 }

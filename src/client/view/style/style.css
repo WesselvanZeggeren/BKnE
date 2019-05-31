@@ -30,18 +30,17 @@
     -fx-background-color: #44b;
     -fx-background-radius: 20px;
     -fx-max-height: 300px;
-    -fx-max-width: 500px;
-    -fx-padding: 20px;
+    -fx-max-width: 645px;
+    -fx-padding: 20px 20px 0 20px;
     -fx-spacing: 5px;
 }
 
 .lobbyScene-textArea {
 
     -fx-text-fill: #333 !important;
-    -fx-pref-width: 300px;
     -fx-pref-height: 250px;
+    -fx-pref-width: 300px;
     -fx-font-size: 10px;
-
 }
 
 .lobbyScene-textArea:disabled, .lobbyScene-textArea:disabled > * {
@@ -80,5 +79,24 @@
 
 .lobbyScene-pane {
 
+    -fx-pref-height: 20px;
+    -fx-pref-width: 20px;
+    -fx-background-radius: 5px;
 }
 
+.lobbyScene-clientName {
+
+    -fx-color: #fff;
+    -fx-translate-x: 5px;
+    -fx-translate-y: 3px;
+}
+
+.lobbyScene-players {
+
+    -fx-background-radius: 2px;
+    -fx-background-color: #55c;
+    -fx-pref-width: 300px;
+    -fx-max-height: 255px;
+    -fx-padding: 20px;
+    -fx-spacing: 5px;
+}

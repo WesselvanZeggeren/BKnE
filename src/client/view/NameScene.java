@@ -11,8 +11,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import org.json.simple.JSONObject;
-import server.model.Game;
 
 public class NameScene implements SceneInterface {
 
@@ -48,8 +46,6 @@ public class NameScene implements SceneInterface {
         BorderPane borderPane = new BorderPane();
         borderPane.getStyleClass().add("nameScene-borderPane");
         borderPane.setCenter(vBox);
-
-        System.out.println("scene");
 
         return new Scene(borderPane, Config.GAME_SCREEN_WIDTH, Config.GAME_SCREEN_HEIGHT);
     }

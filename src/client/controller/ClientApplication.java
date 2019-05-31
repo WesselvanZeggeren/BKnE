@@ -8,9 +8,6 @@ import both.Config;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.json.simple.JSONObject;
-import server.model.Game;
-import server.model.Pin;
 
 public class ClientApplication extends Application implements ClientInterface {
 
@@ -32,15 +29,11 @@ public class ClientApplication extends Application implements ClientInterface {
 
         this.serverConnection = new ServerConnection(this);
 
-        System.out.println("build");
-
         if (this.serverConnection.connect()) {
 
             this.stage = stage;
             this.stage.setTitle(Config.GAME_TITLE);
             this.stage.show();
-
-            System.out.println("scene0");
 
             this.setScene(new NameScene(this));
         }

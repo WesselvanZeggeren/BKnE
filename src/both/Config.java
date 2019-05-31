@@ -8,7 +8,7 @@ public class Config {
     public static final String  SERVER_HOST             = "localhost";
 
     // game
-    public static final int     GAME_MAX_PLAYERS        = 10;
+    public static final int     GAME_MAX_PLAYERS        = 2;
     public static final int     GAME_SCREEN_WIDTH       = 1000;
     public static final int     GAME_SCREEN_HEIGHT      = 500;
     public static final int     GAME_PIN_PER_CLIENT     = 4;

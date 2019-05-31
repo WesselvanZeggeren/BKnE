@@ -8,8 +8,6 @@ public class Test {
         ServerApplication serverApplication = new ServerApplication();
         serverApplication.startup();
 
-        System.out.println("test!");
-
         ClientApplication clientApplication = new ClientApplication();
         clientApplication.startup();
     }
