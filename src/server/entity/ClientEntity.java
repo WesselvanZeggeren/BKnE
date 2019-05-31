@@ -54,4 +54,18 @@ public class ClientEntity implements Serializable {
 
         this.isPlaying = isPlaying;
     }
+
+    // toString
+    @Override
+    public String toString() {
+
+        return
+            "ClientEntity {" +
+                "pinEntities = " + this.pinEntities +
+                ", color = "     + this.color +
+                ", name = '"     + this.name + '\'' +
+                ", isPlaying = " + this.isPlaying +
+            '}'
+        ;
+    }
 }

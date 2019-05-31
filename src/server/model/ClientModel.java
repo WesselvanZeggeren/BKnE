@@ -76,6 +76,7 @@ public class ClientModel implements Runnable {
         try {
 
             this.objectOut.writeObject(object);
+            this.objectOut.reset();
 
         } catch (IOException e) {
 

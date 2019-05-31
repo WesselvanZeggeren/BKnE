@@ -56,4 +56,18 @@ public class GameEntity implements Serializable {
 
         this.isRunning = isRunning;
     }
+
+    // toString
+    @Override
+    public String toString() {
+
+        return
+            "GameEntity {" +
+                "clientEntities = " + this.clientEntities +
+                ", pinEntities = "  + this.pinEntities +
+                ", size = "         + this.size +
+                ", isRunning = "    + this.isRunning +
+            '}'
+        ;
+    }
 }

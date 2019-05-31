@@ -68,6 +68,7 @@ public class ServerConnection {
         try {
 
             this.out.writeObject(object);
+            this.out.reset();
 
         } catch (Exception e) {
 

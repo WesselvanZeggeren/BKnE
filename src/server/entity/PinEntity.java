@@ -27,4 +27,17 @@ public class PinEntity implements Serializable {
 
         this.isSolid = isSolid;
     }
+
+    // toString
+    @Override
+    public String toString() {
+
+        return
+            "PinEntity {" +
+                "x = "         + this.x +
+                ", y = "       + this.y +
+                ", isSolid = " + this.isSolid +
+            '}'
+        ;
+    }
 }

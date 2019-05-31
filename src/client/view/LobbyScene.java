@@ -76,16 +76,19 @@ public class LobbyScene implements SceneInterface {
     @Override
     public void update(Object object) {
 
-        if (object instanceof String)
-            this.printMessage((String) object);
+        Platform.runLater(() -> {
 
-        if (object instanceof GameEntity) {
+            if (object instanceof String)
+                this.printMessage((String) object);
 
-            GameEntity gameEntity = (GameEntity) object;
+            if (object instanceof GameEntity) {
 
-            this.startGame(gameEntity);
-            this.setClients(gameEntity.getClientEntities());
-        }
+                GameEntity gameEntity = (GameEntity) object;
+
+                this.startGame(gameEntity);
+                this.setClients(gameEntity.getClientEntities());
+            }
+        });
     }
 
     private void printMessage(String message) {
@@ -96,10 +99,12 @@ public class LobbyScene implements SceneInterface {
     private void startGame(GameEntity gameEntity) {
 
         if (gameEntity.isRunning())
-            this.observer.setScene(new GameScene(this.observer));
+            this.observer.setScene(new GameScene(this.observer, this.chat.getText()));
     }
 
     private void setClients(ArrayList<ClientEntity> clients) {
+
+        this.players.getChildren().clear();
 
         for (ClientEntity clientEntity : clients) {
 
@@ -115,7 +120,7 @@ public class LobbyScene implements SceneInterface {
             HBox hBox = new HBox();
             hBox.getChildren().addAll(pane, label);
 
-            Platform.runLater(() -> this.players.getChildren().add(hBox));
+            this.players.getChildren().add(hBox);
         }
     }
 
