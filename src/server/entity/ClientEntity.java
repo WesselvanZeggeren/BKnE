@@ -19,17 +19,18 @@ public class ClientEntity implements Serializable {
     // constructor
     public ClientEntity() {
 
-        generateColor();
+        this.generateColor();
         this.pinEntities = new ArrayList<>();
     }
 
     // methods
     public void generateColor() {
+
         int red = (int) (Math.random() * 256);
         int green = (int) (Math.random() * 256);
         int blue = (int) (Math.random() * 256);
 
-        setColor(new Color(red, green, blue));
+        this.setColor(new Color(red, green, blue));
     }
 
     // getters
