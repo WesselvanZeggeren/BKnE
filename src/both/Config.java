@@ -12,7 +12,7 @@ public class Config {
     public static final int     GAME_SCREEN_WIDTH       = 1000;
     public static final int     GAME_SCREEN_HEIGHT      = 500;
     public static final int     GAME_PIN_PER_CLIENT     = 4;
-    public static final String  GAME_TITLE              = "BKnE - Battle Royale";
+    public static final String  GAME_TITLE              = "BKnE";
 
     // lobby
     public static final int     LOBBY_WAIT_TIME         = 60;
