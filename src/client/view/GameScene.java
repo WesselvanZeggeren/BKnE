@@ -58,18 +58,20 @@ public class GameScene implements SceneInterface {
         vBox.getStyleClass().add("gameScene-vBox");
         vBox.getChildren().addAll(this.chat, this.textField, button);
 
-        BorderPane mainBox = new BorderPane();
-        mainBox.getStyleClass().add("gameScene-hBox");
-        mainBox.setLeft(vBox);
+        BorderPane canvasPane = new BorderPane();
+        this.canvas = new ResizableCanvas(this::draw, canvasPane);
+        this.canvas.setWidth(350);
+        this.canvas.setHeight(350);
+        canvasPane.getStyleClass().add("gameLobby-canvasPane");
+        canvasPane.setCenter(this.canvas);
 
-        this.canvas = new ResizableCanvas(this::draw, mainBox);
-        this.draw(new FXGraphics2D(this.canvas.getGraphicsContext2D()));
-
-        mainBox.setRight(this.players);
+        HBox hBox = new HBox();
+        hBox.getStyleClass().add("gameScene-hBox");
+        hBox.getChildren().addAll(vBox, canvasPane, this.players);
 
         BorderPane borderPane = new BorderPane();
         borderPane.getStyleClass().add("gameScene-borderPane");
-        borderPane.setCenter(mainBox);
+        borderPane.setCenter(hBox);
 
         return new Scene(borderPane, Config.GAME_SCREEN_WIDTH, Config.GAME_SCREEN_HEIGHT);
     }
@@ -87,8 +89,10 @@ public class GameScene implements SceneInterface {
     // canvas
     public void draw(FXGraphics2D graphics2D) {
 
+        System.out.println("tekent vierkant! - " + this.canvas.getWidth() + " | " + this.canvas.getHeight());
+
         graphics2D.setColor(Color.WHITE);
-        graphics2D.drawRect(0, 0, 1000, 1000);
+        graphics2D.fillRect(0, 0, 350, 350);
     }
 
     // events

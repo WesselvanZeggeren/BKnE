@@ -103,8 +103,8 @@
 
     -fx-background-color: #4bb;
     -fx-background-radius: 20px;
-    -fx-max-height: 350px;
-    -fx-max-width: 745px;
+    -fx-max-height: 400px;
+    -fx-max-width: 695px;
     -fx-padding: 20px 20px 0 20px;
     -fx-spacing: 5px;
 }
@@ -112,7 +112,7 @@
 .gameScene-textArea {
 
     -fx-text-fill: #333 !important;
-    -fx-pref-height: 300px;
+    -fx-pref-height: 327px;
     -fx-pref-width: 150px;
     -fx-font-size: 10px;
 }
@@ -167,7 +167,15 @@
     -fx-background-radius: 2px;
     -fx-background-color: #5cc;
     -fx-pref-width: 150px;
-    -fx-max-height: 305px;
+    -fx-max-height: 350px;
     -fx-padding: 20px;
     -fx-spacing: 5px;
+}
+
+.gameScene-canvasPane {
+
+    -fx-pref-height: 350;
+    -fx-pref-width: 350;
+    -fx-background-radius: 2px;
+    -fx-padding: 0 0 20px 0;
 }
