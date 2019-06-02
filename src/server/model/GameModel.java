@@ -45,9 +45,11 @@ public class GameModel {
 
     private void nextRound(boolean restart) {
 
+        System.out.println("Test 0");
+
         if (this.getPlayingClients() > 2 || restart) {
 
-            System.out.println("Test");
+            System.out.println("Test 1");
 
             this.refreshClients();
 
@@ -59,11 +61,11 @@ public class GameModel {
             this.clientModels = this.getClientModelsOrder();
             this.clientModelsOrder = new ArrayList<>();
 
-            this.observer.writeObject(this.clientModels, "NEXT ROUND");
+            this.observer.writeObject(this.clientModels, "NEXT ROUND!");
             this.observer.writeObject(this.clientModels, this.getGameEntity());
         } else {
 
-            this.observer.writeObject(this.clientModels, "CONGRATULATIONS " + this.clientModelsOrder.get(0).getName() + "!!!");
+            this.observer.writeObject(this.clientModels, "CONGRATULATIONS " + this.clientModelsOrder.get(0).getName() + "! YOU WON!");
         }
     }
 
@@ -135,7 +137,7 @@ public class GameModel {
 
         this.startGame();
 
-        this.observer.writeObject(this.clientModels, "<" + clientModel.getName() + "> Joined the game!");
+        this.observer.writeObject(this.clientModels, clientModel.getName() + " JOINED THE GAME!");
         this.observer.writeObject(this.clientModels, this.getGameEntity());
     }
 
@@ -154,16 +156,17 @@ public class GameModel {
 
     public void removeClient(ClientModel clientModel) {
 
+        if (this.gameEntity.isRunning() && this.clientModels.get(this.key).equals(clientModel))
+            this.nextClientModel();
+
         this.clientModels.remove(clientModel);
         this.clientModelsOrder.remove(clientModel);
 
         this.observer.writeObject(this.getClientModels(), clientModel.getName() + " LEFT THE GAME!");
         this.observer.writeObject(this.getClientModels(), this.getGameEntity());
 
-        if (this.gameEntity.isRunning() && this.clientModels.get(this.key).equals(clientModel))
-            this.nextClientModel();
-
         if (this.gameEntity.isRunning() && clientModel.isPlaying())
+            System.out.println("testen deze hap");
             this.nextRound(true);
     }
 

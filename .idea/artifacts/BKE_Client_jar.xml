@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/BKE_Client_jar</output-path>
     <root id="archive" name="BK-E---Battle-Royale.jar">
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/src/client/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/client/model/META-INF/MANIFEST.MF" />
       </element>
       <element id="module-output" name="BK-E---Battle-Royale" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/fxgraphics2d-1.9.jar" path-in-jar="/" />

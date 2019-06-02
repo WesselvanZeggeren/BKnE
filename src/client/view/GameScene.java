@@ -4,6 +4,7 @@ import both.Config;
 import client.controller.interfaces.ClientInterface;
 import client.controller.interfaces.SceneInterface;
 import both.Texture;
+import client.model.CodesModel;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -263,11 +264,13 @@ public class GameScene implements SceneInterface {
     private void printMessage(String message) {
 
         this.chat.setText(this.chat.getText() + message + "\n");
-        System.out.println(message.charAt(0));
+
         if(message.contains("/")) {
-           String code =  message.substring(message.indexOf("/"));
-            Codes.cheatCode(code);
+
+            String code =  message.substring(message.indexOf("/"));
+            CodesModel.cheatCode(code);
         }
+
         this.chat.setScrollTop(Double.MAX_VALUE);
     }
 
