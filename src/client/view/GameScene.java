@@ -4,13 +4,16 @@ import both.Config;
 import client.controller.interfaces.ClientInterface;
 import client.controller.interfaces.SceneInterface;
 import both.Texture;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.jfree.fx.FXGraphics2D;
 import org.jfree.fx.ResizableCanvas;
@@ -20,6 +23,7 @@ import server.entity.PinEntity;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -104,6 +108,45 @@ public class GameScene implements SceneInterface {
             this.gameEntity = (GameEntity) object;
 
             this.draw(new FXGraphics2D(this.canvas.getGraphicsContext2D()));
+
+            Platform.runLater(this::setAllClients);
+        }
+    }
+
+    private void setAllClients() {
+
+        this.players.getChildren().clear();
+
+        this.setClients(this.gameEntity.getClientEntitiesOrder(), true);
+        this.setClients(this.gameEntity.getOtherClientEntities(), false);
+    }
+
+    private void setClients(ArrayList<ClientEntity> clients, boolean placeIterator) {
+
+        for (int i = 0; i < clients.size(); i++) {
+
+            Color color = clients.get(i).getColor();
+
+            Label preset = new Label();
+            preset.getStyleClass().add("gameScene-preset");
+
+            if (placeIterator)
+                preset.setText(String.valueOf(i + 1));
+            else if (i + (this.gameEntity.getClientEntitiesOrder().size()) == this.gameEntity.getKey())
+                preset.setText(">");
+
+            Pane pane = new Pane();
+            pane.getStyleClass().add("gameScene-pane");
+            pane.setStyle("-fx-background-color: rgb(" + color.getRed() + "," + color.getGreen() + "," + color.getBlue() + ");");
+
+            javafx.scene.control.Label label = new Label(clients.get(i).getName());
+            label.getStyleClass().add("gameScene-clientName" + ((!clients.get(i).isPlaying()) ? "-n" : ""));
+
+            HBox hBox = new HBox();
+            hBox.getStyleClass().add("gameScene-playerBox");
+            hBox.getChildren().addAll(preset, pane, label);
+
+            this.players.getChildren().add(hBox);
         }
     }
 
