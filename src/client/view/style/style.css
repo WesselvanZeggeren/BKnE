@@ -30,7 +30,7 @@
     -fx-background-color: #44b;
     -fx-background-radius: 20px;
     -fx-max-height: 300px;
-    -fx-max-width: 645px;
+    -fx-max-width: 545px;
     -fx-padding: 20px 20px 0 20px;
     -fx-spacing: 5px;
 }
@@ -39,7 +39,7 @@
 
     -fx-text-fill: #333 !important;
     -fx-pref-height: 250px;
-    -fx-pref-width: 300px;
+    -fx-pref-width: 250px;
     -fx-font-size: 10px;
 }
 
@@ -60,43 +60,122 @@
 
 .lobbyScene-textField {
 
-    -fx-max-width: 225px;
+    -fx-font-size: 10px;
+    -fx-max-width: 175px;
     -fx-spacing: 100px 0 0 0;
 }
 
 .lobbyScene-button {
 
-    -fx-translate-x: 228px;
-    -fx-translate-y: -26px;
+    -fx-font-size: 10px;
+    -fx-translate-x: 178px;
+    -fx-translate-y: -23px;
     -fx-max-width: 72px;
-}
-
-.lobbyScene-timer {
-
-    -fx-font-size: 50px;
-    -fx-text-fill: #fff;
 }
 
 .lobbyScene-pane {
 
-    -fx-pref-height: 20px;
-    -fx-pref-width: 20px;
+    -fx-pref-height: 16px;
+    -fx-pref-width: 16px;
     -fx-background-radius: 5px;
 }
 
 .lobbyScene-clientName {
 
-    -fx-color: #fff;
+    -fx-font-size: 10px;
+    -fx-text-fill: #fff !important;
     -fx-translate-x: 5px;
-    -fx-translate-y: 3px;
+    -fx-translate-y: 2px;
 }
 
 .lobbyScene-players {
 
     -fx-background-radius: 2px;
     -fx-background-color: #55c;
-    -fx-pref-width: 300px;
+    -fx-pref-width: 250px;
     -fx-max-height: 255px;
     -fx-padding: 20px;
     -fx-spacing: 5px;
+}
+
+/* gameScene */
+.gameScene-hBox {
+
+    -fx-background-color: #4bb;
+    -fx-background-radius: 20px;
+    -fx-max-height: 400px;
+    -fx-max-width: 695px;
+    -fx-padding: 20px 20px 0 20px;
+    -fx-spacing: 5px;
+}
+
+.gameScene-textArea {
+
+    -fx-text-fill: #333 !important;
+    -fx-pref-height: 327px;
+    -fx-pref-width: 150px;
+    -fx-font-size: 10px;
+}
+
+.gameScene-textArea:disabled, .gameScene-textArea:disabled > * {
+
+    -fx-opacity: 1.0;
+}
+
+.gameScene-vBox {
+
+    -fx-spacing: 3px;
+}
+
+.gameScene-borderPane {
+
+    -fx-background-color: #5cc;
+}
+
+.gameScene-textField {
+
+    -fx-font-size: 10px;
+    -fx-max-width: 100px;
+    -fx-spacing: 100px 0 0 0;
+}
+
+.gameScene-button {
+
+    -fx-font-size: 10px;
+    -fx-translate-x: 103px;
+    -fx-translate-y: -23px;
+    -fx-max-width: 47px;
+}
+
+.gameScene-pane {
+
+    -fx-pref-height: 16px;
+    -fx-pref-width: 16px;
+    -fx-background-radius: 5px;
+}
+
+.gameScene-clientName {
+
+    -fx-font-size: 10px;
+    -fx-text-fill: #fff;
+    -fx-translate-x: 5px;
+    -fx-translate-y: 3px;
+}
+
+.gameScene-players {
+
+    -fx-background-radius: 2px;
+    -fx-background-color: #5cc;
+    -fx-pref-width: 150px;
+    -fx-max-height: 350px;
+    -fx-padding: 20px;
+    -fx-spacing: 5px;
+}
+
+.gameScene-canvasPane {
+
+    -fx-min-width: 350 !important;
+    -fx-max-width: 350 !important;
+    -fx-min-height: 350 !important;
+    -fx-max-height: 350 !important;
 }

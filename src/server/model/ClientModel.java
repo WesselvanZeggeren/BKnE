@@ -1,7 +1,9 @@
 package server.model;
 
+import both.Config;
 import server.controller.interfaces.ServerInterface;
 import server.entity.ClientEntity;
+import server.entity.PinEntity;
 
 import java.awt.*;
 import java.io.*;
@@ -19,8 +21,6 @@ public class ClientModel implements Runnable {
 
     private ObjectInputStream objectIn;
     private ObjectOutputStream objectOut;
-
-    private boolean isRunning = true;
 
     // constructor
     public ClientModel(Socket socket, ServerInterface observer) {
@@ -50,7 +50,7 @@ public class ClientModel implements Runnable {
 
     private void manageObjectInput() {
 
-        new Thread(() -> { while (this.isRunning) {
+        new Thread(() -> { while (true) {
 
             try {
 
@@ -85,6 +85,18 @@ public class ClientModel implements Runnable {
     }
 
     // methods
+    public boolean hasThreeInARow() {
+
+        for (PinModel p : this.pinModels)
+            if (this.containsPin(p.getX() - 1, p.getY() + 1) && this.containsPin(p.getX() - 2, p.getY() + 2) ||
+                this.containsPin(p.getX()    , p.getY() + 1) && this.containsPin(p.getX()    , p.getY() + 2) ||
+                this.containsPin(p.getX() + 1, p.getY() + 1) && this.containsPin(p.getX() + 2, p.getY() + 2) ||
+                this.containsPin(p.getX() + 1, p.getY()    ) && this.containsPin(p.getX() + 2, p.getY()    ))
+                return true;
+
+        return false;
+    }
+
     public boolean containsPin(int x, int y) {
 
         for (PinModel pinModel : this.pinModels)
@@ -94,47 +106,35 @@ public class ClientModel implements Runnable {
         return false;
     }
 
-    // getters
-    public String getName() {
+    // setters
+    public void setGameModel(GameModel gameModel)           { this.gameModel = gameModel;               }
+    public void setPinModels(ArrayList<PinModel> pinModels) { this.pinModels = pinModels;               }
+    public void isPlaying(boolean isPlaying)                { this.clientEntity.isPlaying(isPlaying);   }
+    public void isFinished(boolean isFinished)              { this.clientEntity.isFinished(isFinished); }
 
-        return this.clientEntity.getName();
+    public void addPin(PinEntity pinEntity) {
+
+        PinModel pinModel = new PinModel(pinEntity);
+        pinModel.setClientModel(this);
+
+        if (this.pinModels.size() >= Config.GAME_PIN_PER_CLIENT)
+            this.pinModels.remove(0);
+
+        this.pinModels.add(pinModel);
     }
 
-    public Color getColor() {
-
-        return this.clientEntity.getColor();
-    }
-
-    public GameModel getGameModel() {
-
-        return this.gameModel;
-    }
-
-    public boolean isInGame() {
-
-        return (this.gameModel != null);
-    }
+    // getter
+    public String    getName()      { return this.clientEntity.getName();    }
+    public Color     getColor()     { return this.clientEntity.getColor();   }
+    public GameModel getGameModel() { return this.gameModel;                 }
+    public boolean   isPlaying()    { return this.clientEntity.isPlaying();  }
+    public boolean   isInGame()     { return this.gameModel != null;         }
+    public boolean   isFinished()   { return this.clientEntity.isFinished(); }
 
     public ClientEntity getClientEntity() {
 
         this.clientEntity.setPinEntities(this.pinModels);
 
         return this.clientEntity;
-    }
-
-    // setters
-    public void setGameModel(GameModel gameModel) {
-
-        this.gameModel = gameModel;
-    }
-
-    public void setPinModels(ArrayList<PinModel> pinModels) {
-
-        this.pinModels = pinModels;
-    }
-
-    public void addPin(PinModel pinModel) {
-
-        this.pinModels.add(pinModel);
     }
 }

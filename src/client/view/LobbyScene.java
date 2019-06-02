@@ -58,13 +58,13 @@ public class LobbyScene implements SceneInterface {
         button.getStyleClass().add("lobbyScene-button");
         button.setOnMouseClicked((e) -> this.mouseClicked());
 
-        VBox vBox1 = new VBox();
-        vBox1.getStyleClass().add("lobbyScene-vBox");
-        vBox1.getChildren().addAll(this.chat, this.textField, button);
+        VBox vBox = new VBox();
+        vBox.getStyleClass().add("lobbyScene-vBox");
+        vBox.getChildren().addAll(this.chat, this.textField, button);
 
         HBox hBox = new HBox();
         hBox.getStyleClass().add("lobbyScene-hBox");
-        hBox.getChildren().addAll(vBox1, this.players);
+        hBox.getChildren().addAll(vBox, this.players);
 
         BorderPane borderPane = new BorderPane();
         borderPane.getStyleClass().add("lobbyScene-borderPane");
@@ -85,8 +85,8 @@ public class LobbyScene implements SceneInterface {
 
                 GameEntity gameEntity = (GameEntity) object;
 
-                this.startGame(gameEntity);
                 this.setClients(gameEntity.getClientEntities());
+                this.startGame(gameEntity);
             }
         });
     }
@@ -99,7 +99,7 @@ public class LobbyScene implements SceneInterface {
     private void startGame(GameEntity gameEntity) {
 
         if (gameEntity.isRunning())
-            this.observer.setScene(new GameScene(this.observer, this.chat.getText()));
+            this.observer.setScene(new GameScene(this.observer, this.chat.getText(), gameEntity));
     }
 
     private void setClients(ArrayList<ClientEntity> clients) {

@@ -24,6 +24,8 @@ public class GameEntity implements Serializable {
     public boolean                 isRunning()         { return this.isRunning;      }
 
     // setters
+    public void isRunning(boolean isRunning) { this.isRunning = isRunning; }
+
     public void setClientEntities(ArrayList<ClientModel> clientModels) {
 
         ArrayList<ClientEntity> clientEntities = new ArrayList<>();
@@ -44,17 +46,12 @@ public class GameEntity implements Serializable {
         this.pinEntities = pinEntities;
     }
 
-    public int setSize(int size, int playerAmount) {
+    public void setSize(int size, int playerAmount) {
 
         if ((size * size) > (playerAmount * Config.GAME_PIN_PER_CLIENT))
-            return size;
-
-        return this.setSize(++size, playerAmount);
-    }
-
-    public void isRunning(boolean isRunning) {
-
-        this.isRunning = isRunning;
+            this.size = size;
+        else
+            this.setSize(size + 1, playerAmount);
     }
 
     // toString
