@@ -6,8 +6,8 @@ public class Config {
 
     // connection
     public static final int     SERVER_PORT                     = 42069;
-    //public static final String  SERVER_HOST                   = "bkne.jijbentzacht.nl";
-    public static final String  SERVER_HOST                     = "localhost";
+    public static final String  SERVER_HOST                   = "bkne.jijbentzacht.nl";
+//    public static final String  SERVER_HOST                     = "localhost";
 
     // game
     public static final int     GAME_MAX_PLAYERS                = 3;

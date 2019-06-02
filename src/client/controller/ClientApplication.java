@@ -20,7 +20,6 @@ public class ClientApplication extends Application implements ClientInterface {
 
     // start
     public void startup() {
-
         launch(ClientApplication.class);
     }
 
@@ -37,6 +36,11 @@ public class ClientApplication extends Application implements ClientInterface {
 
             this.setScene(new NameScene(this));
         }
+    }
+
+    @Override
+    public void stop() throws Exception {
+        System.exit(0);
     }
 
     // connection observer
