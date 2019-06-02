@@ -85,8 +85,8 @@ public class LobbyScene implements SceneInterface {
 
                 GameEntity gameEntity = (GameEntity) object;
 
-                this.startGame(gameEntity);
                 this.setClients(gameEntity.getClientEntities());
+                this.startGame(gameEntity);
             }
         });
     }
@@ -99,7 +99,7 @@ public class LobbyScene implements SceneInterface {
     private void startGame(GameEntity gameEntity) {
 
         if (gameEntity.isRunning())
-            this.observer.setScene(new GameScene(this.observer, this.chat.getText()));
+            this.observer.setScene(new GameScene(this.observer, this.chat.getText(), gameEntity));
     }
 
     private void setClients(ArrayList<ClientEntity> clients) {

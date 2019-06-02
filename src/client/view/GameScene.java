@@ -3,21 +3,23 @@ package client.view;
 import both.Config;
 import client.controller.interfaces.ClientInterface;
 import client.controller.interfaces.SceneInterface;
+import both.Texture;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Border;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.jfree.fx.FXGraphics2D;
 import org.jfree.fx.ResizableCanvas;
 import server.entity.GameEntity;
+import server.entity.PinEntity;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.util.HashMap;
 
 public class GameScene implements SceneInterface {
 
@@ -25,15 +27,26 @@ public class GameScene implements SceneInterface {
     private ClientInterface observer;
     private ResizableCanvas canvas;
     private TextField textField;
-    private String chatLog;
     private TextArea chat;
     private VBox players;
 
-    // startup
-    public GameScene(ClientInterface observer, String chatLog) {
+    private HashMap<Rectangle2D, PinEntity> squares;
+    private HashMap<Rectangle2D, Color> texture;
 
-        this.observer = observer;
-        this.chatLog = chatLog;
+    private boolean isBuild = false;
+
+    private int boardOffset;
+    private int size;
+
+    private GameEntity lastEntity;
+    private String chatLog;
+
+    // startup
+    public GameScene(ClientInterface observer, String chatLog, GameEntity gameEntity) {
+
+        this.observer   = observer;
+        this.chatLog    = chatLog;
+        this.lastEntity = gameEntity;
     }
 
     @Override
@@ -61,7 +74,8 @@ public class GameScene implements SceneInterface {
         BorderPane canvasPane = new BorderPane();
         this.canvas = new ResizableCanvas(this::draw, canvasPane);
         this.canvas.setWidth(350);
-        this.canvas.setHeight(350);
+        this.canvas.setHeight(100);
+        this.canvas.setOnMouseClicked(this::mouseClickedCanvas);
         canvasPane.getStyleClass().add("gameLobby-canvasPane");
         canvasPane.setCenter(this.canvas);
 
@@ -73,6 +87,8 @@ public class GameScene implements SceneInterface {
         borderPane.getStyleClass().add("gameScene-borderPane");
         borderPane.setCenter(hBox);
 
+        this.update(this.lastEntity);
+
         return new Scene(borderPane, Config.GAME_SCREEN_WIDTH, Config.GAME_SCREEN_HEIGHT);
     }
 
@@ -82,18 +98,112 @@ public class GameScene implements SceneInterface {
 
         if (object instanceof GameEntity) {
 
+            GameEntity gameEntity = (GameEntity) object;
+
+            if (!this.isBuild)
+                this.buildBoard(gameEntity);
+
             this.draw(new FXGraphics2D(this.canvas.getGraphicsContext2D()));
         }
+    }
+
+    public void buildBoard(GameEntity gameEntity) {
+
+        this.size = gameEntity.getSize();
+        this.squares = new HashMap<>();
+        this.texture = Texture.getTexture(
+            this.getBoardSize(), this.getBoardSize(),
+            Color.getHSBColor(.03f, .65f, .2f)
+        );
+
+        System.out.println("buildBoard - " + gameEntity.getSize());
+
+        for (PinEntity pinEntity : gameEntity.getPinEntities()) {
+
+            pinEntity.setTexture(Texture.getTexture(
+                this.getSquareSize(), this.getSquareSize(),
+                Color.getHSBColor(.11f, .4f, .9f),
+                Color.getHSBColor(.09f, .2f, .7f)
+            ));
+
+            this.squares.put(new Rectangle2D.Double(
+                this.getSquareOffsetX(pinEntity.getX()) - 1,
+                this.getSquareOffsetY(pinEntity.getY()) + 145,
+                this.getSquareSize(), this.getSquareSize()
+            ), pinEntity);
+        }
+
+        this.isBuild = true;
     }
 
     // canvas
     public void draw(FXGraphics2D graphics2D) {
 
-        System.out.println("tekent vierkant! - " + this.canvas.getWidth() + " | " + this.canvas.getHeight());
+        graphics2D.setColor(Color.getHSBColor(.5f, .64f, .73f));
+        graphics2D.fill(new Rectangle2D.Double(0.0, 0.0, this.canvas.getWidth(), this.canvas.getHeight()));
 
-        graphics2D.setColor(Color.WHITE);
-        graphics2D.fillRect(0, 0, 350, 350);
+        if (this.isBuild) {
+
+            Texture.setTexture(graphics2D, this.texture, this.getBoardOffsetX(), this.getBoardOffsetY());
+
+            for (PinEntity pinEntity : this.squares.values()) {
+
+                Texture.setTexture(
+                    graphics2D,
+                    pinEntity.getTexture(),
+                    this.getSquareOffsetX(pinEntity.getX()),
+                    this.getSquareOffsetY(pinEntity.getY())
+                );
+            }
+
+//            for (Rectangle2D rectangle2D : this.squares.keySet()) {
+//
+//                graphics2D.drawRect((int) rectangle2D.getX(), (int) rectangle2D.getY() - 5, (int) rectangle2D.getWidth(), (int) rectangle2D.getHeight());
+//            }
+        }
     }
 
     // events
+    private void mouseClickedCanvas(MouseEvent mouseEvent) {
+
+//        FXGraphics2D test = new FXGraphics2D(this.canvas.getGraphicsContext2D());
+//        test.setColor(Color.red);
+//        test.fillOval((int) mouseEvent.getX() - 5, (int) mouseEvent.getY() - 5, 10, 10);
+
+        for (Rectangle2D rectangle2D : this.squares.keySet())
+//            System.out.println(rectangle2D.getX() + " - " + rectangle2D.getY());
+            if (rectangle2D.contains(mouseEvent.getX(), mouseEvent.getY()))
+                this.observer.writeObject(this.squares.get(rectangle2D));
+    }
+
+    // getters
+    private double getBoardSize() {
+
+        return (Config.BOARD_BORDER_SIZE + ((Config.BOARD_SQUARE_SIZE + Config.BOARD_BORDER_SIZE) * this.size));
+    }
+
+    private double getBoardOffsetX() {
+
+        return (this.canvas.getWidth() - this.getBoardSize()) / 2;
+    }
+
+    private double getBoardOffsetY() {
+
+        return (this.canvas.getHeight() - this.getBoardSize()) / 2;
+    }
+
+    private double getSquareSize() {
+
+        return Config.BOARD_SQUARE_SIZE;
+    }
+
+    private double getSquareOffsetX(int x) {
+
+        return ((getSquareSize() + Config.BOARD_BORDER_SIZE) * x) + (this.getBoardOffsetX() + Config.BOARD_BORDER_SIZE);
+    }
+
+    private double getSquareOffsetY(int y) {
+
+        return ((getSquareSize() + Config.BOARD_BORDER_SIZE) * y) + (this.getBoardOffsetY() + Config.BOARD_BORDER_SIZE);
+    }
 }

@@ -44,12 +44,14 @@ public class GameEntity implements Serializable {
         this.pinEntities = pinEntities;
     }
 
-    public int setSize(int size, int playerAmount) {
+    public void setSize(int size, int playerAmount) {
+
+        System.out.println("setSize - " + size);
 
         if ((size * size) > (playerAmount * Config.GAME_PIN_PER_CLIENT))
-            return size;
-
-        return this.setSize(++size, playerAmount);
+            this.size = size;
+        else
+            this.setSize(size + 1, playerAmount);
     }
 
     public void isRunning(boolean isRunning) {

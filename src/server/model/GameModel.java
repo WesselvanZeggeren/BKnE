@@ -32,7 +32,11 @@ public class GameModel implements Runnable {
 
         if (this.gameEntity.isRunning()) {
 
+            System.out.println("run - clients - " + this.clientModels.size());
+
             this.gameEntity.setSize(0, this.clientModels.size());
+
+            System.out.println("run - size - " + this.gameEntity.getSize());
 
             for (int x = 0; x < this.gameEntity.getSize(); x++)
                 for (int y = 0; y < this.gameEntity.getSize(); y++)
@@ -65,7 +69,7 @@ public class GameModel implements Runnable {
         if (this.clientModels.size() >= Config.GAME_MAX_PLAYERS)
             this.gameEntity.isRunning(true);
 
-        System.out.println(this.clientModels);
+        this.run();
 
         this.observer.writeObject(this.clientModels, "<" + clientModel.getName() + "> Joined the game!");
         this.observer.writeObject(this.clientModels, this.getGameEntity());

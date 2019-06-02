@@ -2,6 +2,7 @@ package server.controller;
 
 import both.Config;
 import server.controller.interfaces.ServerInterface;
+import server.entity.PinEntity;
 import server.model.ClientModel;
 import server.model.GameModel;
 
@@ -107,6 +108,10 @@ public class ServerApplication implements ServerInterface {
 
         if (object instanceof String)
             this.writeObject(clientModel.getGameModel().getClientModels(), object);
+
+        if (object instanceof PinEntity)
+//            clientModel.getGameModel().receivePinEntity((PinEntity) object);
+            System.out.println("received pin from " + clientModel.getName());
     }
 
     @Override
