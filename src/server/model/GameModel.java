@@ -45,7 +45,7 @@ public class GameModel {
 
     private void nextRound(boolean restart) {
 
-        if (this.getPlayingClients() > 2) {
+        if (this.getPlayingClients() > 2 || restart) {
 
             this.refreshClients();
 
@@ -152,13 +152,14 @@ public class GameModel {
 
     public void removeClient(ClientModel clientModel) {
 
-        this.observer.writeObject(this.getClientModels(), clientModel.getColor() + " LEFT THE GAME!");
-
-        if (this.gameEntity.isRunning())
-            this.nextRound(true);
-
         this.clientModels.remove(clientModel);
         this.clientModelsOrder.remove(clientModel);
+
+        this.observer.writeObject(this.getClientModels(), clientModel.getName() + " LEFT THE GAME!");
+        this.observer.writeObject(this.getClientModels(), this.getGameEntity());
+
+        if (this.gameEntity.isRunning() && clientModel.isPlaying())
+            this.nextRound(true);
     }
 
     // getters

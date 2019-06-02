@@ -39,6 +39,13 @@ public class ClientApplication extends Application implements ClientInterface {
         }
     }
 
+    // methods
+    @Override
+    public void stop() throws Exception {
+
+        System.exit(0);
+    }
+
     // connection observer
     @Override
     public void receiveObject(Object object) {

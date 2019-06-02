@@ -16,8 +16,8 @@ public class ServerConnection {
     private ObjectInputStream in;
     private ObjectOutputStream out;
 
-
     private boolean isRunning;
+    private int tries = 0;
     private int port;
 
     public ServerConnection(ClientInterface observer) {
@@ -34,6 +34,7 @@ public class ServerConnection {
             this.socket = new Socket(this.host, this.port);
 
             this.isRunning = true;
+            this.tries = 0;
 
             this.out = new ObjectOutputStream(this.socket.getOutputStream());
             this.in = new ObjectInputStream(this.socket.getInputStream());
@@ -44,7 +45,7 @@ public class ServerConnection {
 
             e.printStackTrace();
 
-            return false;
+            return this.restart();
         }
 
         return true;
@@ -80,16 +81,22 @@ public class ServerConnection {
         }
     }
 
-    public void restart() {
+    public boolean restart() {
 
         try {
 
+            this.tries++;
+
             this.socket.close();
-            this.connect();
+
+            if (this.tries == 3)
+                this.connect();
 
         } catch (IOException e1) {
 
             e1.printStackTrace();
         }
+
+        return false;
     }
 }

@@ -42,7 +42,7 @@ public class ClientModel implements Runnable {
             this.objectIn  = new ObjectInputStream(this.socket.getInputStream());
 
             this.manageObjectInput();
-            this.manageSocket();
+//            this.manageSocket();
 
         } catch (IOException e) {
 
@@ -74,22 +74,6 @@ public class ClientModel implements Runnable {
         }}).start();
     }
 
-    public void manageSocket() {
-
-        new Thread(() -> { while (true) {
-
-            try {
-
-                this.socket.setKeepAlive(true);
-
-            } catch (SocketException e) {
-
-                this.close();
-            }
-
-        }}).start();
-    }
-
     public void writeObject(Object object) {
 
         try {
@@ -99,7 +83,7 @@ public class ClientModel implements Runnable {
 
         } catch (IOException e) {
 
-            e.printStackTrace();
+            this.close();
         }
     }
 

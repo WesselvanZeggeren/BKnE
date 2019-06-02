@@ -117,6 +117,7 @@ public class ServerApplication implements ServerInterface {
         clientModel.getGameModel().removeClient(clientModel);
 
         this.clientModels.remove(clientModel);
+        this.threads.get(this.clientModels.indexOf(clientModel));
     }
 
     @Override
