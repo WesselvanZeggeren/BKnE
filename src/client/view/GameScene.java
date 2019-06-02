@@ -21,6 +21,7 @@ import server.entity.PinEntity;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
+import java.util.Map;
 
 public class GameScene implements SceneInterface {
 
@@ -34,9 +35,6 @@ public class GameScene implements SceneInterface {
     private HashMap<Rectangle2D, PinEntity> squares;
     private HashMap<Rectangle2D, Color> texture;
 
-    private boolean isBuild = false;
-
-    private int boardOffset;
     private int size;
 
     private GameEntity gameEntity;
@@ -62,6 +60,7 @@ public class GameScene implements SceneInterface {
 
         this.chat = new TextArea();
         this.chat.getStyleClass().add("gameScene-textArea");
+        this.chat.setText(this.chatLog);
         this.chat.setEditable(false);
 
         Button button = new Button("Send");
@@ -75,7 +74,7 @@ public class GameScene implements SceneInterface {
         BorderPane canvasPane = new BorderPane();
         this.canvas = new ResizableCanvas(this::draw, canvasPane);
         this.canvas.setWidth(350);
-        this.canvas.setHeight(100);
+        this.canvas.setHeight(350);
         this.canvas.setOnMouseClicked(this::mouseClickedCanvas);
         canvasPane.getStyleClass().add("gameLobby-canvasPane");
         canvasPane.setCenter(this.canvas);
@@ -97,38 +96,35 @@ public class GameScene implements SceneInterface {
     @Override
     public void update(Object object) {
 
+        if (object instanceof String)
+            this.chat.setText(this.chat.getText() + object + "\n");
+
         if (object instanceof GameEntity) {
 
             this.gameEntity = (GameEntity) object;
-
-            if (!this.isBuild)
-                this.buildBoard();
 
             this.draw(new FXGraphics2D(this.canvas.getGraphicsContext2D()));
         }
     }
 
-    public void buildBoard() {
-
-        this.size = this.gameEntity.getSize();
-
-        this.setBoard();
-        this.setSquares();
-
-        this.isBuild = true;
-    }
-
     // canvas
     public void draw(FXGraphics2D graphics2D) {
+
+        if (this.size != this.gameEntity.getSize()) {
+
+            this.size = this.gameEntity.getSize();
+
+            this.setTexture();
+            this.setSquares();
+        }
 
         graphics2D.setColor(Color.getHSBColor(.5f, .64f, .73f));
         graphics2D.fill(new Rectangle2D.Double(0.0, 0.0, this.canvas.getWidth(), this.canvas.getHeight()));
 
-        if (this.isBuild) {
+        this.drawBoard(graphics2D);
+        this.drawPins(graphics2D);
 
-            this.drawBoard(graphics2D);
-            this.drawPins(graphics2D);
-        }
+        this.updateSquares();
     }
 
     public void drawBoard(FXGraphics2D graphics2D) {
@@ -144,6 +140,10 @@ public class GameScene implements SceneInterface {
                 this.getSquareOffsetY(pinEntity.getY())
             );
         }
+
+//        graphics2D.setColor(Color.RED);
+//        for (Rectangle2D rectangle2D : this.squares.keySet())
+//            graphics2D.draw(rectangle2D);
     }
 
     public void drawPins(FXGraphics2D graphics2D) {
@@ -162,47 +162,59 @@ public class GameScene implements SceneInterface {
         }
     }
 
+    public void updateSquares() {
+
+        for (Map.Entry<Rectangle2D, PinEntity> entry : this.squares.entrySet())
+            entry.getKey().setRect(this.getRectangle2D(entry.getValue()));
+    }
+
     // events
     private void mouseClickedCanvas(MouseEvent mouseEvent) {
 
-        for (Rectangle2D rectangle2D : this.squares.keySet())
-            if (rectangle2D.contains(mouseEvent.getX(), mouseEvent.getY()))
-                this.observer.writeObject(this.squares.get(rectangle2D));
+        for (Map.Entry<Rectangle2D, PinEntity> entry : this.squares.entrySet())
+            if (entry.getKey().contains(mouseEvent.getX(), mouseEvent.getY()))
+                this.observer.writeObject(entry.getValue());
     }
 
     // setters
-    private void setBoard() {
+    private void setTexture() {
 
         this.texture = Texture.getTexture(
             this.getBoardSize(),
             this.getBoardSize(),
-            Color.getHSBColor(.03f, .65f, .2f)
+            Config.BOARD_COLOR
         );
+
+        for (PinEntity pinEntity : this.gameEntity.getPinEntities()){
+
+            pinEntity.setTexture(Texture.getTexture(
+                this.getSquareSize(),
+                this.getSquareSize(),
+                Config.BOARD_SQUARE_COLOR_1,
+                Config.BOARD_SQUARE_COLOR_2
+            ));
+        }
     }
 
     private void setSquares() {
 
         this.squares = new HashMap<>();
 
-        for (PinEntity pinEntity : this.gameEntity.getPinEntities()) {
-
-            pinEntity.setTexture(Texture.getTexture(
-                this.getSquareSize(),
-                this.getSquareSize(),
-                Color.getHSBColor(.11f, .4f, .9f),
-                Color.getHSBColor(.09f, .2f, .7f)
-            ));
-
-            this.squares.put(new Rectangle2D.Double(
-                this.getSquareOffsetX(pinEntity.getX()) - 1,
-                this.getSquareOffsetY(pinEntity.getY()) + 145,
-                this.getSquareSize(),
-                this.getSquareSize()
-            ), pinEntity);
-        }
+        for (PinEntity pinEntity : this.gameEntity.getPinEntities())
+            this.squares.put(this.getRectangle2D(pinEntity), pinEntity);
     }
 
     // getters
+    private Rectangle2D getRectangle2D(PinEntity pinEntity) {
+
+        return new Rectangle2D.Double(
+            this.getSquareOffsetX(pinEntity.getX()),
+            this.getSquareOffsetY(pinEntity.getY()),
+            this.getSquareSize(),
+            this.getSquareSize()
+        );
+    }
+
     private double getBoardSize() {
 
         return (Config.BOARD_BORDER_SIZE + ((Config.BOARD_SQUARE_SIZE + Config.BOARD_BORDER_SIZE) * this.size));

@@ -19,38 +19,11 @@ public class PinModel {
     }
 
     // getters
-    public boolean hasClient() {
+    public int       getX()         { return this.pinEntity.getX();    }
+    public int       getY()         { return this.pinEntity.getY();    }
+    public PinEntity getPinEntity() { return this.pinEntity;           }
+    public boolean   hasClient()    { return this.clientModel != null; }
 
-        return (this.clientModel != null);
-    }
-
-    public int getX() {
-
-        return this.pinEntity.getX();
-    }
-
-    public int getY() {
-
-        return this.pinEntity.getY();
-    }
-
-    public boolean isSolid() {
-
-        return this.pinEntity.isSolid();
-    }
-
-    public PinEntity getPinEntity() {
-
-        return this.pinEntity;
-    }
     // setters
-    public void setClientModel(ClientModel clientModel) {
-
-        this.clientModel = clientModel;
-    }
-
-    public void isSolid(boolean isSolid) {
-
-        this.pinEntity.isSolid(isSolid);
-    }
+    public void setClientModel(ClientModel clientModel) { this.clientModel = clientModel; }
 }

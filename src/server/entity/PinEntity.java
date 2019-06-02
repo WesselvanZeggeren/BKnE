@@ -11,7 +11,6 @@ public class PinEntity implements Serializable {
     private int x;
     private int y;
 
-    private boolean isSolid = false;
     private HashMap<Rectangle2D, Color> texture;
 
     // constructor
@@ -23,28 +22,13 @@ public class PinEntity implements Serializable {
         this.texture = null;
     }
 
-    // methods
-    public boolean hasTexture() {
-
-        return (this.texture != null);
-    }
-
     // getters
     public int     getX()                           { return this.x;       }
     public int     getY()                           { return this.y;       }
-    public boolean isSolid()                        { return this.isSolid; }
     public HashMap<Rectangle2D, Color> getTexture() { return this.texture; }
 
     // setters
-    public void isSolid(boolean isSolid) {
-
-        this.isSolid = isSolid;
-    }
-
-    public void setTexture(HashMap<Rectangle2D, Color> texture) {
-
-        this.texture = texture;
-    }
+    public void setTexture(HashMap<Rectangle2D, Color> texture) { this.texture = texture; }
 
     // toString
     @Override
@@ -54,7 +38,6 @@ public class PinEntity implements Serializable {
             "PinEntity {" +
                 "x = "         + this.x +
                 ", y = "       + this.y +
-                ", isSolid = " + this.isSolid +
             '}'
         ;
     }

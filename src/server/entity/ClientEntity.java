@@ -15,6 +15,7 @@ public class ClientEntity implements Serializable {
     private String name = "";
 
     private boolean isPlaying = true;
+    private boolean isFinished = false;
 
     // constructor
     public ClientEntity() {
@@ -38,8 +39,14 @@ public class ClientEntity implements Serializable {
     public Color                getColor()       { return this.color;       }
     public String               getName()        { return this.name;        }
     public boolean              isPlaying()      { return this.isPlaying;   }
+    public boolean              isFinished()     { return this.isFinished;  }
 
     // setters
+    public void setColor(Color color)          { this.color      = color;      }
+    public void setName(String name)           { this.name       = name;       }
+    public void isPlaying(boolean isPlaying)   { this.isPlaying  = isPlaying;  }
+    public void isFinished(boolean isFinished) { this.isFinished = isFinished; }
+
     public void setPinEntities(ArrayList<PinModel> pinModels) {
 
         ArrayList<PinEntity> pinEntities = new ArrayList<>();
@@ -50,31 +57,17 @@ public class ClientEntity implements Serializable {
         this.pinEntities = pinEntities;
     }
 
-    public void setColor(Color color) {
-
-        this.color = color;
-    }
-
-    public void setName(String name) {
-
-        this.name = name;
-    }
-
-    public void isPlaying(boolean isPlaying) {
-
-        this.isPlaying = isPlaying;
-    }
-
     // toString
     @Override
     public String toString() {
 
         return
             "ClientEntity {" +
-                "pinEntities = " + this.pinEntities +
-                ", color = "     + this.color +
-                ", name = '"     + this.name + '\'' +
-                ", isPlaying = " + this.isPlaying +
+                "pinEntities = "  + this.pinEntities +
+                ", color = "      + this.color +
+                ", name = '"      + this.name + '\'' +
+                ", isPlaying = "  + this.isPlaying +
+                ", isFinished = " + this.isFinished +
             '}'
         ;
     }

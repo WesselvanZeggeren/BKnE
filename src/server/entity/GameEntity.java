@@ -24,6 +24,8 @@ public class GameEntity implements Serializable {
     public boolean                 isRunning()         { return this.isRunning;      }
 
     // setters
+    public void isRunning(boolean isRunning) { this.isRunning = isRunning; }
+
     public void setClientEntities(ArrayList<ClientModel> clientModels) {
 
         ArrayList<ClientEntity> clientEntities = new ArrayList<>();
@@ -50,11 +52,6 @@ public class GameEntity implements Serializable {
             this.size = size;
         else
             this.setSize(size + 1, playerAmount);
-    }
-
-    public void isRunning(boolean isRunning) {
-
-        this.isRunning = isRunning;
     }
 
     // toString

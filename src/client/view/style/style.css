@@ -174,8 +174,8 @@
 
 .gameScene-canvasPane {
 
-    -fx-pref-height: 350;
-    -fx-pref-width: 350;
-    -fx-background-radius: 2px;
-    -fx-padding: 0 0 20px 0;
+    -fx-min-width: 350 !important;
+    -fx-max-width: 350 !important;
+    -fx-min-height: 350 !important;
+    -fx-max-height: 350 !important;
 }

@@ -1,6 +1,5 @@
 package both;
 
-import both.Config;
 import org.jfree.fx.FXGraphics2D;
 
 import java.awt.*;
@@ -37,7 +36,7 @@ public class Texture {
 
         HashMap<Rectangle2D, Color> texture = new HashMap<>();
 
-        int scale = Config.PIXEL_SIZE;
+        double scale = Config.PIXEL_SIZE;
 
         for (int a = 0; a < (w / scale); a++)
             for (int b = 0; b < (h / scale); b++)
