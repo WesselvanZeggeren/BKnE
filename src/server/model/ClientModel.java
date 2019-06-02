@@ -106,15 +106,6 @@ public class ClientModel implements Runnable {
         return false;
     }
 
-    public void cleanClient() {
-
-        this.pinModels = new ArrayList<>();
-        this.gameModel = null;
-
-        this.isFinished(false);
-        this.isPlaying(true);
-    }
-
     // setters
     public void setGameModel(GameModel gameModel)           { this.gameModel = gameModel;               }
     public void setPinModels(ArrayList<PinModel> pinModels) { this.pinModels = pinModels;               }

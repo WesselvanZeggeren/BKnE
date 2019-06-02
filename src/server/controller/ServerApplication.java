@@ -76,24 +76,14 @@ public class ServerApplication implements ServerInterface {
     private void createGame() {
 
         GameModel gameModel = new GameModel(this);
-        Thread thread = new Thread(gameModel);
-        thread.start();
-
-        this.threads.add(thread);
         this.gameModels.add(gameModel);
     }
 
-    private void addAllToGame(ArrayList<ClientModel> clientModels) {
-
-        for (ClientModel clientModel : this.clientModels)
-            this.addToGame(clientModel);
-    }
-
-    private void sleepThread(int miliseconds) {
+    private void sleepThread(int milliseconds) {
 
         try {
 
-            Thread.sleep(miliseconds);
+            Thread.sleep(milliseconds);
         } catch (InterruptedException e) {
 
             e.printStackTrace();

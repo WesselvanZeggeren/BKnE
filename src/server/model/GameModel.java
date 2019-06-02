@@ -8,7 +8,7 @@ import server.entity.PinEntity;
 
 import java.util.ArrayList;
 
-public class GameModel implements Runnable {
+public class GameModel {
 
     // attributes
     private ServerApplication observer;
@@ -27,43 +27,38 @@ public class GameModel implements Runnable {
 
         this.gameEntity = new GameEntity();
 
-        this.pinModels = new ArrayList<>();
         this.clientModels = new ArrayList<>();
         this.clientModelsOrder = new ArrayList<>();
-
-        this.key = 0;
     }
 
     // methods
-    @Override
-    public void run() {
+    public void startGame() {
 
-        if (this.gameEntity.isRunning()) {
+        this.gameEntity.setSize(0, this.getPlayingClients());
+        this.pinModels = new ArrayList<>();
+        this.key = 0;
 
-            this.gameEntity.setSize(0, this.getPlayingClients());
-
-            for (int x = 0; x < this.gameEntity.getSize(); x++)
-                for (int y = 0; y < this.gameEntity.getSize(); y++)
-                    this.pinModels.add(new PinModel(x, y));
-        }
+        for (int x = 0; x < this.gameEntity.getSize(); x++)
+            for (int y = 0; y < this.gameEntity.getSize(); y++)
+                this.pinModels.add(new PinModel(x, y));
     }
 
-    private void restartGame() {
+    private void nextRound() {
 
-        if (this.getPlayingClients() != 1) {
+        System.out.println(this.getPlayingClients());
 
+        if (this.getPlayingClients() > 2) {
+
+            this.refreshClients();
             this.getCurrentClient().isPlaying(false);
-            this.clientModelsOrder.add(this.getCurrentClient());
 
-            for (ClientModel clientModel : this.clientModelsOrder) {
+            System.out.println(this.getPlayingClients());
 
-                clientModel.isFinished(false);
-            }
-
-            this.clientModels = this.clientModelsOrder;
+            this.clientModels = this.getClientModelsOrder();
             this.clientModelsOrder = new ArrayList<>();
 
-            this.run();
+            this.startGame();
+
             this.observer.writeObject(this.clientModels, "NEXT ROUND");
             this.observer.writeObject(this.clientModels, this.getGameEntity());
         } else {
@@ -82,7 +77,20 @@ public class GameModel implements Runnable {
 
             this.checkThreeInARow(clientModel);
             this.nextClientModel();
+
             this.observer.writeObject(this.clientModels, this.getGameEntity());
+
+            if (this.getNotFinishedClients() == 1)
+                this.nextRound();
+        }
+    }
+
+    private void refreshClients() {
+
+        for (ClientModel clientModel : this.clientModels) {
+
+            clientModel.setPinModels(new ArrayList<>());
+            clientModel.isFinished(false);
         }
     }
 
@@ -95,9 +103,6 @@ public class GameModel implements Runnable {
 
         if (this.getCurrentClient().isFinished() || !this.getCurrentClient().isPlaying())
             this.nextClientModel();
-
-        if (this.getNotFinishedClients() == 1)
-            this.restartGame();
     }
 
     private void checkThreeInARow(ClientModel clientModel) {
@@ -128,7 +133,7 @@ public class GameModel implements Runnable {
         if (this.clientModels.size() >= Config.GAME_MAX_PLAYERS)
             this.gameEntity.isRunning(true);
 
-        this.run();
+        this.startGame();
 
         this.observer.writeObject(this.clientModels, "<" + clientModel.getName() + "> Joined the game!");
         this.observer.writeObject(this.clientModels, this.getGameEntity());
@@ -138,7 +143,10 @@ public class GameModel implements Runnable {
 
         for (ClientModel clientModel : this.clientModels) {
 
-            clientModel.cleanClient();
+            clientModel.setGameModel(null);
+            clientModel.setPinModels(new ArrayList<>());
+            clientModel.isFinished(false);
+            clientModel.isPlaying(true);
         }
 
         this.clientModels = new ArrayList<>();
@@ -177,5 +185,16 @@ public class GameModel implements Runnable {
         this.gameEntity.setPinEntities(this.pinModels);
 
         return this.gameEntity;
+    }
+
+    private ArrayList<ClientModel> getClientModelsOrder() {
+
+        for (int i = this.clientModelsOrder.size(); i < this.clientModels.size(); i++) {
+
+            System.out.println("added losing player! " + this.clientModels.get(i).getName());
+            this.clientModelsOrder.add(this.clientModels.get(i));
+        }
+
+        return this.clientModelsOrder;
     }
 }
