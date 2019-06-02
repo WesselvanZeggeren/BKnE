@@ -10,5 +10,10 @@ public class Test {
 
         ClientApplication clientApplication = new ClientApplication();
         clientApplication.startup();
+
+
+
+
+
     }
 }

@@ -3,7 +3,6 @@ package server.model;
 import both.Config;
 import both.Texture;
 import server.controller.ServerApplication;
-import server.entity.ClientEntity;
 import server.entity.GameEntity;
 import server.entity.PinEntity;
 
@@ -44,12 +43,16 @@ public class GameModel {
                 this.pinModels.add(new PinModel(x, y));
     }
 
-    private void nextRound() {
+    private void nextRound(boolean restart) {
 
-        if (this.getPlayingClients() > 2) {
+        if (this.getPlayingClients() > 2 || restart) {
+
+            System.out.println("Test");
 
             this.refreshClients();
-            this.getCurrentClient().isPlaying(false);
+
+            if (!restart)
+                this.getCurrentClient().isPlaying(false);
 
             this.startGame();
 
@@ -78,7 +81,7 @@ public class GameModel {
             this.observer.writeObject(this.clientModels, this.getGameEntity());
 
             if (this.getNotFinishedClients() == 1)
-                this.nextRound();
+                this.nextRound(false);
         }
     }
 
@@ -147,6 +150,21 @@ public class GameModel {
         }
 
         this.clientModels = new ArrayList<>();
+    }
+
+    public void removeClient(ClientModel clientModel) {
+
+        this.clientModels.remove(clientModel);
+        this.clientModelsOrder.remove(clientModel);
+
+        this.observer.writeObject(this.getClientModels(), clientModel.getName() + " LEFT THE GAME!");
+        this.observer.writeObject(this.getClientModels(), this.getGameEntity());
+
+        if (this.gameEntity.isRunning() && this.clientModels.get(this.key).equals(clientModel))
+            this.nextClientModel();
+
+        if (this.gameEntity.isRunning() && clientModel.isPlaying())
+            this.nextRound(true);
     }
 
     // getters

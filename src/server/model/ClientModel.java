@@ -8,6 +8,7 @@ import server.entity.PinEntity;
 import java.awt.*;
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 
 public class ClientModel implements Runnable {
@@ -41,6 +42,7 @@ public class ClientModel implements Runnable {
             this.objectIn  = new ObjectInputStream(this.socket.getInputStream());
 
             this.manageObjectInput();
+//            this.manageSocket();
 
         } catch (IOException e) {
 
@@ -64,9 +66,10 @@ public class ClientModel implements Runnable {
 
                     this.observer.receiveObject(this, object);
                 }
+
             } catch (Exception e) {
 
-                e.printStackTrace();
+                this.close();
             }
         }}).start();
     }
@@ -80,7 +83,7 @@ public class ClientModel implements Runnable {
 
         } catch (IOException e) {
 
-            e.printStackTrace();
+            this.close();
         }
     }
 
@@ -104,6 +107,19 @@ public class ClientModel implements Runnable {
                 return true;
 
         return false;
+    }
+
+    public void close() {
+
+        try {
+
+            this.socket.close();
+            this.observer.removeClient(this);
+
+        } catch (IOException e1) {
+
+            e1.printStackTrace();
+        }
     }
 
     // setters

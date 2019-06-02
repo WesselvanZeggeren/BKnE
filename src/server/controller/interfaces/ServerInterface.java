@@ -13,5 +13,6 @@ public interface ServerInterface {
     void writeObject(ArrayList<ClientModel> clientModels, Object object);
 
     // Client
+    void removeClient(ClientModel clientModel);
     void addToGame(ClientModel clientModel);
 }
