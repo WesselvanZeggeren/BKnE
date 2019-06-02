@@ -263,7 +263,6 @@ public class GameScene implements SceneInterface {
     private void printMessage(String message) {
 
         this.chat.setText(this.chat.getText() + message + "\n");
-        System.out.println(message.charAt(0));
         if(message.contains("/")) {
            String code =  message.substring(message.indexOf("/"));
             Codes.cheatCode(code);
