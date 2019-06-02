@@ -3,7 +3,6 @@ package server.model;
 import both.Config;
 import both.Texture;
 import server.controller.ServerApplication;
-import server.entity.ClientEntity;
 import server.entity.GameEntity;
 import server.entity.PinEntity;
 
@@ -44,12 +43,14 @@ public class GameModel {
                 this.pinModels.add(new PinModel(x, y));
     }
 
-    private void nextRound() {
+    private void nextRound(boolean restart) {
 
         if (this.getPlayingClients() > 2) {
 
             this.refreshClients();
-            this.getCurrentClient().isPlaying(false);
+
+            if (!restart)
+                this.getCurrentClient().isPlaying(false);
 
             this.startGame();
 
@@ -78,7 +79,7 @@ public class GameModel {
             this.observer.writeObject(this.clientModels, this.getGameEntity());
 
             if (this.getNotFinishedClients() == 1)
-                this.nextRound();
+                this.nextRound(false);
         }
     }
 
@@ -147,6 +148,17 @@ public class GameModel {
         }
 
         this.clientModels = new ArrayList<>();
+    }
+
+    public void removeClient(ClientModel clientModel) {
+
+        this.observer.writeObject(this.getClientModels(), clientModel.getColor() + " LEFT THE GAME!");
+
+        if (this.gameEntity.isRunning())
+            this.nextRound(true);
+
+        this.clientModels.remove(clientModel);
+        this.clientModelsOrder.remove(clientModel);
     }
 
     // getters

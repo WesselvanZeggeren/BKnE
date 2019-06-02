@@ -61,7 +61,7 @@ public class ServerConnection {
 
                 } catch (Exception e) {
 
-                    e.printStackTrace();
+                    this.restart();
                 }
             }
         }).start();
@@ -80,16 +80,16 @@ public class ServerConnection {
         }
     }
 
-    public void stop() {
+    public void restart() {
 
         try {
 
-            this.isRunning = false;
             this.socket.close();
+            this.connect();
 
-        } catch (IOException e) {
+        } catch (IOException e1) {
 
-            e.printStackTrace();
+            e1.printStackTrace();
         }
     }
 }

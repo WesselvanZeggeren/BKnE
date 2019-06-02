@@ -112,6 +112,14 @@ public class ServerApplication implements ServerInterface {
 
     // game observer
     @Override
+    public void removeClient(ClientModel clientModel) {
+
+        clientModel.getGameModel().removeClient(clientModel);
+
+        this.clientModels.remove(clientModel);
+    }
+
+    @Override
     public void addToGame(ClientModel clientModel) {
 
         for (GameModel gameModel : this.gameModels)
