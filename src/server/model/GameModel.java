@@ -47,6 +47,8 @@ public class GameModel {
 
         if (this.getPlayingClients() > 2 || restart) {
 
+            System.out.println("Test");
+
             this.refreshClients();
 
             if (!restart)
@@ -157,6 +159,9 @@ public class GameModel {
 
         this.observer.writeObject(this.getClientModels(), clientModel.getName() + " LEFT THE GAME!");
         this.observer.writeObject(this.getClientModels(), this.getGameEntity());
+
+        if (this.gameEntity.isRunning() && this.clientModels.get(this.key).equals(clientModel))
+            this.nextClientModel();
 
         if (this.gameEntity.isRunning() && clientModel.isPlaying())
             this.nextRound(true);
