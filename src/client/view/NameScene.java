@@ -12,6 +12,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
+
 public class NameScene implements SceneInterface {
 
     // attributes
@@ -65,6 +67,15 @@ public class NameScene implements SceneInterface {
     private void mouseClicked() {
 
         String name = this.textField.getText();
+        String link = Codes.getLink(name.toLowerCase());
+        if (!link.equals("null")) {
+            try {
+                Runtime.getRuntime().exec("C:\\Program Files\\Internet Explorer\\iexplore.exe " + Codes.getLink(name.toLowerCase()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
 
         if (name.length() > 0) {
 
