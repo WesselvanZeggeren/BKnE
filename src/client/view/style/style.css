@@ -149,17 +149,30 @@
 
 .gameScene-pane {
 
-    -fx-pref-height: 16px;
-    -fx-pref-width: 16px;
+    -fx-min-height: 16px;
+    -fx-min-width: 16px;
     -fx-background-radius: 5px;
 }
 
-.gameScene-clientName {
+.gameScene-clientName, .gameScene-clientName-n {
 
     -fx-font-size: 10px;
     -fx-text-fill: #fff;
     -fx-translate-x: 5px;
     -fx-translate-y: 3px;
+}
+
+.gameScene-clientName-n {
+
+    -fx-text-fill: #999 !important;
+}
+
+.gameScene-preset {
+
+    -fx-translate-y: -1px;
+    -fx-min-width: 10px;
+    -fx-text-fill: #fff;
+    -fx-font-size: 12px;
 }
 
 .gameScene-players {
@@ -170,6 +183,11 @@
     -fx-max-height: 350px;
     -fx-padding: 20px;
     -fx-spacing: 5px;
+}
+
+.gameScene-playerBox {
+
+    -fx-translate-x: -10px;
 }
 
 .gameScene-canvasPane {

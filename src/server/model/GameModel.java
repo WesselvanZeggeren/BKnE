@@ -3,6 +3,7 @@ package server.model;
 import both.Config;
 import both.Texture;
 import server.controller.ServerApplication;
+import server.entity.ClientEntity;
 import server.entity.GameEntity;
 import server.entity.PinEntity;
 
@@ -45,19 +46,15 @@ public class GameModel {
 
     private void nextRound() {
 
-        System.out.println(this.getPlayingClients());
-
         if (this.getPlayingClients() > 2) {
 
             this.refreshClients();
             this.getCurrentClient().isPlaying(false);
 
-            System.out.println(this.getPlayingClients());
+            this.startGame();
 
             this.clientModels = this.getClientModelsOrder();
             this.clientModelsOrder = new ArrayList<>();
-
-            this.startGame();
 
             this.observer.writeObject(this.clientModels, "NEXT ROUND");
             this.observer.writeObject(this.clientModels, this.getGameEntity());
@@ -181,19 +178,19 @@ public class GameModel {
 
     private GameEntity getGameEntity() {
 
+        this.gameEntity.setClientEntitiesOrder(this.clientModelsOrder);
         this.gameEntity.setClientEntities(this.clientModels);
         this.gameEntity.setPinEntities(this.pinModels);
+        this.gameEntity.setKey(this.key);
 
         return this.gameEntity;
     }
 
     private ArrayList<ClientModel> getClientModelsOrder() {
 
-        for (int i = this.clientModelsOrder.size(); i < this.clientModels.size(); i++) {
-
-            System.out.println("added losing player! " + this.clientModels.get(i).getName());
-            this.clientModelsOrder.add(this.clientModels.get(i));
-        }
+        for (ClientModel clientModel : this.clientModels)
+            if (!clientModel.isPlaying())
+                this.clientModelsOrder.add(clientModel);
 
         return this.clientModelsOrder;
     }
