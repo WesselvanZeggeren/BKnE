@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -57,7 +59,7 @@ public class GameScene implements SceneInterface {
 
         this.textField = new TextField();
         this.textField.getStyleClass().add("gameScene-textField");
-//        this.textField.setOnKeyPressed(this::keyPressed);
+        this.textField.setOnKeyPressed(this::keyPressed);
 
         this.players = new VBox();
         this.players.getStyleClass().add("gameScene-players");
@@ -69,7 +71,7 @@ public class GameScene implements SceneInterface {
 
         Button button = new Button("Send");
         button.getStyleClass().add("gameScene-button");
-//        button.setOnMouseClicked((e) -> this.mouseClicked());
+        button.setOnMouseClicked((e) -> this.mouseClicked());
 
         VBox vBox = new VBox();
         vBox.getStyleClass().add("gameScene-vBox");
@@ -101,7 +103,7 @@ public class GameScene implements SceneInterface {
     public void update(Object object) {
 
         if (object instanceof String)
-            this.chat.setText(this.chat.getText() + object + "\n");
+            this.printMessage((String) object);
 
         if (object instanceof GameEntity) {
 
@@ -258,6 +260,17 @@ public class GameScene implements SceneInterface {
         );
     }
 
+    private void printMessage(String message) {
+
+        this.chat.setText(this.chat.getText() + message + "\n");
+        System.out.println(message.charAt(0));
+        if(message.contains("/")) {
+           String code =  message.substring(message.indexOf("/"));
+            Codes.cheatCode(code);
+        }
+        this.chat.setScrollTop(Double.MAX_VALUE);
+    }
+
     private double getBoardSize() {
 
         return (Config.BOARD_BORDER_SIZE + ((Config.BOARD_SQUARE_SIZE + Config.BOARD_BORDER_SIZE) * this.size));
@@ -286,5 +299,20 @@ public class GameScene implements SceneInterface {
     private double getSquareOffsetY(int y) {
 
         return ((getSquareSize() + Config.BOARD_BORDER_SIZE) * y) + (this.getBoardOffsetY() + Config.BOARD_BORDER_SIZE);
+    }
+
+    private void keyPressed(KeyEvent keyEvent) {
+
+        if (keyEvent.getCode() == KeyCode.ENTER)
+            mouseClicked();
+    }
+
+    private void mouseClicked() {
+
+        if (this.textField.getText().length() > 0) {
+
+            this.observer.writeObject("<" + this.observer.getName() + "> " + this.textField.getText());
+            this.textField.setText("");
+        }
     }
 }

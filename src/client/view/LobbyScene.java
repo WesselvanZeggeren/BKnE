@@ -94,6 +94,7 @@ public class LobbyScene implements SceneInterface {
     private void printMessage(String message) {
 
         this.chat.setText(this.chat.getText() + message + "\n");
+        this.chat.setScrollTop(Double.MAX_VALUE);
     }
 
     private void startGame(GameEntity gameEntity) {
