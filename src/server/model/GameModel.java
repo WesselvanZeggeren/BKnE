@@ -1,9 +1,12 @@
 package server.model;
 
 import both.Config;
+import both.Texture;
 import server.controller.ServerApplication;
 import server.entity.GameEntity;
+import server.entity.PinEntity;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class GameModel implements Runnable {
@@ -32,25 +35,27 @@ public class GameModel implements Runnable {
 
         if (this.gameEntity.isRunning()) {
 
-            System.out.println("run - clients - " + this.clientModels.size());
-
             this.gameEntity.setSize(0, this.clientModels.size());
-
-            System.out.println("run - size - " + this.gameEntity.getSize());
 
             for (int x = 0; x < this.gameEntity.getSize(); x++)
                 for (int y = 0; y < this.gameEntity.getSize(); y++)
                     this.pinModels.add(new PinModel(x, y));
-
-            this.startGame();
         }
     }
 
-    private void startGame() {
+    public void receivePin(ClientModel clientModel, PinEntity pinEntity) {
 
+        if (this.isFreePin(pinEntity.getX(), pinEntity.getY())) {
+
+            pinEntity.setTexture(Texture.getPinTexture(clientModel.getColor()));
+
+            clientModel.addPin(pinEntity);
+
+            this.observer.writeObject(this.clientModels, this.getGameEntity());
+        }
     }
 
-    public boolean isFreePin(int x, int y) {
+    private boolean isFreePin(int x, int y) {
 
         for (ClientModel clientModel : this.clientModels)
             if (clientModel.containsPin(x, y))

@@ -110,8 +110,7 @@ public class ServerApplication implements ServerInterface {
             this.writeObject(clientModel.getGameModel().getClientModels(), object);
 
         if (object instanceof PinEntity)
-//            clientModel.getGameModel().receivePinEntity((PinEntity) object);
-            System.out.println("received pin from " + clientModel.getName());
+            clientModel.getGameModel().receivePin(clientModel, (PinEntity) object);
     }
 
     @Override

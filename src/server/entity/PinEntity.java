@@ -19,6 +19,14 @@ public class PinEntity implements Serializable {
 
         this.x = x;
         this.y = y;
+
+        this.texture = null;
+    }
+
+    // methods
+    public boolean hasTexture() {
+
+        return (this.texture != null);
     }
 
     // getters

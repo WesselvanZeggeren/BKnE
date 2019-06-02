@@ -13,6 +13,10 @@ public class PinModel {
 
         this.pinEntity = new PinEntity(x, y);
     }
+    public PinModel(PinEntity pinEntity) {
+
+        this.pinEntity = pinEntity;
+    }
 
     // getters
     public boolean hasClient() {

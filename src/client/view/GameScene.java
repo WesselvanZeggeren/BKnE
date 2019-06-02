@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.jfree.fx.FXGraphics2D;
 import org.jfree.fx.ResizableCanvas;
+import server.entity.ClientEntity;
 import server.entity.GameEntity;
 import server.entity.PinEntity;
 
@@ -38,7 +39,7 @@ public class GameScene implements SceneInterface {
     private int boardOffset;
     private int size;
 
-    private GameEntity lastEntity;
+    private GameEntity gameEntity;
     private String chatLog;
 
     // startup
@@ -46,7 +47,7 @@ public class GameScene implements SceneInterface {
 
         this.observer   = observer;
         this.chatLog    = chatLog;
-        this.lastEntity = gameEntity;
+        this.gameEntity = gameEntity;
     }
 
     @Override
@@ -87,7 +88,7 @@ public class GameScene implements SceneInterface {
         borderPane.getStyleClass().add("gameScene-borderPane");
         borderPane.setCenter(hBox);
 
-        this.update(this.lastEntity);
+        this.update(this.gameEntity);
 
         return new Scene(borderPane, Config.GAME_SCREEN_WIDTH, Config.GAME_SCREEN_HEIGHT);
     }
@@ -98,40 +99,21 @@ public class GameScene implements SceneInterface {
 
         if (object instanceof GameEntity) {
 
-            GameEntity gameEntity = (GameEntity) object;
+            this.gameEntity = (GameEntity) object;
 
             if (!this.isBuild)
-                this.buildBoard(gameEntity);
+                this.buildBoard();
 
             this.draw(new FXGraphics2D(this.canvas.getGraphicsContext2D()));
         }
     }
 
-    public void buildBoard(GameEntity gameEntity) {
+    public void buildBoard() {
 
-        this.size = gameEntity.getSize();
-        this.squares = new HashMap<>();
-        this.texture = Texture.getTexture(
-            this.getBoardSize(), this.getBoardSize(),
-            Color.getHSBColor(.03f, .65f, .2f)
-        );
+        this.size = this.gameEntity.getSize();
 
-        System.out.println("buildBoard - " + gameEntity.getSize());
-
-        for (PinEntity pinEntity : gameEntity.getPinEntities()) {
-
-            pinEntity.setTexture(Texture.getTexture(
-                this.getSquareSize(), this.getSquareSize(),
-                Color.getHSBColor(.11f, .4f, .9f),
-                Color.getHSBColor(.09f, .2f, .7f)
-            ));
-
-            this.squares.put(new Rectangle2D.Double(
-                this.getSquareOffsetX(pinEntity.getX()) - 1,
-                this.getSquareOffsetY(pinEntity.getY()) + 145,
-                this.getSquareSize(), this.getSquareSize()
-            ), pinEntity);
-        }
+        this.setBoard();
+        this.setSquares();
 
         this.isBuild = true;
     }
@@ -144,9 +126,31 @@ public class GameScene implements SceneInterface {
 
         if (this.isBuild) {
 
-            Texture.setTexture(graphics2D, this.texture, this.getBoardOffsetX(), this.getBoardOffsetY());
+            this.drawBoard(graphics2D);
+            this.drawPins(graphics2D);
+        }
+    }
 
-            for (PinEntity pinEntity : this.squares.values()) {
+    public void drawBoard(FXGraphics2D graphics2D) {
+
+        Texture.setTexture(graphics2D, this.texture, this.getBoardOffsetX(), this.getBoardOffsetY());
+
+        for (PinEntity pinEntity : this.squares.values()) {
+
+            Texture.setTexture(
+                graphics2D,
+                pinEntity.getTexture(),
+                this.getSquareOffsetX(pinEntity.getX()),
+                this.getSquareOffsetY(pinEntity.getY())
+            );
+        }
+    }
+
+    public void drawPins(FXGraphics2D graphics2D) {
+
+        for (ClientEntity clientEntity : this.gameEntity.getClientEntities()) {
+
+            for (PinEntity pinEntity : clientEntity.getPinEntities()) {
 
                 Texture.setTexture(
                     graphics2D,
@@ -155,25 +159,47 @@ public class GameScene implements SceneInterface {
                     this.getSquareOffsetY(pinEntity.getY())
                 );
             }
-
-//            for (Rectangle2D rectangle2D : this.squares.keySet()) {
-//
-//                graphics2D.drawRect((int) rectangle2D.getX(), (int) rectangle2D.getY() - 5, (int) rectangle2D.getWidth(), (int) rectangle2D.getHeight());
-//            }
         }
     }
 
     // events
     private void mouseClickedCanvas(MouseEvent mouseEvent) {
 
-//        FXGraphics2D test = new FXGraphics2D(this.canvas.getGraphicsContext2D());
-//        test.setColor(Color.red);
-//        test.fillOval((int) mouseEvent.getX() - 5, (int) mouseEvent.getY() - 5, 10, 10);
-
         for (Rectangle2D rectangle2D : this.squares.keySet())
-//            System.out.println(rectangle2D.getX() + " - " + rectangle2D.getY());
             if (rectangle2D.contains(mouseEvent.getX(), mouseEvent.getY()))
                 this.observer.writeObject(this.squares.get(rectangle2D));
+    }
+
+    // setters
+    private void setBoard() {
+
+        this.texture = Texture.getTexture(
+            this.getBoardSize(),
+            this.getBoardSize(),
+            Color.getHSBColor(.03f, .65f, .2f)
+        );
+    }
+
+    private void setSquares() {
+
+        this.squares = new HashMap<>();
+
+        for (PinEntity pinEntity : this.gameEntity.getPinEntities()) {
+
+            pinEntity.setTexture(Texture.getTexture(
+                this.getSquareSize(),
+                this.getSquareSize(),
+                Color.getHSBColor(.11f, .4f, .9f),
+                Color.getHSBColor(.09f, .2f, .7f)
+            ));
+
+            this.squares.put(new Rectangle2D.Double(
+                this.getSquareOffsetX(pinEntity.getX()) - 1,
+                this.getSquareOffsetY(pinEntity.getY()) + 145,
+                this.getSquareSize(),
+                this.getSquareSize()
+            ), pinEntity);
+        }
     }
 
     // getters

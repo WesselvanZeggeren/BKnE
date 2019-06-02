@@ -46,8 +46,6 @@ public class GameEntity implements Serializable {
 
     public void setSize(int size, int playerAmount) {
 
-        System.out.println("setSize - " + size);
-
         if ((size * size) > (playerAmount * Config.GAME_PIN_PER_CLIENT))
             this.size = size;
         else

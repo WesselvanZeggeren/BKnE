@@ -1,7 +1,9 @@
 package server.model;
 
+import both.Config;
 import server.controller.interfaces.ServerInterface;
 import server.entity.ClientEntity;
+import server.entity.PinEntity;
 
 import java.awt.*;
 import java.io.*;
@@ -133,7 +135,19 @@ public class ClientModel implements Runnable {
         this.pinModels = pinModels;
     }
 
-    public void addPin(PinModel pinModel) {
+    public void setPinsSolid() {
+
+        for (PinModel pinModel : this.pinModels)
+            pinModel.isSolid(true);
+    }
+
+    public void addPin(PinEntity pinEntity) {
+
+        PinModel pinModel = new PinModel(pinEntity);
+        pinModel.setClientModel(this);
+
+        if (this.pinModels.size() >= Config.GAME_PIN_PER_CLIENT)
+            this.pinModels.remove(0);
 
         this.pinModels.add(pinModel);
     }
