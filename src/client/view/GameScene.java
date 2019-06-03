@@ -43,6 +43,7 @@ public class GameScene implements SceneInterface {
     private HashMap<Rectangle2D, Color> texture;
 
     private int size;
+    private boolean rebuild = false;
 
     private GameEntity gameEntity;
     private String chatLog;
@@ -156,7 +157,7 @@ public class GameScene implements SceneInterface {
     // canvas
     public void draw(FXGraphics2D graphics2D) {
 
-        if (this.size != this.gameEntity.getSize()) {
+        if (this.size != this.gameEntity.getSize() || this.rebuild) {
 
             this.size = this.gameEntity.getSize();
 
@@ -187,9 +188,9 @@ public class GameScene implements SceneInterface {
             );
         }
 
-//        graphics2D.setColor(Color.RED);
-//        for (Rectangle2D rectangle2D : this.squares.keySet())
-//            graphics2D.draw(rectangle2D);
+        graphics2D.setColor(Config.BOARD_SQUARE_COLOR_1);
+        for (Rectangle2D rectangle2D : this.squares.keySet())
+            graphics2D.draw(rectangle2D);
     }
 
     public void drawPins(FXGraphics2D graphics2D) {
@@ -217,9 +218,20 @@ public class GameScene implements SceneInterface {
     // events
     private void mouseClickedCanvas(MouseEvent mouseEvent) {
 
-        for (Map.Entry<Rectangle2D, PinEntity> entry : this.squares.entrySet())
-            if (entry.getKey().contains(mouseEvent.getX(), mouseEvent.getY()))
-                this.observer.writeObject(entry.getValue());
+        if (mouseEvent.isAltDown()) {
+
+            this.rebuild = true;
+
+            this.update(this.gameEntity);
+
+            this.rebuild = false;
+
+        } else  {
+
+            for (Map.Entry<Rectangle2D, PinEntity> entry : this.squares.entrySet())
+                if (entry.getKey().contains(mouseEvent.getX(), mouseEvent.getY()))
+                    this.observer.writeObject(entry.getValue());
+        }
     }
 
     // setters
@@ -264,11 +276,9 @@ public class GameScene implements SceneInterface {
     private void printMessage(String message) {
 
         this.chat.setText(this.chat.getText() + message + "\n");
-        if(message.contains("/")) {
 
-            String code =  message.substring(message.indexOf("/"));
-            CodesModel.cheatCode(code);
-        }
+        if (message.contains("/"))
+            CodesModel.cheatCode(message.substring(message.indexOf("/")));
 
         this.chat.setScrollTop(Double.MAX_VALUE);
     }

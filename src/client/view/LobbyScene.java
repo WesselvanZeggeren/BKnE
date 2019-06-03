@@ -76,19 +76,19 @@ public class LobbyScene implements SceneInterface {
     @Override
     public void update(Object object) {
 
-        Platform.runLater(() -> {
+        if (object instanceof String)
+            this.printMessage((String) object);
 
-            if (object instanceof String)
-                this.printMessage((String) object);
+        if (object instanceof GameEntity) {
 
-            if (object instanceof GameEntity) {
+            GameEntity gameEntity = (GameEntity) object;
 
-                GameEntity gameEntity = (GameEntity) object;
+            Platform.runLater(() -> {
 
                 this.setClients(gameEntity.getClientEntities());
                 this.startGame(gameEntity);
-            }
-        });
+            });
+        }
     }
 
     private void printMessage(String message) {

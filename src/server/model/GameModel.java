@@ -46,7 +46,7 @@ public class GameModel {
 
     private void nextRound(boolean restart) {
 
-        if (this.getPlayingClients() > 2 || restart) {
+        if (this.getPlayingClients() > 2 || restart && this.getPlayingClients() > 1) {
 
             this.refreshClients();
 
@@ -62,13 +62,20 @@ public class GameModel {
             this.observer.writeObject(this.clientModels, this.getGameEntity());
         } else {
 
-            this.observer.writeObject(this.clientModels, "CONGRATULATIONS " + this.clientModelsOrder.get(0).getName() + "! YOU WON!");
+            if (this.clientModels.size() == 1)
+                this.observer.writeObject(this.clientModels, "CONGRATULATIONS " + this.clientModels.get(0).getName() + "! YOU WON!");
+            else
+                this.observer.writeObject(this.clientModels, "CONGRATULATIONS " + this.clientModelsOrder.get(0).getName() + "! YOU WON!");
+
+            this.gameEntity.isRunning(false);
         }
     }
 
     public void receivePin(ClientModel clientModel, PinEntity pinEntity) {
 
-        if (this.getCurrentClient().equals(clientModel) && this.isFreePin(pinEntity.getX(), pinEntity.getY())) {
+        if (this.getCurrentClient().equals(clientModel) &&
+            this.isFreePin(pinEntity.getX(), pinEntity.getY()) &&
+            this.gameEntity.isRunning()) {
 
             pinEntity.setTexture(Texture.getPinTexture(clientModel.getColor()));
 
