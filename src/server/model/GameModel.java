@@ -56,10 +56,13 @@ public class GameModel {
             this.clientModels = this.getClientModelsOrder();
             this.clientModelsOrder = new ArrayList<>();
 
+            this.key = 0;
+
             this.startGame();
 
             this.observer.writeObject(this.clientModels, "NEXT ROUND!");
             this.observer.writeObject(this.clientModels, this.getGameEntity());
+
         } else {
 
             if (this.clientModels.size() == 1)
@@ -73,9 +76,7 @@ public class GameModel {
 
     public void receivePin(ClientModel clientModel, PinEntity pinEntity) {
 
-        if (this.getCurrentClient().equals(clientModel) &&
-            this.isFreePin(pinEntity.getX(), pinEntity.getY()) &&
-            this.gameEntity.isRunning()) {
+        if (this.getCurrentClient().equals(clientModel) && this.isFreePin(pinEntity.getX(), pinEntity.getY()) && this.gameEntity.isRunning()) {
 
             pinEntity.setTexture(Texture.getPinTexture(clientModel.getColor()));
 
