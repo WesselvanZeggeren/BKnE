@@ -19,7 +19,7 @@ public class Codes {
     }
 
     public static void cheatCode(String code){
-        System.out.println("here");
+
         switch (code){
 
             case "/rick":

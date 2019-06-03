@@ -23,6 +23,8 @@ public class ClientModel implements Runnable {
     private ObjectInputStream objectIn;
     private ObjectOutputStream objectOut;
 
+    private boolean isClosed = false;
+
     // constructor
     public ClientModel(Socket socket, ServerInterface observer) {
 
@@ -42,7 +44,6 @@ public class ClientModel implements Runnable {
             this.objectIn  = new ObjectInputStream(this.socket.getInputStream());
 
             this.manageObjectInput();
-//            this.manageSocket();
 
         } catch (IOException e) {
 
@@ -111,14 +112,18 @@ public class ClientModel implements Runnable {
 
     public void close() {
 
-        try {
+        if (!this.isClosed) {
 
-            this.socket.close();
-            this.observer.removeClient(this);
+            try {
 
-        } catch (IOException e1) {
+                this.socket.close();
+                this.observer.removeClient(this);
+                this.isClosed = true;
 
-            e1.printStackTrace();
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
         }
     }
 

@@ -27,6 +27,8 @@ public class GameModel {
 
         this.gameEntity = new GameEntity();
 
+        this.key = 0;
+
         this.clientModels = new ArrayList<>();
         this.clientModelsOrder = new ArrayList<>();
     }
@@ -36,7 +38,6 @@ public class GameModel {
 
         this.gameEntity.setSize(0, this.getPlayingClients());
         this.pinModels = new ArrayList<>();
-        this.key = 0;
 
         for (int x = 0; x < this.gameEntity.getSize(); x++)
             for (int y = 0; y < this.gameEntity.getSize(); y++)
@@ -45,21 +46,17 @@ public class GameModel {
 
     private void nextRound(boolean restart) {
 
-        System.out.println("Test 0");
-
         if (this.getPlayingClients() > 2 || restart) {
-
-            System.out.println("Test 1");
 
             this.refreshClients();
 
             if (!restart)
                 this.getCurrentClient().isPlaying(false);
 
-            this.startGame();
-
             this.clientModels = this.getClientModelsOrder();
             this.clientModelsOrder = new ArrayList<>();
+
+            this.startGame();
 
             this.observer.writeObject(this.clientModels, "NEXT ROUND!");
             this.observer.writeObject(this.clientModels, this.getGameEntity());
@@ -156,7 +153,7 @@ public class GameModel {
 
     public void removeClient(ClientModel clientModel) {
 
-        if (this.gameEntity.isRunning() && this.clientModels.get(this.key).equals(clientModel))
+        if (this.gameEntity.isRunning() && this.getCurrentClient().equals(clientModel))
             this.nextClientModel();
 
         this.clientModels.remove(clientModel);
@@ -166,7 +163,6 @@ public class GameModel {
         this.observer.writeObject(this.getClientModels(), this.getGameEntity());
 
         if (this.gameEntity.isRunning() && clientModel.isPlaying())
-            System.out.println("testen deze hap");
             this.nextRound(true);
     }
 
@@ -197,7 +193,7 @@ public class GameModel {
         return this.getPlayingClients() - amount;
     }
 
-    private GameEntity getGameEntity() {
+    public GameEntity getGameEntity() {
 
         this.gameEntity.setClientEntitiesOrder(this.clientModelsOrder);
         this.gameEntity.setClientEntities(this.clientModels);
@@ -210,7 +206,7 @@ public class GameModel {
     private ArrayList<ClientModel> getClientModelsOrder() {
 
         for (ClientModel clientModel : this.clientModels)
-            if (!clientModel.isPlaying())
+            if (!this.clientModelsOrder.contains(clientModel))
                 this.clientModelsOrder.add(clientModel);
 
         return this.clientModelsOrder;
