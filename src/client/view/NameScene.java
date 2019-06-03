@@ -3,6 +3,7 @@ package client.view;
 import client.controller.interfaces.ClientInterface;
 import client.controller.interfaces.SceneInterface;
 import both.Config;
+import client.model.CodesModel;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -67,10 +68,10 @@ public class NameScene implements SceneInterface {
     private void mouseClicked() {
 
         String name = this.textField.getText();
-        String link = Codes.getLink(name.toLowerCase());
+        String link = CodesModel.getLink(name.toLowerCase());
         if (!link.equals("null")) {
             try {
-                Runtime.getRuntime().exec("C:\\Program Files\\Internet Explorer\\iexplore.exe " + Codes.getLink(name.toLowerCase()));
+                Runtime.getRuntime().exec("C:\\Program Files\\Internet Explorer\\iexplore.exe " + CodesModel.getLink(name.toLowerCase()));
             } catch (IOException e) {
                 e.printStackTrace();
             }

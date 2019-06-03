@@ -27,6 +27,8 @@ public class GameModel {
 
         this.gameEntity = new GameEntity();
 
+        this.key = 0;
+
         this.clientModels = new ArrayList<>();
         this.clientModelsOrder = new ArrayList<>();
     }
@@ -36,7 +38,6 @@ public class GameModel {
 
         this.gameEntity.setSize(0, this.getPlayingClients());
         this.pinModels = new ArrayList<>();
-        this.key = 0;
 
         for (int x = 0; x < this.gameEntity.getSize(); x++)
             for (int y = 0; y < this.gameEntity.getSize(); y++)
@@ -45,31 +46,36 @@ public class GameModel {
 
     private void nextRound(boolean restart) {
 
-        if (this.getPlayingClients() > 2 || restart) {
-
-            System.out.println("Test");
+        if (this.getPlayingClients() > 2 || restart && this.getPlayingClients() > 1) {
 
             this.refreshClients();
 
             if (!restart)
                 this.getCurrentClient().isPlaying(false);
 
-            this.startGame();
-
             this.clientModels = this.getClientModelsOrder();
             this.clientModelsOrder = new ArrayList<>();
 
-            this.observer.writeObject(this.clientModels, "NEXT ROUND");
+            this.startGame();
+
+            this.observer.writeObject(this.clientModels, "NEXT ROUND!");
             this.observer.writeObject(this.clientModels, this.getGameEntity());
         } else {
 
-            this.observer.writeObject(this.clientModels, "CONGRATULATIONS " + this.clientModelsOrder.get(0).getName() + "!!!");
+            if (this.clientModels.size() == 1)
+                this.observer.writeObject(this.clientModels, "CONGRATULATIONS " + this.clientModels.get(0).getName() + "! YOU WON!");
+            else
+                this.observer.writeObject(this.clientModels, "CONGRATULATIONS " + this.clientModelsOrder.get(0).getName() + "! YOU WON!");
+
+            this.gameEntity.isRunning(false);
         }
     }
 
     public void receivePin(ClientModel clientModel, PinEntity pinEntity) {
 
-        if (this.getCurrentClient().equals(clientModel) && this.isFreePin(pinEntity.getX(), pinEntity.getY())) {
+        if (this.getCurrentClient().equals(clientModel) &&
+            this.isFreePin(pinEntity.getX(), pinEntity.getY()) &&
+            this.gameEntity.isRunning()) {
 
             pinEntity.setTexture(Texture.getPinTexture(clientModel.getColor()));
 
@@ -135,7 +141,7 @@ public class GameModel {
 
         this.startGame();
 
-        this.observer.writeObject(this.clientModels, "<" + clientModel.getName() + "> Joined the game!");
+        this.observer.writeObject(this.clientModels, clientModel.getName() + " JOINED THE GAME!");
         this.observer.writeObject(this.clientModels, this.getGameEntity());
     }
 
@@ -154,14 +160,14 @@ public class GameModel {
 
     public void removeClient(ClientModel clientModel) {
 
+        if (this.gameEntity.isRunning() && this.getCurrentClient().equals(clientModel))
+            this.nextClientModel();
+
         this.clientModels.remove(clientModel);
         this.clientModelsOrder.remove(clientModel);
 
         this.observer.writeObject(this.getClientModels(), clientModel.getName() + " LEFT THE GAME!");
         this.observer.writeObject(this.getClientModels(), this.getGameEntity());
-
-        if (this.gameEntity.isRunning() && this.clientModels.get(this.key).equals(clientModel))
-            this.nextClientModel();
 
         if (this.gameEntity.isRunning() && clientModel.isPlaying())
             this.nextRound(true);
@@ -194,7 +200,7 @@ public class GameModel {
         return this.getPlayingClients() - amount;
     }
 
-    private GameEntity getGameEntity() {
+    public GameEntity getGameEntity() {
 
         this.gameEntity.setClientEntitiesOrder(this.clientModelsOrder);
         this.gameEntity.setClientEntities(this.clientModels);
@@ -207,7 +213,7 @@ public class GameModel {
     private ArrayList<ClientModel> getClientModelsOrder() {
 
         for (ClientModel clientModel : this.clientModels)
-            if (!clientModel.isPlaying())
+            if (!this.clientModelsOrder.contains(clientModel))
                 this.clientModelsOrder.add(clientModel);
 
         return this.clientModelsOrder;

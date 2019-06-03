@@ -5,7 +5,6 @@ import server.model.ClientModel;
 import server.model.PinModel;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GameEntity implements Serializable {
