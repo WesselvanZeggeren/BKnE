@@ -1,8 +1,8 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="BKE-Server:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/BKE_Server_jar</output-path>
+  <artifact type="jar" name="BKEServer">
+    <output-path>$PROJECT_DIR$/out/artifacts/BKEServer</output-path>
     <root id="archive" name="BK-E---Battle-Royale.jar">
-      <element id="module-output" name="BKnE" />
+      <element id="module-output" name="BK-E---Battle-Royale" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/fxgraphics2d-1.9.jar" path-in-jar="/" />
     </root>
   </artifact>

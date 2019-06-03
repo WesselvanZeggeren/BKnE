@@ -12,6 +12,7 @@ public class CodesModel {
             case "poes":        return "https://www.youtube.com/watch?v=wZZ7oFKsKzY";
             case "mark":        return "https://www.youtube.com/watch?v=rbd3kAuAR70";
             case "rick":        return "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+            case "maurice":     return "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
             default:            return "null";
         }
     }
