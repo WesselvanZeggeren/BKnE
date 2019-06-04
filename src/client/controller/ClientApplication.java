@@ -51,7 +51,7 @@ public class ClientApplication extends Application implements ClientInterface {
     @Override
     public void receiveObject(Object object) {
 
-        this.scene.update(object);
+        Platform.runLater(() -> this.scene.update(object));
     }
 
     @Override

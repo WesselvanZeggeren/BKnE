@@ -111,11 +111,8 @@ public class GameScene implements SceneInterface {
 
             this.gameEntity = (GameEntity) object;
 
-            Platform.runLater(() -> {
-
-                this.draw(new FXGraphics2D(this.canvas.getGraphicsContext2D()));
-                this.setAllClients();
-            });
+            this.draw(new FXGraphics2D(this.canvas.getGraphicsContext2D()));
+            this.setAllClients();
         }
     }
 

@@ -82,11 +82,8 @@ public class LobbyScene implements SceneInterface {
 
             this.gameEntity = (GameEntity) object;
 
-            Platform.runLater(() -> {
-
-                this.setClients();
-                this.startGame();
-            });
+            this.setClients();
+            this.startGame();
         }
     }
 
