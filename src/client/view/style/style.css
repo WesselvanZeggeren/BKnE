@@ -73,6 +73,12 @@
     -fx-max-width: 72px;
 }
 
+.lobbyScene-startGame {
+
+    -fx-font-size: 10px;
+    -fx-pref-width: 250px;
+}
+
 .lobbyScene-pane {
 
     -fx-pref-height: 16px;
@@ -88,7 +94,7 @@
     -fx-translate-y: 2px;
 }
 
-.lobbyScene-players {
+.lobbyScene-clients {
 
     -fx-background-radius: 2px;
     -fx-background-color: #55c;

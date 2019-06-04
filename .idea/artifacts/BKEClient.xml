@@ -5,7 +5,7 @@
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/src/client/META-INF/MANIFEST.MF" />
       </element>
-      <element id="module-output" name="BK-E---Battle-Royale" />
+      <element id="module-output" name="BKnE" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/fxgraphics2d-1.9.jar" path-in-jar="/" />
     </root>
   </artifact>

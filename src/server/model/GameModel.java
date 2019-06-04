@@ -29,19 +29,25 @@ public class GameModel {
 
         this.key = 0;
 
+        this.pinModels = new ArrayList<>();
         this.clientModels = new ArrayList<>();
         this.clientModelsOrder = new ArrayList<>();
     }
 
     // methods
-    public void startGame() {
+    public void startGame(String message) {
 
+        this.gameEntity.isRunning(true);
         this.gameEntity.setSize(0, this.getPlayingClients());
+
         this.pinModels = new ArrayList<>();
 
         for (int x = 0; x < this.gameEntity.getSize(); x++)
             for (int y = 0; y < this.gameEntity.getSize(); y++)
                 this.pinModels.add(new PinModel(x, y));
+
+        this.observer.writeObject(this.clientModels, message);
+        this.observer.writeObject(this.clientModels, this.getGameEntity());
     }
 
     private void nextRound(boolean restart) {
@@ -58,10 +64,7 @@ public class GameModel {
 
             this.key = 0;
 
-            this.startGame();
-
-            this.observer.writeObject(this.clientModels, "NEXT ROUND!");
-            this.observer.writeObject(this.clientModels, this.getGameEntity());
+            this.startGame("NEXT ROUND!");
 
         } else {
 
@@ -89,6 +92,14 @@ public class GameModel {
 
             if (this.getNotFinishedClients() == 1)
                 this.nextRound(false);
+        }
+    }
+
+    public void receiveCommand(String command) {
+
+        switch (command) {
+            case Config.TEXT_START:
+                this.startGame("START GAME!");
         }
     }
 
@@ -137,26 +148,11 @@ public class GameModel {
 
         this.clientModels.add(clientModel);
 
-        if (this.clientModels.size() >= Config.GAME_MAX_PLAYERS)
-            this.gameEntity.isRunning(true);
-
-        this.startGame();
-
         this.observer.writeObject(this.clientModels, clientModel.getName() + " JOINED THE GAME!");
         this.observer.writeObject(this.clientModels, this.getGameEntity());
-    }
 
-    public void removeClients() {
-
-        for (ClientModel clientModel : this.clientModels) {
-
-            clientModel.setGameModel(null);
-            clientModel.setPinModels(new ArrayList<>());
-            clientModel.isFinished(false);
-            clientModel.isPlaying(true);
-        }
-
-        this.clientModels = new ArrayList<>();
+        if (this.clientModels.size() >= Config.GAME_MAX_PLAYERS)
+            this.startGame("START GAME!");
     }
 
     public void removeClient(ClientModel clientModel) {

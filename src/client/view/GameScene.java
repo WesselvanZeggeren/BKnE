@@ -71,7 +71,7 @@ public class GameScene implements SceneInterface {
         this.chat.setText(this.chatLog);
         this.chat.setEditable(false);
 
-        Button button = new Button("Send");
+        Button button = new Button("SEND");
         button.getStyleClass().add("gameScene-button");
         button.setOnMouseClicked((e) -> this.mouseClicked());
 
@@ -107,7 +107,7 @@ public class GameScene implements SceneInterface {
         if (object instanceof String)
             this.printMessage((String) object);
 
-        if (object instanceof GameEntity && this.gameEntity.equals(object)) {
+        if (object instanceof GameEntity && !this.gameEntity.equals(object)) {
 
             this.gameEntity = (GameEntity) object;
 
@@ -190,9 +190,9 @@ public class GameScene implements SceneInterface {
             );
         }
 
-        graphics2D.setColor(Config.BOARD_SQUARE_COLOR_1);
-        for (Rectangle2D rectangle2D : this.squares.keySet())
-            graphics2D.draw(rectangle2D);
+//        graphics2D.setColor(Color.RED);
+//        for (Rectangle2D rectangle2D : this.squares.keySet())
+//            graphics2D.draw(rectangle2D);
     }
 
     public void drawPins(FXGraphics2D graphics2D) {
@@ -200,6 +200,8 @@ public class GameScene implements SceneInterface {
         for (ClientEntity clientEntity : this.gameEntity.getClientEntities()) {
 
             for (PinEntity pinEntity : clientEntity.getPinEntities()) {
+
+                System.out.println("test");
 
                 Texture.setTexture(
                     graphics2D,
@@ -220,19 +222,23 @@ public class GameScene implements SceneInterface {
     // events
     private void mouseClickedCanvas(MouseEvent mouseEvent) {
 
-        if (mouseEvent.isAltDown()) {
+        for (Map.Entry<Rectangle2D, PinEntity> entry : this.squares.entrySet())
+            if (entry.getKey().contains(mouseEvent.getX(), mouseEvent.getY()))
+                this.observer.writeObject(entry.getValue());
+    }
 
-            this.rebuild = true;
+    private void keyPressed(KeyEvent keyEvent) {
 
-            this.update(this.gameEntity);
+        if (keyEvent.getCode() == KeyCode.ENTER)
+            mouseClicked();
+    }
 
-            this.rebuild = false;
+    private void mouseClicked() {
 
-        } else  {
+        if (this.textField.getText().length() > 0) {
 
-            for (Map.Entry<Rectangle2D, PinEntity> entry : this.squares.entrySet())
-                if (entry.getKey().contains(mouseEvent.getX(), mouseEvent.getY()))
-                    this.observer.writeObject(entry.getValue());
+            this.observer.writeObject(Config.TEXT_PRESET + "<" + this.observer.getName() + "> " + this.textField.getText());
+            this.textField.setText("");
         }
     }
 
@@ -268,8 +274,8 @@ public class GameScene implements SceneInterface {
     private Rectangle2D getRectangle2D(PinEntity pinEntity) {
 
         return new Rectangle2D.Double(
-            this.getSquareOffsetX(pinEntity.getX()),
-            this.getSquareOffsetY(pinEntity.getY()),
+            this.getSquareOffsetX(pinEntity.getX()) + Config.PIXEL_OFFSET_X,
+            this.getSquareOffsetY(pinEntity.getY()) + Config.PIXEL_OFFSET_Y,
             this.getSquareSize(),
             this.getSquareSize()
         );
@@ -313,20 +319,5 @@ public class GameScene implements SceneInterface {
     private double getSquareOffsetY(int y) {
 
         return ((getSquareSize() + Config.BOARD_BORDER_SIZE) * y) + (this.getBoardOffsetY() + Config.BOARD_BORDER_SIZE);
-    }
-
-    private void keyPressed(KeyEvent keyEvent) {
-
-        if (keyEvent.getCode() == KeyCode.ENTER)
-            mouseClicked();
-    }
-
-    private void mouseClicked() {
-
-        if (this.textField.getText().length() > 0) {
-
-            this.observer.writeObject("<" + this.observer.getName() + "> " + this.textField.getText());
-            this.textField.setText("");
-        }
     }
 }

@@ -19,7 +19,6 @@ import server.entity.GameEntity;
 import server.entity.ClientEntity;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public class LobbyScene implements SceneInterface {
 
@@ -27,8 +26,11 @@ public class LobbyScene implements SceneInterface {
     private ClientInterface observer;
     private TextField textField;
     private TextArea chat;
-    private Label timer;
-    private VBox players;
+    private VBox clients;
+
+    private GameEntity gameEntity;
+
+    private boolean isOwner = false;
 
     // constructor
     public LobbyScene(ClientInterface observer) {
@@ -44,17 +46,14 @@ public class LobbyScene implements SceneInterface {
         this.textField.getStyleClass().add("lobbyScene-textField");
         this.textField.setOnKeyPressed(this::keyPressed);
 
-        this.players = new VBox();
-        this.players.getStyleClass().add("lobbyScene-players");
-
-        this.timer = new Label("60");
-        this.timer.getStyleClass().add("lobbyScene-timer");
+        this.clients = new VBox();
+        this.clients.getStyleClass().add("lobbyScene-clients");
 
         this.chat = new TextArea();
         this.chat.getStyleClass().add("lobbyScene-textArea");
         this.chat.setEditable(false);
 
-        Button button = new Button("Send");
+        Button button = new Button("SEND");
         button.getStyleClass().add("lobbyScene-button");
         button.setOnMouseClicked((e) -> this.mouseClicked());
 
@@ -64,7 +63,7 @@ public class LobbyScene implements SceneInterface {
 
         HBox hBox = new HBox();
         hBox.getStyleClass().add("lobbyScene-hBox");
-        hBox.getChildren().addAll(vBox, this.players);
+        hBox.getChildren().addAll(vBox, this.clients);
 
         BorderPane borderPane = new BorderPane();
         borderPane.getStyleClass().add("lobbyScene-borderPane");
@@ -81,12 +80,12 @@ public class LobbyScene implements SceneInterface {
 
         if (object instanceof GameEntity) {
 
-            GameEntity gameEntity = (GameEntity) object;
+            this.gameEntity = (GameEntity) object;
 
             Platform.runLater(() -> {
 
-                this.setClients(gameEntity.getClientEntities());
-                this.startGame(gameEntity);
+                this.setClients();
+                this.startGame();
             });
         }
     }
@@ -97,17 +96,19 @@ public class LobbyScene implements SceneInterface {
         this.chat.setScrollTop(Double.MAX_VALUE);
     }
 
-    private void startGame(GameEntity gameEntity) {
+    private void startGame() {
 
-        if (gameEntity.isRunning())
+        if (this.gameEntity.isRunning())
             this.observer.setScene(new GameScene(this.observer, this.chat.getText(), gameEntity));
     }
 
-    private void setClients(ArrayList<ClientEntity> clients) {
+    private void setClients() {
 
-        this.players.getChildren().clear();
+        this.clients.getChildren().clear();
 
-        for (ClientEntity clientEntity : clients) {
+        this.setStartButton();
+
+        for (ClientEntity clientEntity : this.gameEntity.getClientEntities()) {
 
             Color color = clientEntity.getColor();
 
@@ -121,7 +122,21 @@ public class LobbyScene implements SceneInterface {
             HBox hBox = new HBox();
             hBox.getChildren().addAll(pane, label);
 
-            this.players.getChildren().add(hBox);
+            this.clients.getChildren().add(hBox);
+        }
+    }
+
+    private void setStartButton() {
+
+        if (this.gameEntity.getClientEntities().size() == 1 || this.isOwner) {
+
+            this.isOwner = true;
+
+            Button button = new Button("START GAME");
+            button.getStyleClass().add("lobbyScene-startGame");
+            button.setOnMouseClicked((e) -> this.mouseClickedStart());
+
+            this.clients.getChildren().add(button);
         }
     }
 
@@ -132,11 +147,17 @@ public class LobbyScene implements SceneInterface {
             mouseClicked();
     }
 
+    private void mouseClickedStart() {
+
+        if (this.gameEntity.getClientEntities().size() > 1)
+            this.observer.writeObject(Config.TEXT_START);
+    }
+
     private void mouseClicked() {
 
         if (this.textField.getText().length() > 0) {
 
-            this.observer.writeObject("<" + this.observer.getName() + "> " + this.textField.getText());
+            this.observer.writeObject(Config.TEXT_PRESET + "<" + this.observer.getName() + "> " + this.textField.getText());
             this.textField.setText("");
         }
     }

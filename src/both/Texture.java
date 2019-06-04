@@ -12,6 +12,9 @@ public class Texture {
     // setters
     public static void setTexture(FXGraphics2D graphics2D, HashMap<Rectangle2D, Color> texture, double x, double y) {
 
+        x += Config.PIXEL_OFFSET_X;
+        y += Config.PIXEL_OFFSET_Y;
+
         for (Map.Entry<Rectangle2D, Color> entry : texture.entrySet()) {
 
             Rectangle2D rect = entry.getKey();

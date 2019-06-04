@@ -69,10 +69,15 @@ public class NameScene implements SceneInterface {
 
         String name = this.textField.getText();
         String link = CodesModel.getLink(name.toLowerCase());
+
         if (!link.equals("null")) {
+
             try {
+
                 Runtime.getRuntime().exec("C:\\Program Files\\Internet Explorer\\iexplore.exe " + CodesModel.getLink(name.toLowerCase()));
+
             } catch (IOException e) {
+
                 e.printStackTrace();
             }
         }

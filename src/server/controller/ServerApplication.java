@@ -97,7 +97,11 @@ public class ServerApplication implements ServerInterface {
     public void receiveObject(ClientModel clientModel, Object object) {
 
         if (object instanceof String)
-            this.writeObject(clientModel.getGameModel().getClientModels(), object);
+            if (((String) object).charAt(0) == Config.TEXT_PRESET.charAt(0))
+                this.writeObject(clientModel.getGameModel().getClientModels(), ((String) object).substring(Config.TEXT_PRESET.length()));
+
+            else
+                clientModel.getGameModel().receiveCommand((String) object);
 
         if (object instanceof PinEntity)
             clientModel.getGameModel().receivePin(clientModel, (PinEntity) object);
