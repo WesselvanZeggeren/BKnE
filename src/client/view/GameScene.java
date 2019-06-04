@@ -107,13 +107,15 @@ public class GameScene implements SceneInterface {
         if (object instanceof String)
             this.printMessage((String) object);
 
-        if (object instanceof GameEntity) {
+        if (object instanceof GameEntity && this.gameEntity.equals(object)) {
 
             this.gameEntity = (GameEntity) object;
 
-            this.draw(new FXGraphics2D(this.canvas.getGraphicsContext2D()));
+            Platform.runLater(() -> {
 
-            Platform.runLater(this::setAllClients);
+                this.draw(new FXGraphics2D(this.canvas.getGraphicsContext2D()));
+                this.setAllClients();
+            });
         }
     }
 
