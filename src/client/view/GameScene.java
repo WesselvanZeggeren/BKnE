@@ -95,7 +95,8 @@ public class GameScene implements SceneInterface {
         borderPane.getStyleClass().add("gameScene-borderPane");
         borderPane.setCenter(hBox);
 
-        this.update(this.gameEntity);
+        this.draw(new FXGraphics2D(this.canvas.getGraphicsContext2D()));
+        this.setAllClients();
 
         return new Scene(borderPane, Config.GAME_SCREEN_WIDTH, Config.GAME_SCREEN_HEIGHT);
     }
@@ -119,6 +120,8 @@ public class GameScene implements SceneInterface {
     private void setAllClients() {
 
         this.players.getChildren().clear();
+
+        System.out.println("start");
 
         this.setClients(this.gameEntity.getClientEntitiesOrder(), true);
         this.setClients(this.gameEntity.getOtherClientEntities(), false);

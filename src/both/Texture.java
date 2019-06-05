@@ -32,7 +32,7 @@ public class Texture {
 
     public static HashMap<Rectangle2D, Color> getTexture(double w, double h, Color color1, Color color2) {
 
-        return getTexture(0, 0, w, h, color1, color2);
+          return getTexture(0, 0, w, h, color1, color2);
     }
 
     public static HashMap<Rectangle2D, Color> getTexture(int x, int y, double w, double h, Color color1, Color color2) {
